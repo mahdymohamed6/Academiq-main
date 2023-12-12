@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:necessities/home.dart';
 import 'package:necessities/splash.dart';
 
 void main() {

@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:necessities/constants.dart';
+import 'package:necessities/widgets/custom_login_button.dart';
+import 'package:necessities/widgets/custom_text_form_field.dart';
+import 'package:necessities/widgets/custom_text_form_pass.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -15,7 +19,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   void initState() {
     super.initState();
     _controller = AnimationController(
-      duration: Duration(seconds: 3),
+      duration: Duration(seconds: 2),
       vsync: this,
     );
 
@@ -32,36 +36,47 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
             gradient: LinearGradient(
-          colors: [Colors.blue, Colors.green],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [primaryColor1, secondaryColor1],
         )),
-        child: Stack(
+        child: Column(
+          
           children: [
-            const Center(
-              child: Text(
-                'Academiq',
-                style: TextStyle(color: Colors.white, fontSize: 24),
+            Padding(
+              padding: const EdgeInsets.only(top:15.0),
+              child: Image.asset(
+                '$logo1',
+                width: 200,
+                height: 200,
               ),
             ),
-            Positioned(
-              bottom: 0,
-              child: SlideTransition(
-                position: _offsetAnimation,
-                child: Center(
-                  child: Container(
-                    decoration: const BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(30),
-                            topLeft: Radius.circular(30))),
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height / 1.65,
-                    child: const Center(
-                      child: LoginBody(),
+            Expanded(
+              child: Stack(
+                children: [
+                  Positioned(
+                    bottom: 0,
+                    child: SlideTransition(
+                      position: _offsetAnimation,
+                      child: Center(
+                        child: Container(
+                          decoration: const BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.only(
+                                  topRight: Radius.circular(30),
+                                  topLeft: Radius.circular(30))),
+                          width: MediaQuery.of(context).size.width,
+                          height: MediaQuery.of(context).size.height / 1.65,
+                          child: const Center(
+                            child: LoginBody(),
+                          ),
+                        ),
+                      ),
                     ),
                   ),
-                ),
+                ],
               ),
             ),
           ],
@@ -96,7 +111,7 @@ class LoginBody extends StatelessWidget {
               ).createShader(bounds);
             },
             child: const Text(
-              'Login in',
+              'Log in',
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
@@ -107,11 +122,12 @@ class LoginBody extends StatelessWidget {
           const SizedBox(
             height: 20,
           ),
-          const Column(
+          Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CustomizedText(
                 text: 'Email',
+                color: secondaryColor1,
               ),
               SizedBox(
                 height: 12,
@@ -122,7 +138,8 @@ class LoginBody extends StatelessWidget {
               SizedBox(
                 height: 20,
               ),
-              CustomizedText(text: 'Password'),
+              CustomizedText(text: 'Password',
+              color: secondaryColor1,),
               SizedBox(
                 height: 12,
               ),
@@ -136,203 +153,37 @@ class LoginBody extends StatelessWidget {
           const SizedBox(
             height: 9,
           ),
-          const Row(
+           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              CustomizedText(text: 'Forget password'),
+              CustomizedText(text: 'Forget password',
+              color: primaryColor2,),
             ],
           ),
           const SizedBox(
             height: 45,
           ),
-          const CustomizedButton(),
+          CustomizedButton(),
         ],
       ),
     );
   }
 }
 
-// widget
-class CustomizedButton extends StatelessWidget {
-  const CustomizedButton({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      child: Container(
-        width: double.infinity,
-        height: 49,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8),
-            gradient: const LinearGradient(
-              colors: [Colors.blue, Colors.green],
-            )),
-        child: const Center(
-          child: Text(
-            'Log in',
-            style: TextStyle(fontSize: 24, color: Colors.white),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-// widget
-class CustomizedTextFormField extends StatelessWidget {
-  const CustomizedTextFormField({
-    super.key,
-    this.showSuffixIcon = false,
-    required this.hint,
-    this.obscureText = false,
-  });
-  final bool showSuffixIcon;
-  final String hint;
-  final bool obscureText;
-  @override
-  Widget build(BuildContext context) {
-    return TextFormField(
-      obscureText: obscureText,
-      decoration: InputDecoration(
-        contentPadding:
-            const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6),
-        hintText: hint,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8.0),
-          borderSide: const BorderSide(
-              color: Color.fromARGB(255, 96, 95, 95), width: 1.7),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8.0),
-          borderSide: const BorderSide(
-              color: Color.fromARGB(255, 96, 95, 95), width: 1.7),
-        ),
-        suffixIcon: showSuffixIcon
-            ? ShaderMask(
-                shaderCallback: (Rect bounds) {
-                  return const LinearGradient(
-                    colors: [Colors.blue, Colors.green],
-                  ).createShader(bounds);
-                },
-                child: GestureDetector(
-                  onTap: () {},
-                  child: const Icon(
-                    Icons.remove_red_eye_outlined,
-                    color: Colors.white, // Adjust the icon color as needed
-                  ),
-                ),
-              )
-            : null,
-      ),
-      style: const TextStyle(
-        color: Colors.grey,
-      ),
-    );
-  }
-}
-
-class CustomizedTextFormFieldPass extends StatefulWidget {
-  const CustomizedTextFormFieldPass({
-    Key? key,
-    this.showSuffixIcon = false,
-    required this.hint,
-    this.obscureText = false,
-  }) : super(key: key);
-
-  final bool showSuffixIcon;
-  final String hint;
-  final bool obscureText;
-  @override
-  _CustomizedTextFormFieldPassState createState() =>
-      _CustomizedTextFormFieldPassState();
-}
-
-class _CustomizedTextFormFieldPassState
-    extends State<CustomizedTextFormFieldPass> {
-  bool obscureText = true;
-
-  @override
-  Widget build(BuildContext context) {
-    return TextFormField(
-      obscureText: obscureText,
-      onChanged: (value) {
-        setState(() {}); // Rebuild the widget when the text changes
-      },
-      decoration: InputDecoration(
-        contentPadding:
-            const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6),
-        hintText: widget.hint,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8.0),
-          borderSide: const BorderSide(
-            color: Color.fromARGB(255, 96, 95, 95),
-            width: 1.7,
-          ),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8.0),
-          borderSide: const BorderSide(
-            color: Color.fromARGB(255, 96, 95, 95),
-            width: 1.7,
-          ),
-        ),
-        suffixIcon: widget.showSuffixIcon
-            ? ShaderMask(
-                shaderCallback: (Rect bounds) {
-                  return const LinearGradient(
-                    colors: [Colors.blue, Colors.green],
-                  ).createShader(bounds);
-                },
-                child: GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      obscureText = !obscureText;
-                    });
-                  },
-                  child: Icon(
-                    obscureText
-                        ? Icons.remove_red_eye_outlined
-                        : Icons.remove_red_eye,
-                    color: Colors.white,
-                  ),
-                ),
-              )
-            : null,
-      ),
-      style: const TextStyle(
-        color: Colors.grey,
-      ),
-    );
-  }
-}
-// widget
-
 class CustomizedText extends StatelessWidget {
   const CustomizedText({
     super.key,
-    required this.text,
+    required this.text, required this.color,
   });
   final String text;
+  final Color color;
   @override
   Widget build(BuildContext context) {
-    return ShaderMask(
-      shaderCallback: (Rect bounds) {
-        return const LinearGradient(
-          colors: [Colors.blue, Colors.green],
-          stops: [0.0, 1.0],
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-        ).createShader(bounds);
-      },
-      child: Text(
-        text,
-        style: const TextStyle(
-          fontSize: 15,
-          fontWeight: FontWeight.bold,
-          color: Colors.white,
-        ),
+    return Text(
+      text,
+      style:  TextStyle(
+        fontSize: 15,
+        color: color,
       ),
     );
   }

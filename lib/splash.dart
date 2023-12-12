@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:necessities/constants.dart';
 import 'package:necessities/home.dart';
 
 class Splash extends StatefulWidget {
@@ -7,18 +8,14 @@ class Splash extends StatefulWidget {
 }
 
 class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
-  Color targetBackgroundColor = Colors.white;
-  Color textColor = Colors.black;
-  LinearGradient linearBackColor = const LinearGradient(
-    colors: [Colors.green, Colors.blue],
-  );
+  
   late AnimationController _controller;
-
   late Animation<Offset> _offsetAnimation;
+  bool changeColors = false;
   @override
   void initState() {
     _controller = AnimationController(
-      duration: Duration(milliseconds: 1800),
+      duration: Duration(seconds: 3),
       vsync: this,
     );
     super.initState();
@@ -28,13 +25,12 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
     ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeIn));
 
     _controller.forward();
-    Future.delayed(Duration(milliseconds: 2500), () {
+    Future.delayed(Duration(seconds: 4), () {
       setState(() {
-        targetBackgroundColor = Colors.transparent; // Set to transparent
-        textColor = Colors.white;
+        changeColors = true; // Set to transparent
       });
     });
-    Future.delayed(Duration(seconds: 4), () {
+     Future.delayed(Duration(seconds: 5), () {
       return Navigator.of(context)
           .pushReplacement(MaterialPageRoute(builder: (context) {
         return Home();
@@ -46,43 +42,31 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       body: TweenAnimationBuilder<dynamic>(
-        tween: ColorTween(begin: Colors.white, end: targetBackgroundColor),
-        duration: Duration(milliseconds: 50),
+        tween: ColorTween(begin: Colors.white, end: Colors.amber),
+        duration: Duration(seconds: 3),
         builder: (context, color, child) {
           return Container(
-            decoration: BoxDecoration(
-              gradient: color == Colors.transparent ? linearBackColor : null,
-            ),
-            child: Center(
-              child: SlideTransition(
-                position: _offsetAnimation,
-                child: Text(
-                  'Academiq',
-                  style: TextStyle(color: textColor, fontSize: 24),
-                ),
+              decoration: BoxDecoration(
+                gradient: changeColors ? linearBackgroundColor : null,
               ),
-            ),
-          );
+              child: Center(
+                child: SlideTransition(
+                  position: _offsetAnimation,
+                  child: changeColors
+                      ? Image.asset(
+                          logo1,
+                          width: 200,
+                          height: 200,
+                        )
+                      : Image.asset(
+                          logo2,
+                          width: 200,
+                          height: 200,
+                        ),
+                ),
+              ));
         },
       ),
-
-      /* AnimatedBuilder(
-        animation: _controller,
-        builder: (context, child) {
-          return Container(
-            color: backgroundColor,
-            child: Center(
-              child: SlideTransition(
-                position: _offsetAnimation,
-                child: Text(
-                  'Academiq',
-                  style: TextStyle(color: textColor, fontSize: 24),
-                ),
-              ),
-            ),
-          );
-        },
-      ), */
     );
   }
 }
