@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:necessities/constants.dart';
 import 'package:necessities/widgets/custom_login_button.dart';
 import 'package:necessities/widgets/custom_text_form_field.dart';
@@ -43,10 +44,9 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
           colors: [primaryColor1, secondaryColor1],
         )),
         child: Column(
-          
           children: [
             Padding(
-              padding: const EdgeInsets.only(top:15.0),
+              padding: const EdgeInsets.only(top: 15.0),
               child: Image.asset(
                 '$logo1',
                 width: 200,
@@ -68,10 +68,11 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                                   topRight: Radius.circular(30),
                                   topLeft: Radius.circular(30))),
                           width: MediaQuery.of(context).size.width,
-                          height: MediaQuery.of(context).size.height / 1.65,
-                          child: const Center(
-                            child: LoginBody(),
-                          ),
+                          height: MediaQuery.of(context).size.height / 1.9,
+                          child: Center(
+                              child: SingleChildScrollView(
+                            child: LoginBody()
+                          )),
                         ),
                       ),
                     ),
@@ -92,79 +93,81 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   }
 }
 
+final _formKey = GlobalKey<FormState>();
+
 class LoginBody extends StatelessWidget {
   const LoginBody({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 44),
-      child: Column(
-        children: [
-          ShaderMask(
-            shaderCallback: (Rect bounds) {
-              return const LinearGradient(
-                colors: [Colors.blue, Colors.green],
-                stops: [0.0, 1.0],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-              ).createShader(bounds);
-            },
-            child: const Text(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 12,
+      ),
+      child: Form(
+        key: _formKey,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+             Text(
               'Log in',
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
-            ),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              CustomizedText(
-                text: 'Email',
                 color: secondaryColor1,
               ),
-              SizedBox(
-                height: 12,
-              ),
-              CustomizedTextFormField(
-                hint: 'enter your email',
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              CustomizedText(text: 'Password',
-              color: secondaryColor1,),
-              SizedBox(
-                height: 12,
-              ),
-              CustomizedTextFormFieldPass(
-                hint: 'password',
-                showSuffixIcon: true,
-                obscureText: true,
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 9,
-          ),
-           Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              CustomizedText(text: 'Forget password',
-              color: primaryColor2,),
-            ],
-          ),
-          const SizedBox(
-            height: 45,
-          ),
-          CustomizedButton(),
-        ],
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                CustomizedText(
+                  text: 'Email',
+                  color: secondaryColor1,
+                ),
+                SizedBox(
+                  height: 12,
+                ),
+                CustomizedTextFormField(
+                  hint: 'enter your email',
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                CustomizedText(
+                  text: 'Password',
+                  color: secondaryColor1,
+                ),
+                SizedBox(
+                  height: 12,
+                ),
+                CustomizedTextFormFieldPass(
+                  hint: 'password',
+                  showSuffixIcon: true,
+                  obscureText: true,
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 9,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                CustomizedText(
+                  text: 'Forget password',
+                  color: primaryColor2,
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 45,
+            ),
+            CustomizedButton(),
+          ],
+        ),
       ),
     );
   }
@@ -173,7 +176,8 @@ class LoginBody extends StatelessWidget {
 class CustomizedText extends StatelessWidget {
   const CustomizedText({
     super.key,
-    required this.text, required this.color,
+    required this.text,
+    required this.color,
   });
   final String text;
   final Color color;
@@ -181,7 +185,7 @@ class CustomizedText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
-      style:  TextStyle(
+      style: TextStyle(
         fontSize: 15,
         color: color,
       ),
