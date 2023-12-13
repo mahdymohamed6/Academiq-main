@@ -20,7 +20,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   void initState() {
     super.initState();
     _controller = AnimationController(
-      duration: Duration(seconds: 2),
+      duration: Duration(seconds: 3),
       vsync: this,
     );
 
@@ -44,40 +44,33 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
           colors: [primaryColor1, secondaryColor1],
         )),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Padding(
               padding: const EdgeInsets.only(top: 15.0),
               child: Image.asset(
                 '$logo1',
                 width: 200,
-                height: 200,
+                height: MediaQuery.of(context).size.height * 0.4,
               ),
             ),
             Expanded(
-              child: Stack(
-                children: [
-                  Positioned(
-                    bottom: 0,
-                    child: SlideTransition(
-                      position: _offsetAnimation,
-                      child: Center(
-                        child: Container(
-                          decoration: const BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.only(
-                                  topRight: Radius.circular(30),
-                                  topLeft: Radius.circular(30))),
-                          width: MediaQuery.of(context).size.width,
-                          height: MediaQuery.of(context).size.height / 1.9,
-                          child: Center(
-                              child: SingleChildScrollView(
-                            child: LoginBody()
-                          )),
-                        ),
-                      ),
+              child: SingleChildScrollView(
+                child: SlideTransition(
+                  position: _offsetAnimation,
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(30),
+                          topLeft: Radius.circular(30)),
                     ),
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height *
+                        0.6, // Adjust the height
+                    child: Center(child: LoginBody()),
                   ),
-                ],
+                ),
               ),
             ),
           ],
@@ -104,69 +97,71 @@ class LoginBody extends StatelessWidget {
       padding: const EdgeInsets.symmetric(
         horizontal: 12,
       ),
-      child: Form(
-        key: _formKey,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-             Text(
-              'Log in',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: secondaryColor1,
+      child: SingleChildScrollView(
+        child: Form(
+          key: _formKey,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Log in',
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: secondaryColor1,
+                ),
               ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                CustomizedText(
-                  text: 'Email',
-                  color: secondaryColor1,
-                ),
-                SizedBox(
-                  height: 12,
-                ),
-                CustomizedTextFormField(
-                  hint: 'enter your email',
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                CustomizedText(
-                  text: 'Password',
-                  color: secondaryColor1,
-                ),
-                SizedBox(
-                  height: 12,
-                ),
-                CustomizedTextFormFieldPass(
-                  hint: 'password',
-                  showSuffixIcon: true,
-                  obscureText: true,
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 9,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                CustomizedText(
-                  text: 'Forget password',
-                  color: primaryColor2,
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 45,
-            ),
-            CustomizedButton(),
-          ],
+              const SizedBox(
+                height: 20,
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CustomizedText(
+                    text: 'Email',
+                    color: secondaryColor1,
+                  ),
+                  SizedBox(
+                    height: 12,
+                  ),
+                  CustomizedTextFormField(
+                    hint: 'enter your email',
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  CustomizedText(
+                    text: 'Password',
+                    color: secondaryColor1,
+                  ),
+                  SizedBox(
+                    height: 12,
+                  ),
+                  CustomizedTextFormFieldPass(
+                    hint: 'password',
+                    showSuffixIcon: true,
+                    obscureText: true,
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 9,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  CustomizedText(
+                    text: 'Forget password',
+                    color: primaryColor2,
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 45,
+              ),
+              CustomizedButton(),
+            ],
+          ),
         ),
       ),
     );
