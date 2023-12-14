@@ -41,32 +41,26 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: TweenAnimationBuilder<dynamic>(
-        tween: ColorTween(begin: Colors.white, end: Colors.amber),
-        duration: Duration(seconds: 3),
-        builder: (context, color, child) {
-          return Container(
-              decoration: BoxDecoration(
-                gradient: changeColors ? linearBackgroundColor : null,
-              ),
-              child: Center(
-                child: SlideTransition(
-                  position: _offsetAnimation,
-                  child: changeColors
-                      ? Image.asset(
-                          logo1,
-                          width: 200,
-                          height: 200,
-                        )
-                      : Image.asset(
-                          logo2,
-                          width: 200,
-                          height: 200,
-                        ),
-                ),
-              ));
-        },
-      ),
+      body: Container(
+          decoration: BoxDecoration(
+            gradient: changeColors ? linearBackgroundColor : null,
+          ),
+          child: Center(
+            child: SlideTransition(
+              position: _offsetAnimation,
+              child: changeColors
+                  ? Image.asset(
+                      logo1,
+                      width: 200,
+                      height: 200,
+                    )
+                  : Image.asset(
+                      logo2,
+                      width: 200,
+                      height: 200,
+                    ),
+            ),
+          )),
     );
   }
 }

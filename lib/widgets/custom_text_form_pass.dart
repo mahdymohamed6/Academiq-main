@@ -57,7 +57,7 @@ class _CustomizedTextFormFieldPassState
                 obscureText
                     ? Icons.remove_red_eye_outlined
                     : Icons.remove_red_eye,
-                color: primaryColor2,
+                color: Colors.grey,
               ),
             )
             : null,

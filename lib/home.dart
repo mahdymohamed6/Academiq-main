@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:necessities/constants.dart';
+import 'package:necessities/core/styles.dart';
 import 'package:necessities/widgets/custom_login_button.dart';
 import 'package:necessities/widgets/custom_text_form_field.dart';
 import 'package:necessities/widgets/custom_text_form_pass.dart';
@@ -92,23 +93,15 @@ class LoginBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 12,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
       child: SingleChildScrollView(
         child: Form(
           key: _formKey,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                'Log in',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: secondaryColor1,
-                ),
-              ),
+              Text('Log in',
+                  style: Style().title.copyWith(color: secondaryColor1)),
               const SizedBox(
                 height: 20,
               ),
@@ -176,12 +169,7 @@ class CustomizedText extends StatelessWidget {
   final Color color;
   @override
   Widget build(BuildContext context) {
-    return Text(
-      text,
-      style: TextStyle(
-        fontSize: 15,
-        color: color,
-      ),
-    );
+    return Text(text,
+        style: Style().title.copyWith(color: color, fontSize: 15));
   }
 }
