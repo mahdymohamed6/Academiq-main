@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
 import 'package:necessities/constants.dart';
 import 'package:necessities/widgets/custom_login_button.dart';
 import 'package:necessities/widgets/custom_text_form_field.dart';
@@ -20,13 +19,13 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   void initState() {
     super.initState();
     _controller = AnimationController(
-      duration: Duration(seconds: 3),
+      duration: const Duration(seconds: 3),
       vsync: this,
     );
 
     _offsetAnimation = Tween<Offset>(
-      begin: Offset(0.0, 2.0),
-      end: Offset(0.0, 0.0),
+      begin: const Offset(0.0, 2.0),
+      end: const Offset(0.0, 0.0),
     ).animate(CurvedAnimation(parent: _controller, curve: Curves.elasticInOut));
 
     // Start the animation
@@ -55,21 +54,20 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
               ),
             ),
             Expanded(
-              child: SingleChildScrollView(
-                child: SlideTransition(
-                  position: _offsetAnimation,
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(30),
-                          topLeft: Radius.circular(30)),
-                    ),
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height *
-                        0.6, // Adjust the height
-                    child: Center(child: LoginBody()),
+              child: SlideTransition(
+                position: _offsetAnimation,
+                child: Container(
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(30),
+                        topLeft: Radius.circular(30)),
                   ),
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height *
+                      0.6, // Adjust the height
+                  child:
+                      Center(child: SingleChildScrollView(child: LoginBody())),
                 ),
               ),
             ),
@@ -119,25 +117,25 @@ class LoginBody extends StatelessWidget {
                 children: [
                   CustomizedText(
                     text: 'Email',
-                    color: secondaryColor1,
+                    color: primaryColor2,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 12,
                   ),
-                  CustomizedTextFormField(
+                  const CustomizedTextFormField(
                     hint: 'enter your email',
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   CustomizedText(
                     text: 'Password',
-                    color: secondaryColor1,
+                    color: primaryColor2,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 12,
                   ),
-                  CustomizedTextFormFieldPass(
+                  const CustomizedTextFormFieldPass(
                     hint: 'password',
                     showSuffixIcon: true,
                     obscureText: true,
@@ -159,7 +157,7 @@ class LoginBody extends StatelessWidget {
               const SizedBox(
                 height: 45,
               ),
-              CustomizedButton(),
+              const CustomizedButton(),
             ],
           ),
         ),
