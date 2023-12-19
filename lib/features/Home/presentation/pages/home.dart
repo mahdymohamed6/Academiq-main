@@ -38,7 +38,7 @@ class HomeScreen extends StatelessWidget {
                 child: Container(
                   decoration: BoxDecoration(
                       color: Colors.grey.withOpacity(0.05),
-                      borderRadius: BorderRadius.all(Radius.circular(15))),
+                      borderRadius: BorderRadius.all(Radius.circular(25))),
                   height: height * 0.06,
                   width: width,
                   child: Row(
@@ -85,12 +85,12 @@ class HomeScreen extends StatelessWidget {
                           vertical: 8.0, horizontal: 5),
                       child: Container(
                         decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey),
-                            color: Colors.white,
+                            border: Border.all(color: Colors.grey.shade400),
+                            color: Colors.grey.shade50,
                             borderRadius:
                                 BorderRadius.all(Radius.circular(10))),
-                        width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).size.height * 0.2,
+                        width: width,
+                        height: height * 0.2,
                         child: Row(
                           children: [
                             Padding(

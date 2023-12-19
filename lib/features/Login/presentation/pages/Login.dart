@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:necessities/constants.dart';
 import 'package:necessities/core/styles.dart';
-import 'package:necessities/widgets/custom_login_button.dart';
-import 'package:necessities/widgets/custom_text_form_field.dart';
-import 'package:necessities/widgets/custom_text_form_pass.dart';
+import 'package:necessities/features/Login/presentation/widgets/custom_login_button.dart';
+import 'package:necessities/features/Login/presentation/widgets/custom_text_form_field.dart';
+import 'package:necessities/features/Login/presentation/widgets/custom_text_form_pass.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -12,7 +12,8 @@ class LoginScreen extends StatefulWidget {
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStateMixin {
+class _LoginScreenState extends State<LoginScreen>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<Offset> _offsetAnimation;
 
@@ -101,7 +102,7 @@ class LoginBody extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text('Log in',
-                  style: Style().title.copyWith(color: secondaryColor1)),
+                  style: Style().title.copyWith(color: primaryColor1)),
               const SizedBox(
                 height: 20,
               ),

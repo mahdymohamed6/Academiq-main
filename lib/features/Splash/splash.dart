@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:necessities/constants.dart';
-import 'package:necessities/Login.dart';
+import 'package:necessities/features/Login/presentation/pages/Login.dart';
 
 class Splash extends StatefulWidget {
+  const Splash({super.key});
+
   @override
   _SplashState createState() => _SplashState();
 }
@@ -15,7 +17,7 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     _controller = AnimationController(
-      duration: Duration(seconds: 3),
+      duration: Duration(seconds: 6),
       vsync: this,
     );
     super.initState();
@@ -25,12 +27,12 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
     ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeIn));
 
     _controller.forward();
-    Future.delayed(Duration(seconds: 4), () {
+    Future.delayed(Duration(seconds: 7), () {
       setState(() {
         changeColors = true; // Set to transparent
       });
     });
-     Future.delayed(Duration(seconds: 5), () {
+     Future.delayed(Duration(seconds: 8), () {
       return Navigator.of(context)
           .pushReplacement(MaterialPageRoute(builder: (context) {
         return LoginScreen();
