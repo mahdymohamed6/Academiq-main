@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:necessities/constants.dart';
 
 class CustomizedTextFormFieldPass extends StatefulWidget {
   const CustomizedTextFormFieldPass({
