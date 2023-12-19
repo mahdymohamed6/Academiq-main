@@ -1,175 +1,164 @@
 import 'package:flutter/material.dart';
 import 'package:necessities/constants.dart';
 import 'package:necessities/core/styles.dart';
-import 'package:necessities/widgets/custom_login_button.dart';
-import 'package:necessities/widgets/custom_text_form_field.dart';
-import 'package:necessities/widgets/custom_text_form_pass.dart';
+import 'package:necessities/widgets/custom_appbar.dart';
 
-class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
-
-  @override
-  State<Home> createState() => _HomeState();
-}
-
-class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-  late Animation<Offset> _offsetAnimation;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(
-      duration: const Duration(seconds: 3),
-      vsync: this,
-    );
-
-    _offsetAnimation = Tween<Offset>(
-      begin: const Offset(0.0, 2.0),
-      end: const Offset(0.0, 0.0),
-    ).animate(CurvedAnimation(parent: _controller, curve: Curves.elasticInOut));
-
-    // Start the animation
-    _controller.forward();
-  }
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
     return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-            gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [primaryColor1, secondaryColor1],
-        )),
+      backgroundColor: Colors.white,
+      appBar: customAppBar(
+          Image.asset(
+            '$logo2',
+            height: height * 0.1,
+            width: width * 0.3,
+          ),
+          [
+            IconButton(
+                onPressed: () {},
+                icon: Icon(
+                  Icons.notifications,
+                  color: primaryColor1,
+                ))
+          ]),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 15.0),
-              child: Image.asset(
-                '$logo1',
-                width: 200,
-                height: MediaQuery.of(context).size.height * 0.4,
-              ),
-            ),
-            Expanded(
-              child: SlideTransition(
-                position: _offsetAnimation,
+            GestureDetector(
+              onTap: () {},
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 20),
                 child: Container(
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(30),
-                        topLeft: Radius.circular(30)),
+                  decoration: BoxDecoration(
+                      color: Colors.grey.withOpacity(0.05),
+                      borderRadius: BorderRadius.all(Radius.circular(15))),
+                  height: height * 0.06,
+                  width: width,
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                        child: Icon(
+                          Icons.search,
+                          color: Colors.grey.withOpacity(0.5),
+                        ),
+                      ),
+                      Text('Search here',
+                          style: Style().title.copyWith(
+                              color: Colors.grey.withOpacity(0.5),
+                              fontSize: 18)),
+                    ],
                   ),
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height *
-                      0.6, // Adjust the height
-                  child:
-                      Center(child: SingleChildScrollView(child: LoginBody())),
                 ),
               ),
             ),
+            Text(
+              'Ahmed Mahmoud,',
+              style: Style().title.copyWith(fontWeight: FontWeight.w600),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Text(
+              'Grad 2',
+              style: Style().title.copyWith(fontSize: 16),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            SizedBox(
+              width: width,
+              height: height * 0.22,
+              child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: 2,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 8.0, horizontal: 5),
+                      child: Container(
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Colors.grey),
+                            color: Colors.white,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10))),
+                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.height * 0.2,
+                        child: Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Image.asset(
+                                'assets/images/woman.png',
+                                width: width * 0.3,
+                                height: height * .8,
+                              ),
+                            ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('Arabic', style: Style().title),
+                                SizedBox(
+                                  height: 5,
+                                ),
+                                Text(
+                                  'M.Nada ahmed',
+                                  style: Style().title.copyWith(
+                                      fontSize: 16, color: Colors.grey),
+                                ),
+                              ],
+                            ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Text(
+                                  '15/12 08:00 PM',
+                                  style: Style().title.copyWith(
+                                      fontSize: 18,
+                                      color: const Color.fromRGBO(
+                                          158, 158, 158, 1)),
+                                ),
+                                Icon(Icons.arrow_forward_ios),
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 10),
+                                  child: GestureDetector(
+                                    onTap: () {},
+                                    child: Container(
+                                      width: width * 0.28,
+                                      height: height * 0.05,
+                                      decoration: BoxDecoration(
+                                        color: primaryColor1,
+                                        borderRadius: BorderRadius.circular(16),
+                                      ),
+                                      child: Center(
+                                          child: Text(
+                                        'Add',
+                                        style: Style().title.copyWith(
+                                            color: Colors.white, fontSize: 18),
+                                      )),
+                                    ),
+                                  ),
+                                )
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                    );
+                  }),
+            )
           ],
         ),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-}
-
-final _formKey = GlobalKey<FormState>();
-
-class LoginBody extends StatelessWidget {
-  const LoginBody({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
-      child: SingleChildScrollView(
-        child: Form(
-          key: _formKey,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text('Log in',
-                  style: Style().title.copyWith(color: secondaryColor1)),
-              const SizedBox(
-                height: 20,
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  CustomizedText(
-                    text: 'Email',
-                    color: primaryColor2,
-                  ),
-                  const SizedBox(
-                    height: 12,
-                  ),
-                  const CustomizedTextFormField(
-                    hint: 'enter your email',
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  CustomizedText(
-                    text: 'Password',
-                    color: primaryColor2,
-                  ),
-                  const SizedBox(
-                    height: 12,
-                  ),
-                  const CustomizedTextFormFieldPass(
-                    hint: 'password',
-                    showSuffixIcon: true,
-                    obscureText: true,
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 9,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  CustomizedText(
-                    text: 'Forget password',
-                    color: primaryColor2,
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 45,
-              ),
-              const CustomizedButton(),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class CustomizedText extends StatelessWidget {
-  const CustomizedText({
-    super.key,
-    required this.text,
-    required this.color,
-  });
-  final String text;
-  final Color color;
-  @override
-  Widget build(BuildContext context) {
-    return Text(text,
-        style: Style().title.copyWith(color: color, fontSize: 15));
   }
 }

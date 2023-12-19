@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:necessities/constants.dart';
-import 'package:necessities/home.dart';
+import 'package:necessities/Login.dart';
 
 class Splash extends StatefulWidget {
   @override
@@ -33,7 +33,7 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
      Future.delayed(Duration(seconds: 5), () {
       return Navigator.of(context)
           .pushReplacement(MaterialPageRoute(builder: (context) {
-        return Home();
+        return LoginScreen();
       }));
     });
   }
