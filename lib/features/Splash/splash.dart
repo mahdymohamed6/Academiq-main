@@ -31,7 +31,7 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
       setState(() {
         changeColors = true; // Set to transparent
       });
-    });
+    }); 
      Future.delayed(Duration(seconds: 8), () {
       return Navigator.of(context)
           .pushReplacement(MaterialPageRoute(builder: (context) {
