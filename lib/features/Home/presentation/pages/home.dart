@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:necessities/constants.dart';
 import 'package:necessities/core/styles.dart';
+import 'package:necessities/features/TodoList/Presentation/pages/TodoScreen.dart';
 import 'package:necessities/widgets/custom_appbar.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -20,7 +21,12 @@ class HomeScreen extends StatelessWidget {
           ),
           [
             IconButton(
-                onPressed: () {},
+                onPressed: () {
+                   Navigator.of(context)
+              .pushReplacement(MaterialPageRoute(builder: (context) {
+            return TodoScreen();
+          }));
+                },
                 icon: Icon(
                   Icons.notifications,
                   color: primaryColor1,
