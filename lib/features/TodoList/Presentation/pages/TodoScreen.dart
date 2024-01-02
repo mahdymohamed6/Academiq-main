@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:necessities/constants.dart';
 import 'package:necessities/core/styles.dart';
+import 'package:necessities/features/Classes/presentation/pages/classes.dart';
 import 'package:necessities/features/TodoList/Presentation/widgets/progress_bar.dart';
 import 'package:necessities/features/TodoList/Presentation/widgets/subjects_list.dart';
 import 'package:necessities/widgets/custom_appbar.dart';
@@ -40,23 +41,34 @@ class _TodoScreenState extends State<TodoScreen> with TickerProviderStateMixin {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: customAppBar(
-        Text(
-          'Todo List',
-          style: TextStyle(
-            color: primaryColor1,
-            fontSize: 20,
-            fontWeight: FontWeight.w600,
-            fontFamily: 'Poppins',
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(90),
+        child: Padding(
+          padding: const EdgeInsets.only(top:30.0),
+          child: customAppBar(
+            Text(
+              'Todo List',
+              style: TextStyle(
+                color: primaryColor1,
+                fontSize: 20,
+                fontWeight: FontWeight.w600,
+                fontFamily: 'Poppins',
+              ),
+            ),
+            [
+              IconButton(
+                onPressed: () {
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (context) {
+                    return Classes();
+                  }));
+                },
+                icon: Icon(Icons.add_box),
+                color: primaryColor1,
+              )
+            ],
           ),
         ),
-        [
-          IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.add_box),
-            color: primaryColor1,
-          )
-        ],
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

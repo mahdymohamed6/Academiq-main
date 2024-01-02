@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:necessities/constants.dart';
 import 'package:necessities/core/styles.dart';
 import 'package:necessities/features/Home/presentation/pages/home.dart';
+import 'package:necessities/features/controlPage/ControlPage.dart';
 
 class CustomizedButton extends StatelessWidget {
   const CustomizedButton({
@@ -16,7 +17,7 @@ class CustomizedButton extends StatelessWidget {
           
           Navigator.of(context)
               .pushReplacement(MaterialPageRoute(builder: (context) {
-            return HomeScreen();
+            return ControlPage();
           }));
         },
         child: Container(

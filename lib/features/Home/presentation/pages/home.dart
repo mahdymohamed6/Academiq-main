@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:necessities/constants.dart';
 import 'package:necessities/core/styles.dart';
+import 'package:necessities/features/Classes/presentation/pages/classes.dart';
 import 'package:necessities/features/TodoList/Presentation/pages/TodoScreen.dart';
 import 'package:necessities/widgets/custom_appbar.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -13,25 +21,31 @@ class HomeScreen extends StatelessWidget {
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: customAppBar(
-          Image.asset(
-            '$logo2',
-            height: height * 0.1,
-            width: width * 0.3,
-          ),
-          [
-            IconButton(
-                onPressed: () {
-                   Navigator.of(context)
-              .pushReplacement(MaterialPageRoute(builder: (context) {
-            return TodoScreen();
-          }));
-                },
-                icon: Icon(
-                  Icons.notifications,
-                  color: primaryColor1,
-                ))
-          ]),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(90),
+        child: Padding(
+          padding: const EdgeInsets.only(top:30.0),
+          child: customAppBar(
+              Image.asset(
+                '$logo2',
+                height: height * 0.1,
+                width: width * 0.3,
+              ),
+              [
+                IconButton(
+                    onPressed: () {
+                      Navigator.of(context)
+                          .pushReplacement(MaterialPageRoute(builder: (context) {
+                        return TodoScreen();
+                      }));
+                    },
+                    icon: Icon(
+                      Icons.notifications,
+                      color: primaryColor1,
+                    ))
+              ]),
+        ),
+      ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10),
         child: Column(
@@ -168,3 +182,4 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
+/*  */
