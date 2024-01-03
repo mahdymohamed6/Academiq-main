@@ -83,8 +83,7 @@ class _ControlPageState extends State<ControlPage> {
            BottomNavigationBarItem(
             icon: selectedIndex == 3
                 ? Image.asset(
-                    'assets/images/Assignment.png',
-                    color: primaryColor1,
+                    'assets/images/Assignment2.png',
                   )
                 : Image.asset('assets/images/Assignment.png'),
             label: 'Assignment',
