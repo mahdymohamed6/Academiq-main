@@ -7,6 +7,7 @@ Color primaryColor3 = Color(0XFF00769E);
 Color secondaryColor1 = const Color(0XFF1E8E5A);
 Color secondaryColor2 = const Color(0XFF063b22);
 Color notificationColor= Color(0XFFE5F1F8);
+Color missingColor= Color(0XFFFFEDF7);
 LinearGradient linearBackgroundColor = LinearGradient(
   begin: Alignment.topCenter,
   end: Alignment.bottomCenter,

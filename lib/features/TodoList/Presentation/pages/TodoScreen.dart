@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:necessities/constants.dart';
 import 'package:necessities/core/styles.dart';
 import 'package:necessities/features/Classes/presentation/pages/classes.dart';
+import 'package:necessities/features/TodoList/Presentation/widgets/done_assignment.dart';
+import 'package:necessities/features/TodoList/Presentation/widgets/missing_assignment.dart';
 import 'package:necessities/features/TodoList/Presentation/widgets/progress_bar.dart';
-import 'package:necessities/features/TodoList/Presentation/widgets/subjects_list.dart';
+import 'package:necessities/features/TodoList/Presentation/widgets/required_assignment.dart';
 import 'package:necessities/widgets/custom_appbar.dart';
 
 class TodoScreen extends StatefulWidget {
@@ -32,8 +34,10 @@ class _TodoScreenState extends State<TodoScreen> with TickerProviderStateMixin {
     "31",
   ];
 
+
   @override
   Widget build(BuildContext context) {
+    
     TabController tabController = TabController(length: 3, vsync: this);
 
     double width = MediaQuery.of(context).size.width;
@@ -44,7 +48,7 @@ class _TodoScreenState extends State<TodoScreen> with TickerProviderStateMixin {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(90),
         child: Padding(
-          padding: const EdgeInsets.only(top:30.0),
+          padding: const EdgeInsets.only(top: 30.0),
           child: customAppBar(
             Text(
               'Todo List',
@@ -147,10 +151,11 @@ class _TodoScreenState extends State<TodoScreen> with TickerProviderStateMixin {
                     fontFamily: 'Poppins',
                   ),
               labelColor: primaryColor1,
+              indicatorColor:primaryColor1,
               splashBorderRadius: BorderRadius.circular(10),
               unselectedLabelColor: Colors.grey.shade500,
               controller: tabController,
-              indicatorColor: primaryColor1,
+
               tabs: [
                 Tab(text: 'Assigned'),
                 Tab(text: 'Missing'),
@@ -195,34 +200,40 @@ class _TodoScreenState extends State<TodoScreen> with TickerProviderStateMixin {
                         itemBuilder: (context, index) {
                           return Padding(
                             padding: const EdgeInsets.only(bottom: 12),
-                            child: SubjectsListViewItem(),
+                            child: RequiredAssignment(),
                           );
                         },
                       ),
                     ),
                   ],
                 ),
-                ListView.builder(
-                  physics: BouncingScrollPhysics(),
-                  scrollDirection: Axis.vertical,
-                  itemCount: 10,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.only(bottom: 12),
-                      child: SubjectsListViewItem(),
-                    );
-                  },
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 30),
+                  child: ListView.builder(
+                    physics: BouncingScrollPhysics(),
+                    scrollDirection: Axis.vertical,
+                    itemCount: 10,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom: 12),
+                        child: MissingAssignment(),
+                      );
+                    },
+                  ),
                 ),
-                ListView.builder(
-                  physics: BouncingScrollPhysics(),
-                  scrollDirection: Axis.vertical,
-                  itemCount: 10,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.only(bottom: 12),
-                      child: SubjectsListViewItem(),
-                    );
-                  },
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 30),
+                  child: ListView.builder(
+                    physics: BouncingScrollPhysics(),
+                    scrollDirection: Axis.vertical,
+                    itemCount: 10,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom: 12),
+                        child: DoneAssignment(),
+                      );
+                    },
+                  ),
                 ),
               ],
             ),
@@ -231,4 +242,5 @@ class _TodoScreenState extends State<TodoScreen> with TickerProviderStateMixin {
       ),
     );
   }
+ 
 }
