@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:necessities/constants.dart';
 import 'package:necessities/core/styles.dart';
 import 'package:necessities/features/Classes/presentation/pages/classes.dart';
+import 'package:necessities/features/Home/presentation/widgets/class_schedule.dart';
+import 'package:necessities/features/Home/presentation/widgets/holidays.dart';
+import 'package:necessities/features/Home/presentation/widgets/student_details.dart';
 import 'package:necessities/features/TodoList/Presentation/pages/TodoScreen.dart';
 import 'package:necessities/widgets/custom_appbar.dart';
 
@@ -13,8 +16,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
- 
-
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -24,7 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(90),
         child: Padding(
-          padding: const EdgeInsets.only(top:30.0),
+          padding: const EdgeInsets.only(top: 30.0),
           child: customAppBar(
               Image.asset(
                 '$logo2',
@@ -34,8 +35,8 @@ class _HomeScreenState extends State<HomeScreen> {
               [
                 IconButton(
                     onPressed: () {
-                      Navigator.of(context)
-                          .pushReplacement(MaterialPageRoute(builder: (context) {
+                      Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(builder: (context) {
                         return TodoScreen();
                       }));
                     },
@@ -57,7 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 padding: const EdgeInsets.symmetric(vertical: 20),
                 child: Container(
                   decoration: BoxDecoration(
-                      color: Colors.grey.withOpacity(0.05),
+                      color: Colors.grey.withOpacity(0.1),
                       borderRadius: BorderRadius.all(Radius.circular(25))),
                   height: height * 0.06,
                   width: width,
@@ -79,107 +80,32 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
-            Text(
-              'Ahmed Mahmoud,',
-              style: Style().title.copyWith(fontWeight: FontWeight.w600),
-            ),
+            StudentDetails(),
             SizedBox(
               height: 10,
             ),
-            Text(
-              'Grad 2',
-              style: Style().title.copyWith(fontSize: 16),
-            ),
+            Holidays(width: width, height: height),
             SizedBox(
               height: 10,
             ),
             SizedBox(
-              width: width,
-              height: height * 0.22,
-              child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: 2,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 8.0, horizontal: 5),
-                      child: Container(
-                        decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey.shade400),
-                            color: Colors.grey.shade50,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
-                        width: width,
-                        height: height * 0.2,
-                        child: Row(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Image.asset(
-                                'assets/images/woman.png',
-                                width: width * 0.3,
-                                height: height * .8,
-                              ),
-                            ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text('Arabic', style: Style().title),
-                                SizedBox(
-                                  height: 5,
-                                ),
-                                Text(
-                                  'M.Nada ahmed',
-                                  style: Style().title.copyWith(
-                                      fontSize: 16, color: Colors.grey),
-                                ),
-                              ],
-                            ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                Text(
-                                  '15/12 08:00 PM',
-                                  style: Style().title.copyWith(
-                                      fontSize: 18,
-                                      color: const Color.fromRGBO(
-                                          158, 158, 158, 1)),
-                                ),
-                                Icon(Icons.arrow_forward_ios),
-                                Padding(
-                                  padding: const EdgeInsets.only(bottom: 10),
-                                  child: GestureDetector(
-                                    onTap: () {},
-                                    child: Container(
-                                      width: width * 0.28,
-                                      height: height * 0.05,
-                                      decoration: BoxDecoration(
-                                        color: primaryColor1,
-                                        borderRadius: BorderRadius.circular(16),
-                                      ),
-                                      child: Center(
-                                          child: Text(
-                                        'Add',
-                                        style: Style().title.copyWith(
-                                            color: Colors.white, fontSize: 18),
-                                      )),
-                                    ),
-                                  ),
-                                )
-                              ],
-                            )
-                          ],
-                        ),
-                      ),
-                    );
-                  }),
-            )
+              height: 20,
+            ),
+            Expanded(
+                child: ListView.builder(
+                    itemCount: 8,
+                    itemBuilder: (context, index) {
+                      return ClassSchedule(width: width, height: height);
+                    }))
           ],
         ),
       ),
     );
   }
 }
+
+
+
+
+
 /*  */
