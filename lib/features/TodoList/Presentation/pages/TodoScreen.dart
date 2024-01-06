@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:necessities/constants.dart';
 import 'package:necessities/core/styles.dart';
 import 'package:necessities/features/Classes/presentation/pages/classes.dart';
+import 'package:necessities/features/TodoList/Presentation/widgets/add_ToDo.dart';
 import 'package:necessities/features/TodoList/Presentation/widgets/done_assignment.dart';
 import 'package:necessities/features/TodoList/Presentation/widgets/missing_assignment.dart';
 import 'package:necessities/features/TodoList/Presentation/widgets/progress_bar.dart';
@@ -34,10 +35,8 @@ class _TodoScreenState extends State<TodoScreen> with TickerProviderStateMixin {
     "31",
   ];
 
-
   @override
   Widget build(BuildContext context) {
-    
     TabController tabController = TabController(length: 3, vsync: this);
 
     double width = MediaQuery.of(context).size.width;
@@ -62,10 +61,20 @@ class _TodoScreenState extends State<TodoScreen> with TickerProviderStateMixin {
             [
               IconButton(
                 onPressed: () {
-                  Navigator.of(context)
-                      .push(MaterialPageRoute(builder: (context) {
-                    return Classes();
-                  }));
+                  showModalBottomSheet(
+                    scrollControlDisabledMaxHeightRatio :0.8,
+                    showDragHandle:true,
+                      shape: RoundedRectangleBorder(
+                        borderRadius:
+                            BorderRadius.vertical(top: Radius.circular(20)),
+                      ),
+                      context: context,
+                      builder: (context) {
+                        return Todo();
+                      });
+                  /*   Navigator.of(context).push(MaterialPageRoute(builder: (context){
+                    return Todo();
+                  })); */
                 },
                 icon: Icon(Icons.add_box),
                 color: primaryColor1,
@@ -151,11 +160,10 @@ class _TodoScreenState extends State<TodoScreen> with TickerProviderStateMixin {
                     fontFamily: 'Poppins',
                   ),
               labelColor: primaryColor1,
-              indicatorColor:primaryColor1,
+              indicatorColor: primaryColor1,
               splashBorderRadius: BorderRadius.circular(10),
               unselectedLabelColor: Colors.grey.shade500,
               controller: tabController,
-
               tabs: [
                 Tab(text: 'Assigned'),
                 Tab(text: 'Missing'),
@@ -242,5 +250,4 @@ class _TodoScreenState extends State<TodoScreen> with TickerProviderStateMixin {
       ),
     );
   }
- 
 }

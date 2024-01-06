@@ -47,57 +47,60 @@ class _HomeScreenState extends State<HomeScreen> {
               ]),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            GestureDetector(
-              onTap: () {},
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20),
-                child: Container(
-                  decoration: BoxDecoration(
-                      color: Colors.grey.withOpacity(0.1),
-                      borderRadius: BorderRadius.all(Radius.circular(25))),
-                  height: height * 0.06,
-                  width: width,
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                        child: Icon(
-                          Icons.search,
-                          color: Colors.grey.withOpacity(0.5),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              GestureDetector(
+                onTap: () {},
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: Colors.grey.withOpacity(0.1),
+                        borderRadius: BorderRadius.all(Radius.circular(25))),
+                    height: height * 0.06,
+                    width: width,
+                    child: Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                          child: Icon(
+                            Icons.search,
+                            color: Colors.grey.withOpacity(0.5),
+                          ),
                         ),
-                      ),
-                      Text('Search here',
-                          style: Style().title.copyWith(
-                              color: Colors.grey.withOpacity(0.5),
-                              fontSize: 18)),
-                    ],
+                        Text('Search here',
+                            style: Style().title.copyWith(
+                                color: Colors.grey.withOpacity(0.5),
+                                fontSize: 18)),
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-            StudentDetails(),
-            SizedBox(
-              height: 10,
-            ),
-            Holidays(width: width, height: height),
-            SizedBox(
-              height: 10,
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Expanded(
-                child: ListView.builder(
-                    itemCount: 8,
-                    itemBuilder: (context, index) {
-                      return ClassSchedule(width: width, height: height);
-                    }))
-          ],
+              StudentDetails(),
+              SizedBox(
+                height: 10,
+              ),
+              Holidays(width: width, height: height),
+              SizedBox(
+                height: 10,
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              ListView.builder(
+                physics: NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                  itemCount: 8,
+                  itemBuilder: (context, index) {
+                    return ClassSchedule(width: width, height: height);
+                  })
+            ],
+          ),
         ),
       ),
     );

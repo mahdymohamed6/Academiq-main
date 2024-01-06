@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:necessities/features/assignment_view/presentation/assignment_view.dart';
+import 'package:necessities/features/controlPage/ControlPage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,6 +14,6 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
-        home: AssignmentView());
+        home: ControlPage());
   }
 }

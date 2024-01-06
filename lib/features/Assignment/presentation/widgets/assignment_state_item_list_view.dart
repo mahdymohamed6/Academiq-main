@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:necessities/features/assignment_view/presentation/models/assigment_state_model.dart';
+import 'package:necessities/features/Assignment/presentation/models/assigment_state_model.dart';
 
 class AssignmentStateItemListView extends StatelessWidget {
   const AssignmentStateItemListView({

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:necessities/features/assignment_view/presentation/models/assigment_state_model.dart';
-import 'package:necessities/features/assignment_view/presentation/widgets/assignment_list_view.dart';
+import 'package:necessities/features/Assignment/presentation/models/assigment_state_model.dart';
+import 'package:necessities/features/Assignment/presentation/widgets/assignment_list_view.dart';
 
-import 'package:necessities/features/assignment_view/presentation/widgets/assignment_title.dart';
-import 'package:necessities/features/assignment_view/presentation/widgets/sssignment_stat_list_view.dart';
+import 'package:necessities/features/Assignment/presentation/widgets/assignment_title.dart';
+import 'package:necessities/features/Assignment/presentation/widgets/sssignment_stat_list_view.dart';
 
 class AssignmentView extends StatefulWidget {
   const AssignmentView({super.key});

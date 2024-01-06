@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:necessities/constants.dart';
+import 'package:necessities/features/Assignment/presentation/pages/AssingmentView.dart';
 import 'package:necessities/features/Classes/presentation/pages/classes.dart';
 import 'package:necessities/features/Home/presentation/pages/home.dart';
 import 'package:necessities/features/Notification/presentation/pages/NotificationPage.dart';
@@ -19,7 +20,7 @@ class _ControlPageState extends State<ControlPage> {
     HomeScreen(),
     TodoScreen(),
     Classes(),
-    NotificationPage()
+    AssignmentView()
   ];
   void onItemTapped(int index) {
     setState(() {
@@ -35,7 +36,6 @@ class _ControlPageState extends State<ControlPage> {
       backgroundColor: Colors.white,
       body: screens[selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
-        
         showUnselectedLabels: true,
         selectedLabelStyle: TextStyle(
           color: primaryColor1,
@@ -80,7 +80,7 @@ class _ControlPageState extends State<ControlPage> {
                 : Image.asset('assets/images/Class.png'),
             label: 'Classes',
           ),
-           BottomNavigationBarItem(
+          BottomNavigationBarItem(
             icon: selectedIndex == 3
                 ? Image.asset(
                     'assets/images/Assignment2.png',
