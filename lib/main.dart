@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:necessities/features/Home/presentation/pages/home.dart';
-import 'package:necessities/features/Login/presentation/pages/Login.dart';
-import 'package:necessities/features/Splash/splash.dart';
-import 'package:necessities/features/TodoList/Presentation/pages/TodoScreen.dart';
+import 'package:necessities/features/assignment_view/presentation/assignment_view.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,6 +14,6 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
-        home: Splash());
+        home: AssignmentView());
   }
 }

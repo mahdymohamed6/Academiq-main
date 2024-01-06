@@ -37,7 +37,7 @@ class _RequiredAssignmentState extends State<RequiredAssignment> {
               icon: Icon(
                 Icons.check_circle,
                 size: 34,
-                color: isPressed ? primaryColor1 : Colors.grey.shade300,
+                color: isPressed ? Colors.green : Colors.grey.shade300,
               ),
             ),
             SizedBox(
