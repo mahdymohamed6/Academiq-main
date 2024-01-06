@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:necessities/constants.dart';
 
 class SubjectsListViewItem extends StatefulWidget {
   const SubjectsListViewItem({
@@ -36,10 +35,10 @@ class _SubjectsListViewItemState extends State<SubjectsListViewItem> {
               icon: Icon(
                 Icons.check_circle,
                 size: 34,
-                color: isPressed ? primaryColor1 : Colors.grey.shade300,
+                color: isPressed ? Colors.green : Colors.grey.shade300,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 5,
             ),
             Expanded(
@@ -71,7 +70,7 @@ class SubjectDetails extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-         Text(
+        Text(
           subjectName,
           style: TextStyle(
             color: Colors.black,

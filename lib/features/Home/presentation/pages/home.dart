@@ -22,10 +22,10 @@ class HomeScreen extends StatelessWidget {
           [
             IconButton(
                 onPressed: () {
-                   Navigator.of(context)
-              .pushReplacement(MaterialPageRoute(builder: (context) {
-            return TodoScreen();
-          }));
+                  Navigator.of(context)
+                      .pushReplacement(MaterialPageRoute(builder: (context) {
+                    return TodoScreen();
+                  }));
                 },
                 icon: Icon(
                   Icons.notifications,
