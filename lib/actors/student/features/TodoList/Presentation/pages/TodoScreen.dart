@@ -45,7 +45,7 @@ class _TodoScreenState extends State<TodoScreen> with TickerProviderStateMixin {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(90),
+        preferredSize: const Size.fromHeight(90),
         child: Padding(
           padding: const EdgeInsets.only(top: 30.0),
           child: customAppBar(
@@ -62,21 +62,21 @@ class _TodoScreenState extends State<TodoScreen> with TickerProviderStateMixin {
               IconButton(
                 onPressed: () {
                   showModalBottomSheet(
-                    scrollControlDisabledMaxHeightRatio :0.8,
-                    showDragHandle:true,
-                      shape: RoundedRectangleBorder(
+                      scrollControlDisabledMaxHeightRatio: 0.8,
+                      showDragHandle: true,
+                      shape: const RoundedRectangleBorder(
                         borderRadius:
                             BorderRadius.vertical(top: Radius.circular(20)),
                       ),
                       context: context,
                       builder: (context) {
-                        return Todo();
+                        return const Todo();
                       });
                   /*   Navigator.of(context).push(MaterialPageRoute(builder: (context){
                     return Todo();
                   })); */
                 },
-                icon: Icon(Icons.add_box),
+                icon: const Icon(Icons.add_box),
                 color: primaryColor1,
               )
             ],
@@ -104,7 +104,7 @@ class _TodoScreenState extends State<TodoScreen> with TickerProviderStateMixin {
                       vertical: 10,
                     ),
                     child: AnimatedContainer(
-                      duration: Duration(milliseconds: 300),
+                      duration: const Duration(milliseconds: 300),
                       width: selectedDateIndex == index
                           ? width * 0.24
                           : width * 0.18,
@@ -112,7 +112,8 @@ class _TodoScreenState extends State<TodoScreen> with TickerProviderStateMixin {
                         color: selectedDateIndex == index
                             ? primaryColor1
                             : Colors.white,
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(10)),
                         border: Border.all(color: Colors.grey),
                       ),
                       child: Column(
@@ -164,7 +165,7 @@ class _TodoScreenState extends State<TodoScreen> with TickerProviderStateMixin {
               splashBorderRadius: BorderRadius.circular(10),
               unselectedLabelColor: Colors.grey.shade500,
               controller: tabController,
-              tabs: [
+              tabs: const [
                 Tab(text: 'Assigned'),
                 Tab(text: 'Missing'),
                 Tab(text: 'Done'),
@@ -202,12 +203,12 @@ class _TodoScreenState extends State<TodoScreen> with TickerProviderStateMixin {
                     ),
                     Expanded(
                       child: ListView.builder(
-                        physics: BouncingScrollPhysics(),
+                        physics: const BouncingScrollPhysics(),
                         scrollDirection: Axis.vertical,
                         itemCount: 10,
                         itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.only(bottom: 12),
+                          return const Padding(
+                            padding: EdgeInsets.only(bottom: 12),
                             child: RequiredAssignment(),
                           );
                         },

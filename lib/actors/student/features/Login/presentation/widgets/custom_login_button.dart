@@ -14,10 +14,9 @@ class CustomizedButton extends StatelessWidget {
     double height = MediaQuery.of(context).size.height;
     return GestureDetector(
         onTap: () {
-          
           Navigator.of(context)
               .pushReplacement(MaterialPageRoute(builder: (context) {
-            return ControlPage();
+            return const ControlPage();
           }));
         },
         child: Container(

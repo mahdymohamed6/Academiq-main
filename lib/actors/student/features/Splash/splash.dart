@@ -10,7 +10,6 @@ class Splash extends StatefulWidget {
 }
 
 class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
-  
   late AnimationController _controller;
   late Animation<Offset> _offsetAnimation;
   bool changeColors = false;
@@ -31,8 +30,8 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
       setState(() {
         changeColors = true; // Set to transparent
       });
-    }); 
-     Future.delayed(Duration(seconds: 8), () {
+    });
+    Future.delayed(Duration(seconds: 8), () {
       return Navigator.of(context)
           .pushReplacement(MaterialPageRoute(builder: (context) {
         return LoginScreen();

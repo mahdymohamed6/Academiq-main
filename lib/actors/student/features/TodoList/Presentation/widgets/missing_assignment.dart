@@ -20,9 +20,7 @@ class MissingAssignment extends StatelessWidget {
         child: Row(
           children: [
             IconButton(
-                onPressed: () {},
-                icon: Icon(Icons.close),
-                color: Colors.red),
+                onPressed: () {}, icon: Icon(Icons.close), color: Colors.red),
             SizedBox(
               width: 15,
             ),

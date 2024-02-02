@@ -58,4 +58,3 @@ class _RequiredAssignmentState extends State<RequiredAssignment> {
     );
   }
 }
-

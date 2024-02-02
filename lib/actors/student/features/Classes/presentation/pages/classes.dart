@@ -69,4 +69,3 @@ class Classes extends StatelessWidget {
     );
   }
 }
-

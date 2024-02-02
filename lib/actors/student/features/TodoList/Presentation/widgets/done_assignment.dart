@@ -7,7 +7,7 @@ class DoneAssignment extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Padding(
+    return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Container(
         height: 100,
@@ -18,7 +18,7 @@ class DoneAssignment extends StatelessWidget {
         ),
         child: Row(
           children: [
-           IconButton(
+            IconButton(
                 onPressed: () {},
                 icon: Icon(Icons.check_circle),
                 color: Colors.green),

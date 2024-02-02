@@ -17,10 +17,10 @@ class ControlPage extends StatefulWidget {
 class _ControlPageState extends State<ControlPage> {
   int selectedIndex = 0;
   static List<Widget> screens = [
-    HomeScreen(),
-    TodoScreen(),
-    Classes(),
-    AssignmentView()
+    const HomeScreen(),
+    const TodoScreen(),
+    const Classes(),
+    const AssignmentView()
   ];
   void onItemTapped(int index) {
     setState(() {
@@ -30,8 +30,8 @@ class _ControlPageState extends State<ControlPage> {
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
+    // double width = MediaQuery.of(context).size.width;
+    // double height = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: Colors.white,
       body: screens[selectedIndex],

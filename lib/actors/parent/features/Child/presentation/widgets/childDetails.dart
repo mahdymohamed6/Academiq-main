@@ -51,7 +51,7 @@ class childDetails extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: 10,
+              height: 20,
             ),
             Container(
               width: width * 0.5,
@@ -82,7 +82,7 @@ class childDetails extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: 10,
+              height: 20,
             ),
             Container(
               width: width * 0.5,
@@ -113,7 +113,7 @@ class childDetails extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: 10,
+              height: 20,
             ),
             TeacherDetails()
           ],
@@ -121,108 +121,7 @@ class childDetails extends StatelessWidget {
         SizedBox(
           width: 10,
         ),
-        Container(
-          width: width * 0.4,
-          decoration: BoxDecoration(
-              color: primaryColor3, borderRadius: BorderRadius.circular(20)),
-          child: Column(
-            children: [
-              Container(
-                decoration:
-                    BoxDecoration(borderRadius: BorderRadius.circular(20)),
-                width: width,
-                height: height * 0.08,
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 10.0),
-                  child: Center(
-                    child: Text('Family',
-                        style: Style()
-                            .title
-                            .copyWith(color: Colors.white, fontSize: 18)),
-                  ),
-                ),
-              ),
-              Container(
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(20),
-                        bottomRight: Radius.circular(20))),
-                width: width,
-                child: Center(
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(12.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            CircleAvatar(
-                              child: Image(
-                                  image:
-                                      AssetImage('assets/images/teacher.png')),
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Expanded(
-                              child: Text(
-                                'Cooper leslie',
-                                overflow: TextOverflow.ellipsis,
-                                style: Style()
-                                    .title
-                                    .copyWith(color: Colors.grey, fontSize: 16),
-                              ),
-                            )
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-              Container(
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(20),
-                        bottomRight: Radius.circular(20))),
-                width: width,
-                child: Center(
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(12.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            CircleAvatar(
-                              child: Image(
-                                  image:
-                                      AssetImage('assets/images/teacher.png')),
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Expanded(
-                              child: Text(
-                                'Cooper leslie',
-                                overflow: TextOverflow.ellipsis,
-                                style: Style()
-                                    .title
-                                    .copyWith(color: Colors.grey, fontSize: 16),
-                              ),
-                            )
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-        )
+        FamilyDetails()
       ],
     );
   }

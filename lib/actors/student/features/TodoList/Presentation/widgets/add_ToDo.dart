@@ -24,7 +24,7 @@ class _TodoState extends State<Todo> {
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -89,33 +89,40 @@ class _TodoState extends State<Todo> {
                         .copyWith(color: primaryColor1, fontSize: 20),
                     formatButtonVisible: false),
                 calendarStyle: CalendarStyle(
-                    outsideTextStyle:
-                        Style().title.copyWith(color: Colors.grey.withOpacity(0.3), fontSize: 20),
-                    weekendTextStyle:
-                        Style().title.copyWith(color: Colors.grey, fontSize: 20),
-                    defaultTextStyle:
-                        Style().title.copyWith(color: Colors.grey, fontSize: 20),
+                    outsideTextStyle: Style().title.copyWith(
+                        color: Colors.grey.withOpacity(0.3), fontSize: 20),
+                    weekendTextStyle: Style()
+                        .title
+                        .copyWith(color: Colors.grey, fontSize: 20),
+                    defaultTextStyle: Style()
+                        .title
+                        .copyWith(color: Colors.grey, fontSize: 20),
                     selectedDecoration: BoxDecoration(
                         color: primaryColor1, shape: BoxShape.circle),
-                    todayTextStyle:
-                        Style().title.copyWith(color: Colors.blue, fontSize: 20),
+                    todayTextStyle: Style()
+                        .title
+                        .copyWith(color: Colors.blue, fontSize: 20),
                     selectedTextStyle: Style().title.copyWith(
                           color: Colors.white,
                           fontWeight: FontWeight.w700,
                           fontSize: 20,
                         )),
                 daysOfWeekStyle: DaysOfWeekStyle(
-                    weekdayStyle:
-                        Style().title.copyWith(fontSize: 15, color: Colors.grey),
-                    weekendStyle:
-                        Style().title.copyWith(fontSize: 15, color: Colors.grey)),
+                    weekdayStyle: Style()
+                        .title
+                        .copyWith(fontSize: 15, color: Colors.grey),
+                    weekendStyle: Style()
+                        .title
+                        .copyWith(fontSize: 15, color: Colors.grey)),
                 focusedDay: today,
                 firstDay: DateTime(2015),
                 lastDay: DateTime(2030),
                 selectedDayPredicate: (day) => isSameDay(day, today),
                 onDaySelected: onDaySelected,
-              ),              SizedBox(height: 15,),
-
+              ),
+              SizedBox(
+                height: 15,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -140,7 +147,9 @@ class _TodoState extends State<Todo> {
                   ),
                 ],
               ),
-              SizedBox(height: 25,)
+              SizedBox(
+                height: 25,
+              )
             ],
           ),
         ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:necessities/actors/student/features/Notification/presentation/pages/NotificationPage.dart';
 import 'package:necessities/constants.dart';
 import 'package:necessities/core/styles.dart';
 import 'package:necessities/actors/student/features/Classes/presentation/pages/classes.dart';
@@ -23,7 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(90),
+        preferredSize: const Size.fromHeight(90),
         child: Padding(
           padding: const EdgeInsets.only(top: 30.0),
           child: customAppBar(
@@ -37,7 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     onPressed: () {
                       Navigator.of(context).pushReplacement(
                           MaterialPageRoute(builder: (context) {
-                        return TodoScreen();
+                        return const NotificationPage();
                       }));
                     },
                     icon: Icon(
@@ -60,7 +61,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Container(
                     decoration: BoxDecoration(
                         color: Colors.grey.withOpacity(0.1),
-                        borderRadius: BorderRadius.all(Radius.circular(25))),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(25))),
                     height: height * 0.06,
                     width: width,
                     child: Row(
@@ -81,20 +83,20 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
               ),
-              StudentDetails(),
-              SizedBox(
+              const StudentDetails(),
+              const SizedBox(
                 height: 10,
               ),
               Holidays(width: width, height: height),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               ListView.builder(
-                physics: NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
                   itemCount: 8,
                   itemBuilder: (context, index) {
                     return ClassSchedule(width: width, height: height);

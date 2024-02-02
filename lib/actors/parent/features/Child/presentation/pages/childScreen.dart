@@ -92,7 +92,7 @@ class _ChildScreenState extends State<ChildScreen>
                   alignment: Alignment.topCenter,
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(top: 20),
+                      padding: EdgeInsets.only(top: 30),
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20.0),
@@ -101,18 +101,21 @@ class _ChildScreenState extends State<ChildScreen>
                         width: width,
                         child: Padding(
                             padding: const EdgeInsets.only(
-                                top: 35.0, bottom: 15.0),
+                                top: 55.0, ),
                             child: Column(
                               children: [
                                 SizedBox(
                                     height:
-                                        10), // Adjust the height as needed
+                                        15), // Adjust the height as needed
                                 Text(
                                   'Jane Cooper',
                                   style: Style()
                                       .title
                                       .copyWith(color: primaryColor3),
                                 ),
+                                 SizedBox(
+                                    height:
+                                        15),
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: TabBar(
@@ -145,6 +148,7 @@ class _ChildScreenState extends State<ChildScreen>
                                     ),
                                   ),
                                 ),
+                                SizedBox(height: 8,),
                                 Expanded(
                                   child: TabBarView(
                                     controller: tabController,
@@ -161,7 +165,7 @@ class _ChildScreenState extends State<ChildScreen>
                       ),
                     ),
                     CircleAvatar(
-                      radius: 30,
+                      radius: 40,
                       backgroundImage:
                           AssetImage('assets/images/teacher.png'),
                     ),
