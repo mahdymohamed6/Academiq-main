@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:necessities/actors/parent/features/parentHome/presentation/page/parentHomeView.dart';
-
-import 'actors/student/features/Splash/splash.dart';
+import 'package:necessities/actors/student/features/Login/presentation/pages/Login.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,6 +14,8 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
-        home: ParentHomeView());
+        home: LoginScreen());
   }
 }
+
+// LoginScreen

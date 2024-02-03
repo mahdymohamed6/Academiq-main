@@ -5,14 +5,14 @@ import 'package:necessities/actors/student/features/Classes/presentation/pages/c
 import 'package:necessities/actors/student/features/Home/presentation/pages/home.dart';
 import 'package:necessities/actors/student/features/TodoList/Presentation/pages/TodoScreen.dart';
 
-class ControlPage extends StatefulWidget {
-  const ControlPage({super.key});
+class ChildControlPage extends StatefulWidget {
+  const ChildControlPage({super.key});
 
   @override
-  State<ControlPage> createState() => _ControlPageState();
+  State<ChildControlPage> createState() => _ControlPageState();
 }
 
-class _ControlPageState extends State<ControlPage> {
+class _ControlPageState extends State<ChildControlPage> {
   int selectedIndex = 0;
   static List<Widget> screens = [
     const HomeScreen(),
