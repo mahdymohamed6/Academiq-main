@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:necessities/actors/parent/features/Child/presentation/widgets/childDetails.dart';
-import 'package:necessities/actors/parent/features/Child/presentation/widgets/familyDetails.dart';
 
 class ProfileContent extends StatelessWidget {
   const ProfileContent({super.key});

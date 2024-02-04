@@ -3,21 +3,19 @@ import 'package:necessities/actors/parent/features/Child/presentation/pages/Assi
 import 'package:necessities/actors/parent/features/Child/presentation/pages/Examination.dart';
 import 'package:necessities/actors/parent/features/Child/presentation/pages/classesContent.dart';
 import 'package:necessities/actors/parent/features/Child/presentation/pages/profileContent.dart';
-import 'package:necessities/actors/parent/features/Child/presentation/widgets/childDetails.dart';
-import 'package:necessities/actors/parent/features/Child/presentation/widgets/familyDetails.dart';
-import 'package:necessities/actors/parent/features/Child/presentation/widgets/teacherDetails.dart';
+
 import 'package:necessities/constants.dart';
 import 'package:necessities/core/styles.dart';
 import 'package:necessities/widgets/custom_appbar.dart';
 
-class ChildScreen extends StatefulWidget {
-  const ChildScreen({super.key});
+class ChildInfoScreen extends StatefulWidget {
+  const ChildInfoScreen({super.key});
 
   @override
-  State<ChildScreen> createState() => _ChildScreenState();
+  State<ChildInfoScreen> createState() => _ChildInfoScreenState();
 }
 
-class _ChildScreenState extends State<ChildScreen>
+class _ChildInfoScreenState extends State<ChildInfoScreen>
     with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
