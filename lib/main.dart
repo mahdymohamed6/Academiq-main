@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:necessities/actors/parent/features/parentHome/presentation/page/parentHomeView.dart';
+import 'package:necessities/actors/parent/features/parentHome/presentation/view/parentHomeView.dart';
 
 import 'actors/student/features/Splash/splash.dart';
 
