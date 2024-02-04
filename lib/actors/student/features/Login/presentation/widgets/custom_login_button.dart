@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:necessities/actors/parent/features/ParentControlPage/parentControlPage.dart';
 import 'package:necessities/constants.dart';
 import 'package:necessities/core/styles.dart';
 import 'package:necessities/actors/student/features/Home/presentation/pages/home.dart';
@@ -16,7 +17,7 @@ class CustomizedButton extends StatelessWidget {
         onTap: () {
           Navigator.of(context)
               .pushReplacement(MaterialPageRoute(builder: (context) {
-            return const ControlPage();
+            return const ParentControlPage();
           }));
         },
         child: Container(
