@@ -16,7 +16,7 @@ class ParentReportsView extends StatelessWidget {
         child: Drawerr(),
       ),
       backgroundColor: Colors.white,
-      appBar: buildAppBar(context) as PreferredSize,
+      appBar: buildParentAppBar(context) as PreferredSize,
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(

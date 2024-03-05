@@ -20,7 +20,7 @@ class _ChildInfoScreenState extends State<ChildInfoScreen>
   @override
   Widget build(BuildContext context) {
     TabController tabController = TabController(length: 4, vsync: this);
-    final double circleRadius = 120.0;
+
 
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
@@ -102,7 +102,7 @@ class _ChildInfoScreenState extends State<ChildInfoScreen>
                                 top: 55.0, ),
                             child: Column(
                               children: [
-                                SizedBox(
+                       const         SizedBox(
                                     height:
                                         15), // Adjust the height as needed
                                 Text(
@@ -111,13 +111,13 @@ class _ChildInfoScreenState extends State<ChildInfoScreen>
                                       .title
                                       .copyWith(color: primaryColor3),
                                 ),
-                                 SizedBox(
+                           const      SizedBox(
                                     height:
                                         15),
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: TabBar(
-                                    labelStyle: TextStyle(
+                                    labelStyle:const TextStyle(
                                       fontSize: 10,
                                       fontWeight: FontWeight.w300,
                                       fontFamily: 'Poppins',
@@ -128,14 +128,14 @@ class _ChildInfoScreenState extends State<ChildInfoScreen>
                                     unselectedLabelColor:
                                         Colors.grey.shade500,
                                     controller: tabController,
-                                    tabs: [
+                                    tabs: const[
                                       Tab(text: 'Profile'),
                                       Tab(text: 'Classes'),
                                       Tab(text: 'Assignments'),
                                       Tab(text: 'ExaminationsF'),
                                     ],
                                     indicatorSize: TabBarIndicatorSize.tab,
-                                    indicatorPadding: EdgeInsets.only(
+                                    indicatorPadding:const EdgeInsets.only(
                                       top: 12,
                                       bottom: 12,
                                     ),
@@ -146,11 +146,11 @@ class _ChildInfoScreenState extends State<ChildInfoScreen>
                                     ),
                                   ),
                                 ),
-                                SizedBox(height: 8,),
+                            const    SizedBox(height: 8,),
                                 Expanded(
                                   child: TabBarView(
                                     controller: tabController,
-                                    children: [
+                                    children:const [
                                       ProfileContent(),
                                       ClassesContent(),
                                       Assignment(),
@@ -162,7 +162,7 @@ class _ChildInfoScreenState extends State<ChildInfoScreen>
                             )),
                       ),
                     ),
-                    CircleAvatar(
+                const    CircleAvatar(
                       radius: 40,
                       backgroundImage:
                           AssetImage('assets/images/teacher.png'),

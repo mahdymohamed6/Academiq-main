@@ -3,9 +3,7 @@ import 'package:necessities/constants.dart';
 import 'package:necessities/actors/student/features/Assignment/presentation/pages/AssingmentView.dart';
 import 'package:necessities/actors/student/features/Classes/presentation/pages/classes.dart';
 import 'package:necessities/actors/student/features/Home/presentation/pages/home.dart';
-import 'package:necessities/actors/student/features/Notification/presentation/pages/NotificationPage.dart';
 import 'package:necessities/actors/student/features/TodoList/Presentation/pages/TodoScreen.dart';
-import 'package:necessities/widgets/custom_appbar.dart';
 
 class ChildControlPage extends StatefulWidget {
   const ChildControlPage({super.key});

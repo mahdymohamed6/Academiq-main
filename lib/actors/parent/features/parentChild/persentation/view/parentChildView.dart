@@ -18,7 +18,7 @@ class ParentChildView extends StatelessWidget {
         child: Drawerr(),
       ),
       backgroundColor: Colors.white,
-      appBar: buildAppBar(context) as PreferredSize,
+      appBar: buildParentAppBar(context) as PreferredSize,
       body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         const Padding(
           padding: EdgeInsets.symmetric(horizontal: 16),
