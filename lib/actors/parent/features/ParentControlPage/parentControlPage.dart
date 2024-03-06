@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:necessities/actors/parent/features/parentChats/persentaiont/view/parentChatsView.dart';
 import 'package:necessities/actors/parent/features/parentChild/persentation/view/parentChildView.dart';
+import 'package:necessities/actors/parent/features/parentChild/persentation/widgets/childGridViewCard.dart';
 import 'package:necessities/actors/parent/features/parentHome/presentation/view/parentHomeView.dart';
 import 'package:necessities/actors/parent/features/parentReports/persentaion/view/parentReportsView.dart';
 import 'package:necessities/constants.dart';

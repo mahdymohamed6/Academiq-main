@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:necessities/actors/parent/features/ParentControlPage/parentControlPage.dart';
+import 'package:necessities/actors/parent/features/parentChild/persentation/view/parentChildView.dart';
 import 'package:necessities/actors/parent/features/parentHome/presentation/view/parentHomeView.dart';
 
 import 'actors/student/features/Splash/splash.dart';
@@ -16,6 +18,6 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
-        home: ParentHomeView());
+        home: ParentControlPage());
   }
 }
