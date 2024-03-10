@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:necessities/actors/teacher/features/classes/presentaion/pages/posts.dart';
+import 'package:necessities/actors/teacher/features/classes/presentaion/pages/classView.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,6 +14,6 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
-        home: PostsView());
+        home: ClassView());
   }
 }
