@@ -14,7 +14,7 @@ class PostsView extends StatelessWidget {
           child: Drawerr(),
         ),
         backgroundColor: Colors.white,
-        appBar: buildTeacherAppBar(context) as PreferredSize,
+        appBar: buildTeacherAppBar(context,'Classes',true) as PreferredSize,
         body: Column());
   }
 }

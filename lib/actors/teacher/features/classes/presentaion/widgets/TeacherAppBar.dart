@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:necessities/constants.dart';
 
-Widget buildTeacherAppBar(BuildContext context) {
+Widget buildTeacherAppBar(BuildContext context, String title,bool dropDown) {
   return PreferredSize(
     preferredSize: const Size.fromHeight(90),
     child: Padding(
@@ -16,14 +16,14 @@ Widget buildTeacherAppBar(BuildContext context) {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Classes',
+              title,
               style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.w500,
                   color: primaryColor1,
                   fontFamily: 'poppins'),
             ),
-            Padding(
+            if(dropDown) Padding(
               padding: const EdgeInsets.only(left: 12.84),
               child: PopupMenuButton<String>(
                 onSelected: (String value) {

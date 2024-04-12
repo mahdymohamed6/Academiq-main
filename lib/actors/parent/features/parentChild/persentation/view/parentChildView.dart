@@ -4,20 +4,12 @@ import 'package:necessities/actors/parent/features/parentHome/presentation/widge
 import 'package:necessities/actors/parent/widgets/customizedSearchBar.dart';
 import 'package:necessities/actors/parent/widgets/appBar.dart';
 
-class ParentChildView extends StatefulWidget {
+class ParentChildView extends StatelessWidget {
   const ParentChildView({super.key});
-
-  @override
-  State<ParentChildView> createState() => _ParentChildViewState();
-}
-
-class _ParentChildViewState extends State<ParentChildView> {
-  int selectedIndex = -1;
 
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
 
     return Scaffold(
       drawer: const Drawer(
@@ -42,9 +34,14 @@ class _ParentChildViewState extends State<ParentChildView> {
             child: GridView.builder(
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: 6,
-                shrinkWrap: true,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  childAspectRatio: 0.78,
+                  crossAxisCount: 3,
+                  mainAxisSpacing: 55,
+                  crossAxisSpacing: 20,
+                ),
                 itemBuilder: (context, int index) {
-                  return const ChildGridViewCard();
+                  return const ChildGridViewCard(isSelected: true,);
                 }),
           ),
         )

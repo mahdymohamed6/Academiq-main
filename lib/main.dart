@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:necessities/actors/parent/features/parentHome/presentation/view/parentHomeView.dart';
+import 'package:necessities/actors/teacher/features/classes/presentaion/pages/Attendance.dart';
+import 'package:necessities/actors/teacher/features/classes/presentaion/pages/ExamScreen.dart';
+import 'package:necessities/actors/teacher/features/classes/presentaion/pages/TeacherControlPage/TeacherControlPage.dart';
+import 'package:necessities/actors/teacher/features/classes/presentaion/pages/posts.dart';
 
 import 'actors/student/features/Splash/splash.dart';
 
@@ -16,6 +20,6 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
-        home: PostsView());
+        home: TeacherControlPage());
   }
 }
