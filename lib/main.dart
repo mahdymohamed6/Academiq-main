@@ -3,7 +3,7 @@ import 'package:necessities/actors/parent/features/parentHome/presentation/view/
 import 'package:necessities/actors/teacher/features/classes/presentaion/pages/Attendance.dart';
 import 'package:necessities/actors/teacher/features/classes/presentaion/pages/ExamScreen.dart';
 import 'package:necessities/actors/teacher/features/classes/presentaion/pages/TeacherControlPage/TeacherControlPage.dart';
-import 'package:necessities/actors/teacher/features/classes/presentaion/pages/posts.dart';
+import 'package:necessities/actors/teacher/features/classes/presentaion/pages/classView.dart';
 
 import 'actors/student/features/Splash/splash.dart';
 

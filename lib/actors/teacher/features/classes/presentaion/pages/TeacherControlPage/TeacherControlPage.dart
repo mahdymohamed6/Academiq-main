@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:necessities/actors/teacher/features/classes/presentaion/pages/Attendance.dart';
 import 'package:necessities/actors/teacher/features/classes/presentaion/pages/ExamScreen.dart';
+import 'package:necessities/actors/teacher/features/classes/presentaion/pages/classView.dart';
 import 'package:necessities/constants.dart';
 
 class TeacherControlPage extends StatefulWidget {
@@ -15,7 +16,7 @@ class TeacherControlPage extends StatefulWidget {
 class _TeacherControlPageState extends State<TeacherControlPage> {
     int selectedIndex = 0;
   static List<Widget> screens = [
-    Center(child: Text('Classes')),
+    ClassView(),
     Center(child: Text('Grades')),
     const ExamScreen(),
     const AttendanceScreen()

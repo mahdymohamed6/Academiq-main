@@ -29,7 +29,7 @@ class _PostsViewState extends State<ClassView> {
             child: Drawerr(),
           ),
           backgroundColor: Colors.white,
-          appBar: buildTeacherAppBar(context) as PreferredSize,
+          appBar: buildTeacherAppBar(context, 'Classes', true) as PreferredSize,
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
             child: Column(
