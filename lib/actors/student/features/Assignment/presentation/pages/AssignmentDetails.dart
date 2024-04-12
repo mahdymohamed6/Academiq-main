@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:necessities/constants.dart';
-import 'package:necessities/core/styles.dart';
 import 'package:necessities/actors/student/features/Assignment/presentation/widgets/customized_button.dart';
 
 class AssignmentsDetails extends StatefulWidget {

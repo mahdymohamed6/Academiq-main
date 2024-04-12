@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:necessities/actors/student/features/Notification/presentation/pages/NotificationPage.dart';
 import 'package:necessities/constants.dart';
 import 'package:necessities/core/styles.dart';
-import 'package:necessities/actors/student/features/Classes/presentation/pages/classes.dart';
 import 'package:necessities/actors/student/features/Home/presentation/widgets/class_schedule.dart';
 import 'package:necessities/actors/student/features/Home/presentation/widgets/holidays.dart';
 import 'package:necessities/actors/student/features/Home/presentation/widgets/student_details.dart';
-import 'package:necessities/actors/student/features/TodoList/Presentation/pages/TodoScreen.dart';
 import 'package:necessities/widgets/custom_appbar.dart';
 
 class HomeScreen extends StatefulWidget {

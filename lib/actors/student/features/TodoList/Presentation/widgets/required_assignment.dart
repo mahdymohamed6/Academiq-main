@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:necessities/constants.dart';
 import 'package:necessities/actors/student/features/TodoList/Presentation/widgets/subject_details.dart';
 
 class RequiredAssignment extends StatefulWidget {

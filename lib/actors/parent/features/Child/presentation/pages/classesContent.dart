@@ -8,11 +8,11 @@ class ClassesContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
+    
     return GridView.builder(
-        physics: BouncingScrollPhysics(),
+        physics:const BouncingScrollPhysics(),
         gridDelegate:
-            SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3,
+           const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3,
             childAspectRatio: 3/2
            ),
         itemCount: 9,
@@ -50,7 +50,7 @@ class ClassesContent extends StatelessWidget {
                       Positioned(
                         top: 5,
                         left: width * 0.3 / 2 - 25,
-                        child: CircleAvatar(
+                        child:const CircleAvatar(
                           radius: 25,
                           backgroundImage:
                               AssetImage('assets/images/teacher.png'),

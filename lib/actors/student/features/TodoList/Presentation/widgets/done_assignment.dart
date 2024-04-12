@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:necessities/actors/student/features/TodoList/Presentation/widgets/subject_details.dart';
-import 'package:necessities/actors/student/features/TodoList/Presentation/widgets/required_assignment.dart';
 
 class DoneAssignment extends StatelessWidget {
   const DoneAssignment({super.key});

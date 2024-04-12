@@ -26,58 +26,29 @@ class _ParentChildViewState extends State<ParentChildView> {
         child: Drawerr(),
       ),
       backgroundColor: Colors.white,
-      appBar: buildAppBar(context) as PreferredSize,
-      body: SingleChildScrollView(
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16),
-            child: CustomizedSearchBar(
-              text: 'Search here',
-            ),
+      appBar: buildParentAppBar(context) as PreferredSize,
+      body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16),
+          child: CustomizedSearchBar(
+            text: 'Search here',
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(16),
-              ),
-              height: height * 0.7,
-              width: width*0.95,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 31, vertical: 61),
+          child: SizedBox(
+            width: double.infinity,
+            height: height * 0.45,
+            child: GridView.builder(
+                physics: const NeverScrollableScrollPhysics(),
                 itemCount: 6,
                 shrinkWrap: true,
                 itemBuilder: (context, int index) {
-                  return Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          if (selectedIndex == index) {
-                            selectedIndex = -1; // Close the expanded container
-                          } else {
-                            selectedIndex = index;
-                          }
-                        });
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(200),
-                        ),
-                        width:
-                            selectedIndex == index ? width * 0.9 : width * 0.4,
-                        child: ChildGridViewCard(
-                          isSelected: selectedIndex == index,
-                        ),
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ),
-          )
-        ]),
-      ),
+                  return const ChildGridViewCard();
+                }),
+          ),
+        )
+      ]),
     );
   }
 }

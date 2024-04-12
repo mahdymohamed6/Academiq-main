@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:necessities/actors/parent/features/ParentControlPage/parentControlPage.dart';
 import 'package:necessities/constants.dart';
 import 'package:necessities/core/styles.dart';
-import 'package:necessities/actors/student/features/Home/presentation/pages/home.dart';
-import 'package:necessities/actors/student/features/controlPage/ControlPage.dart';
 
 class CustomizedButton extends StatelessWidget {
   const CustomizedButton({
