@@ -3,7 +3,7 @@ import 'package:necessities/constants.dart';
 
 PreferredSizeWidget customAppBar(Widget title, List<Widget> action) {
   return AppBar(
-    scrolledUnderElevation: 0,
+      scrolledUnderElevation: 0,
       elevation: 0,
       centerTitle: true,
       backgroundColor: Colors.white,

@@ -54,7 +54,7 @@ class _childDetailsState extends State<childDetails>
       parent: _animationController,
       curve: Curves.easeInOut,
     ));
-  
+
     _animationController.forward();
   }
 

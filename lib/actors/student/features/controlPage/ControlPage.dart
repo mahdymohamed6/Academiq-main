@@ -15,7 +15,7 @@ class ChildControlPage extends StatefulWidget {
 class _ControlPageState extends State<ChildControlPage> {
   int selectedIndex = 0;
   static List<Widget> screens = [
-    const HomeScreen(),
+    const StudentHomeScreen(),
     const TodoScreen(),
     const Classes(),
     const AssignmentView()

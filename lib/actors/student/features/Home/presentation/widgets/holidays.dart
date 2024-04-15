@@ -33,9 +33,8 @@ class Holidays extends StatelessWidget {
               style: Style().title.copyWith(
                   shadows: [
                     Shadow(
-                      color: Colors.black.withOpacity(
-                          0.5),
-                      blurRadius: 25, 
+                      color: Colors.black.withOpacity(0.5),
+                      blurRadius: 25,
                     ),
                   ],
                   fontSize: 38,

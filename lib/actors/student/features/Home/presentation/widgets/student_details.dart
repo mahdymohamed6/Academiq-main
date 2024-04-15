@@ -24,8 +24,7 @@ class StudentDetails extends StatelessWidget {
           children: [
             Text(
               'Ahmed Mahmoud,',
-              style:
-                  Style().title.copyWith(fontWeight: FontWeight.w600),
+              style: Style().title.copyWith(fontWeight: FontWeight.w600),
             ),
             SizedBox(
               height: 10,

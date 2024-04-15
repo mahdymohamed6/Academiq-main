@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:necessities/actors/teacher/features/classes/presentaion/pages/ExamDetails.dart';
 import 'package:necessities/core/styles.dart';
@@ -11,13 +10,14 @@ class PastExams extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-        itemCount:3,
+        itemCount: 3,
         itemBuilder: (context, index) {
           return Padding(
-            padding: const EdgeInsets.only(top:16.0,left: 16,right: 16),
+            padding: const EdgeInsets.only(top: 16.0, left: 16, right: 16),
             child: GestureDetector(
-              onTap: (){
-                Navigator.of(context).push(MaterialPageRoute(builder: (context){
+              onTap: () {
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (context) {
                   return ExamDetails();
                 }));
               },
@@ -37,7 +37,9 @@ class PastExams extends StatelessWidget {
                             'Unit 1',
                             style: Style().title.copyWith(fontSize: 18),
                           ),
-                          SizedBox(width: 10,),
+                          SizedBox(
+                            width: 10,
+                          ),
                           Text(
                             '(1/1/2024)',
                             style: Style().title.copyWith(
@@ -47,8 +49,9 @@ class PastExams extends StatelessWidget {
                       ),
                       Text(
                         '20 questions',
-                        style: Style().title.copyWith(
-                            color: Color(0xff999999), fontSize: 14),
+                        style: Style()
+                            .title
+                            .copyWith(color: Color(0xff999999), fontSize: 14),
                       )
                     ],
                   ),

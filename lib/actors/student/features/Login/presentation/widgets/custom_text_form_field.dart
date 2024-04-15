@@ -6,13 +6,19 @@ class CustomizedTextFormField extends StatelessWidget {
     this.showSuffixIcon = false,
     required this.hint,
     this.obscureText = false,
+     this.controller,
+    this.validator,
   });
   final bool showSuffixIcon;
   final String hint;
   final bool obscureText;
+  final TextEditingController? controller;
+  final String? Function(String?)? validator;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+        validator: validator,
+        controller: controller,
       obscureText: obscureText,
       decoration: InputDecoration(
         contentPadding:

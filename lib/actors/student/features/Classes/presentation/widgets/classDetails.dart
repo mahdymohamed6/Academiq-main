@@ -20,7 +20,8 @@ class ClassDetails extends StatelessWidget {
             Text(
               'Arabic',
               style: TextStyle(
-                color: primaryColor1,fontWeight: FontWeight.w600,
+                color: primaryColor1,
+                fontWeight: FontWeight.w600,
                 fontSize: 20,
                 fontFamily: 'Poppins',
               ),

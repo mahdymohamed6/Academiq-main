@@ -6,11 +6,15 @@ class CustomizedTextFormFieldPass extends StatefulWidget {
     this.showSuffixIcon = false,
     required this.hint,
     this.obscureText = false,
+    this.controller,
+    this.validator,
   }) : super(key: key);
 
   final bool showSuffixIcon;
   final String hint;
   final bool obscureText;
+    final TextEditingController? controller;
+  final String? Function(String?)? validator;
   @override
   _CustomizedTextFormFieldPassState createState() =>
       _CustomizedTextFormFieldPassState();
@@ -23,6 +27,8 @@ class _CustomizedTextFormFieldPassState
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      validator: widget.validator,
+        controller: widget.controller,
       obscureText: obscureText,
       onChanged: (value) {
         setState(() {}); // Rebuild the widget when the text changes
@@ -47,18 +53,18 @@ class _CustomizedTextFormFieldPassState
         ),
         suffixIcon: widget.showSuffixIcon
             ? GestureDetector(
-              onTap: () {
-                setState(() {
-                  obscureText = !obscureText;
-                });
-              },
-              child: Icon(
-                obscureText
-                    ? Icons.remove_red_eye_outlined
-                    : Icons.remove_red_eye,
-                color: Colors.grey,
-              ),
-            )
+                onTap: () {
+                  setState(() {
+                    obscureText = !obscureText;
+                  });
+                },
+                child: Icon(
+                  obscureText
+                      ? Icons.remove_red_eye_outlined
+                      : Icons.remove_red_eye,
+                  color: Colors.grey,
+                ),
+              )
             : null,
       ),
       style: const TextStyle(

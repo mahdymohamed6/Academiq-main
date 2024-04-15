@@ -7,14 +7,14 @@ import 'package:necessities/actors/student/features/Home/presentation/widgets/ho
 import 'package:necessities/actors/student/features/Home/presentation/widgets/student_details.dart';
 import 'package:necessities/widgets/custom_appbar.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class StudentHomeScreen extends StatefulWidget {
+  const StudentHomeScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<StudentHomeScreen> createState() => _StudentHomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _StudentHomeScreenState extends State<StudentHomeScreen> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -105,10 +105,4 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-}
-
-
-
-
-
-/*  */
+} /*  */

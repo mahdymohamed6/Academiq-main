@@ -10,20 +10,20 @@ class ProfileContent extends StatelessWidget {
     double height = MediaQuery.of(context).size.height;
     return SingleChildScrollView(
       child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Container(
-            height: height,
-            width: width,
-            child: Column(
-              children: [
-                childDetails(width: width, height: height),
-                SizedBox(
-                  width: 10,
-                ),
-              ],
-            ),
+        padding: const EdgeInsets.all(8.0),
+        child: Container(
+          height: height,
+          width: width,
+          child: Column(
+            children: [
+              childDetails(width: width, height: height),
+              SizedBox(
+                width: 10,
+              ),
+            ],
           ),
         ),
+      ),
     );
   }
 }

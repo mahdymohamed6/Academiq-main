@@ -41,7 +41,9 @@ class ParentChildView extends StatelessWidget {
                   crossAxisSpacing: 20,
                 ),
                 itemBuilder: (context, int index) {
-                  return const ChildGridViewCard(isSelected: true,);
+                  return const ChildGridViewCard(
+                    isSelected: true,
+                  );
                 }),
           ),
         )

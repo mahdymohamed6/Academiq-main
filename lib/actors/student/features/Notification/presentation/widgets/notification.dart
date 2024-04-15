@@ -18,15 +18,13 @@ class NotificationContainer extends StatelessWidget {
       width: width,
       height: height * 0.1,
       child: Padding(
-        padding: const EdgeInsets.symmetric(
-            horizontal: 10, vertical: 5),
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             CircleAvatar(
               radius: 35,
-              backgroundImage:
-                  AssetImage('assets/images/woman.png'),
+              backgroundImage: AssetImage('assets/images/woman.png'),
             ),
             SizedBox(
               width: 10,
@@ -40,10 +38,10 @@ class NotificationContainer extends StatelessWidget {
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.w400,
-                      fontFamily: 'Poppins',fontSize: 15
-                    ),
+                        color: Colors.black,
+                        fontWeight: FontWeight.w400,
+                        fontFamily: 'Poppins',
+                        fontSize: 15),
                   ),
                   Text(
                     '12 hours ago',
@@ -52,9 +50,7 @@ class NotificationContainer extends StatelessWidget {
                 ],
               ),
             ),
-            IconButton(
-                onPressed: () {},
-                icon: Icon(Icons.more_horiz_outlined))
+            IconButton(onPressed: () {}, icon: Icon(Icons.more_horiz_outlined))
           ],
         ),
       ),

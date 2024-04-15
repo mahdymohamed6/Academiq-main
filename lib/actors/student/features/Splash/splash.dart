@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:necessities/constants.dart';
-import 'package:necessities/actors/student/features/Login/presentation/pages/Login.dart';
+import 'package:necessities/login/presentation/pages/login_screen.dart';
 
 class Splash extends StatefulWidget {
   const Splash({super.key});

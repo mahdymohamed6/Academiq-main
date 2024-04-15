@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 class SubjectDetails extends StatelessWidget {
@@ -14,7 +13,7 @@ class SubjectDetails extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-         Text(
+        Text(
           subjectName,
           style: TextStyle(
             color: Colors.black,

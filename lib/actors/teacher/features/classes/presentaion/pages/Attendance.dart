@@ -95,21 +95,20 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                         });
                       }
                     },
-                  
                     child: Container(
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: primaryColor1)
-                      ),
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(color: primaryColor1)),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Text(selectedDate != null
-                            ? '${selectedDate!.day}/${selectedDate!.month}/${selectedDate!.year}'
-                            : 'No date is selected ',
-                            style: Style().title.copyWith(
-                              color:primaryColor1,
-                              fontSize: 14
-                            ),),
+                        child: Text(
+                          selectedDate != null
+                              ? '${selectedDate!.day}/${selectedDate!.month}/${selectedDate!.year}'
+                              : 'No date is selected ',
+                          style: Style()
+                              .title
+                              .copyWith(color: primaryColor1, fontSize: 14),
+                        ),
                       ),
                     ),
                   ),

@@ -1,20 +1,18 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:necessities/actors/teacher/features/classes/presentaion/pages/Attendance.dart';
 import 'package:necessities/actors/teacher/features/classes/presentaion/pages/ExamScreen.dart';
 import 'package:necessities/actors/teacher/features/classes/presentaion/pages/classView.dart';
 import 'package:necessities/constants.dart';
 
-class TeacherControlPage extends StatefulWidget {
-  const TeacherControlPage({super.key});
+class TeacherHomePage extends StatefulWidget {
+  const TeacherHomePage({super.key});
 
   @override
-  State<TeacherControlPage> createState() => _TeacherControlPageState();
+  State<TeacherHomePage> createState() => _TeacherHomePageState();
 }
 
-class _TeacherControlPageState extends State<TeacherControlPage> {
-    int selectedIndex = 0;
+class _TeacherHomePageState extends State<TeacherHomePage> {
+  int selectedIndex = 0;
   static List<Widget> screens = [
     ClassView(),
     Center(child: Text('Grades')),
@@ -26,6 +24,7 @@ class _TeacherControlPageState extends State<TeacherControlPage> {
       selectedIndex = index;
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

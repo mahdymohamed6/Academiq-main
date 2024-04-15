@@ -27,21 +27,20 @@ class ClassSchedule extends StatelessWidget {
             width: 10,
           ),
           Column(
-            children: [ CircleAvatar(
+            children: [
+              CircleAvatar(
                 radius: 5,
                 child: Container(
                   decoration: BoxDecoration(
                       color: Colors.green,
-                      borderRadius:
-                          BorderRadius.circular(50)),
+                      borderRadius: BorderRadius.circular(50)),
                 ),
               ),
               Container(
-                height: height*0.1,
+                height: height * 0.1,
                 width: 1,
                 color: Colors.green,
               ),
-             
             ],
           ),
           SizedBox(
@@ -50,52 +49,46 @@ class ClassSchedule extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
                 color: Colors.grey.shade200,
-                borderRadius:
-                    BorderRadius.all(Radius.circular(15))),
+                borderRadius: BorderRadius.all(Radius.circular(15))),
             height: height * 0.1,
             child: Padding(
-              padding: const EdgeInsets.symmetric(
-                  horizontal: 10, vertical: 5),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   CircleAvatar(
                     radius: 25,
-                    backgroundImage:
-                        AssetImage('assets/images/woman.png'),
+                    backgroundImage: AssetImage('assets/images/woman.png'),
                   ),
                   SizedBox(
                     width: 10,
                   ),
                   Column(
-                    mainAxisAlignment:
-                        MainAxisAlignment.center,
-                    crossAxisAlignment:
-                        CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text('Arabic', style: Style().title),
                       SizedBox(
                         height: 5,
                       ),
                       Row(
-                        mainAxisAlignment:
-                            MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
                             'Mr Ahmed',
-                            style: Style().title.copyWith(
-                                fontSize: 16,
-                                color: Colors.grey),
+                            style: Style()
+                                .title
+                                .copyWith(fontSize: 16, color: Colors.grey),
                           ),
                           SizedBox(
                             width: 60,
                           ),
                           Text(
                             'Lab 2',
-                            style: Style().title.copyWith(
-                                fontSize: 16,
-                                color: Colors.grey),
+                            style: Style()
+                                .title
+                                .copyWith(fontSize: 16, color: Colors.grey),
                           ),
                         ],
                       ),

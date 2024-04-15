@@ -6,14 +6,14 @@ import 'package:necessities/actors/parent/features/parentHome/presentation/view/
 import 'package:necessities/actors/parent/features/parentReports/persentaion/view/parentReportsView.dart';
 import 'package:necessities/constants.dart';
 
-class ParentControlPage extends StatefulWidget {
-  const ParentControlPage({super.key});
+class ParentHomePage extends StatefulWidget {
+  const ParentHomePage({super.key});
 
   @override
-  State<ParentControlPage> createState() => _ControlPageState();
+  State<ParentHomePage> createState() => _ParentHomePageState();
 }
 
-class _ControlPageState extends State<ParentControlPage> {
+class _ParentHomePageState extends State<ParentHomePage> {
   int selectedIndex = 0;
   static List<Widget> screens = [
     const ParentHomeView(),

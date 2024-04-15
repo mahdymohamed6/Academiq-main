@@ -26,7 +26,7 @@ class _ExamScreenState extends State<ExamScreen> with TickerProviderStateMixin {
         backgroundColor: Colors.white,
         child: Drawerr(),
       ),
-      appBar: buildTeacherAppBar(context, 'Exams',true) as PreferredSize,
+      appBar: buildTeacherAppBar(context, 'Exams', true) as PreferredSize,
       body: Column(
         children: [
           TabBar(

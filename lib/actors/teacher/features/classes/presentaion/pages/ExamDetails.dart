@@ -26,7 +26,7 @@ class _ExamDetailsState extends State<ExamDetails> {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
-      appBar: buildTeacherAppBar(context, 'Exams',true) as PreferredSizeWidget,
+      appBar: buildTeacherAppBar(context, 'Exams', true) as PreferredSizeWidget,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
