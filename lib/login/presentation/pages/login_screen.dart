@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:necessities/actors/parent/features/parentHome/presentation/view/parentHomeView.dart';
+import 'package:necessities/actors/teacher/features/classes/presentaion/pages/TeacherControlPage/TeacherControlPage.dart';
 import 'package:necessities/constants.dart';
 import 'package:necessities/core/styles.dart';
 import 'package:necessities/actors/student/features/Login/presentation/widgets/custom_login_button.dart';
@@ -8,6 +10,8 @@ import 'package:necessities/actors/student/features/Login/presentation/widgets/c
 import 'package:necessities/actors/student/features/Login/presentation/widgets/custom_text_form_pass.dart';
 import 'package:necessities/injection_container.dart';
 import 'package:necessities/login/presentation/blocs/login/login_bloc.dart';
+
+import '../../../actors/student/features/controlPage/ControlPage.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -205,13 +209,48 @@ class _LoginBodyState extends State<LoginBody> {
                     if (state is LoginSuccess) {
                       ScaffoldMessenger.of(context)
                           .showSnackBar(SnackBar(content: Text('$role')));
-                      ;
+                      _redirectToRoleScreen(role);
+                      
                     }
                   }),
             ],
           ),
         ),
       ),
+    );
+  }
+  void _redirectToRoleScreen(String? role) {
+    switch (role) {
+      case 'student':
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => ChildControlPage()),
+          (route) => false,
+        );
+        break;
+      case 'teacher':
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => TeacherHomePage()),
+          (route) => false,
+        );
+        break;
+      case 'parent':
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => ParentHomeView()),
+          (route) => false,
+        );
+        break;
+      default:
+        _redirectToLogin();
+    }
+  }
+    void _redirectToLogin() {
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => LoginScreen()),
+      (route) => false,
     );
   }
 }

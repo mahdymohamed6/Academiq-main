@@ -4,6 +4,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:necessities/actors/parent/features/parentHome/presentation/view/parentHomeView.dart';
 import 'package:necessities/actors/student/features/Home/presentation/pages/home.dart';
+import 'package:necessities/actors/student/features/controlPage/ControlPage.dart';
 import 'package:necessities/actors/teacher/features/classes/presentaion/pages/TeacherControlPage/TeacherControlPage.dart';
 import 'package:necessities/login/presentation/pages/login_screen.dart';
 
@@ -29,7 +30,7 @@ class _SplashScreenState extends State<SplashScreen> {
       if (isExpired) {
         _redirectToLogin();
       } else {
-        _redirectToRoleScreen(role);
+        _redirectToLogin();
       }
     } else {
       _redirectToLogin();
@@ -49,7 +50,7 @@ class _SplashScreenState extends State<SplashScreen> {
       case 'student':
         Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: (context) => StudentHomeScreen()),
+          MaterialPageRoute(builder: (context) => ChildControlPage()),
           (route) => false,
         );
         break;
