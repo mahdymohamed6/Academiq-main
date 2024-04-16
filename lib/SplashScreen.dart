@@ -30,7 +30,7 @@ class _SplashScreenState extends State<SplashScreen> {
       if (isExpired) {
         _redirectToLogin();
       } else {
-        _redirectToLogin();
+        _redirectToRoleScreen(role);
       }
     } else {
       _redirectToLogin();

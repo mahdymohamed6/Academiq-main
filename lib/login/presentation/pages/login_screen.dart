@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:necessities/actors/parent/features/parentHome/presentation/view/parentHomeView.dart';
 import 'package:necessities/actors/teacher/features/classes/presentaion/pages/TeacherControlPage/TeacherControlPage.dart';
 import 'package:necessities/constants.dart';
@@ -109,7 +110,7 @@ class _LoginBodyState extends State<LoginBody> {
 
   @override
   Widget build(BuildContext context) {
-        var role = GetStorage().read('role');
+    var role = GetStorage().read('role');
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
@@ -209,8 +210,7 @@ class _LoginBodyState extends State<LoginBody> {
                     if (state is LoginSuccess) {
                       ScaffoldMessenger.of(context)
                           .showSnackBar(SnackBar(content: Text('$role')));
-                      _redirectToRoleScreen(role);
-                      
+                      _checkAccess();
                     }
                   }),
             ],
@@ -219,6 +219,30 @@ class _LoginBodyState extends State<LoginBody> {
       ),
     );
   }
+
+  void _checkAccess() async {
+    var token = await GetStorage().read('token');
+    var role = await GetStorage().read('role');
+    if (token != null) {
+      bool isExpired = JwtDecoder.isExpired(token);
+      if (isExpired) {
+        _redirectToLogin();
+      } else {
+        _redirectToRoleScreen(role);
+      }
+    } else {
+      _redirectToLogin();
+    }
+  }
+
+  void _redirectToLogin() {
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => LoginScreen()),
+      (route) => false,
+    );
+  }
+
   void _redirectToRoleScreen(String? role) {
     switch (role) {
       case 'student':
@@ -245,13 +269,6 @@ class _LoginBodyState extends State<LoginBody> {
       default:
         _redirectToLogin();
     }
-  }
-    void _redirectToLogin() {
-    Navigator.pushAndRemoveUntil(
-      context,
-      MaterialPageRoute(builder: (context) => LoginScreen()),
-      (route) => false,
-    );
   }
 }
 
