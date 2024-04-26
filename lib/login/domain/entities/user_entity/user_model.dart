@@ -9,8 +9,6 @@ class UserEntityModel extends Equatable {
 
   const UserEntityModel({this.message, this.token, this.user});
 
-  
-
   @override
   List<Object?> get props => [message, token, user];
 }

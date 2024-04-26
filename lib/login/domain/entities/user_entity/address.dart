@@ -7,7 +7,6 @@ class AddressEntity extends Equatable {
 
   const AddressEntity({this.street, this.city, this.state});
 
-
   @override
   List<Object?> get props => [street, city, state];
 }

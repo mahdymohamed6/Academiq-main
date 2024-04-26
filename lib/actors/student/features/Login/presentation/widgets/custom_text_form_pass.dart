@@ -13,7 +13,7 @@ class CustomizedTextFormFieldPass extends StatefulWidget {
   final bool showSuffixIcon;
   final String hint;
   final bool obscureText;
-    final TextEditingController? controller;
+  final TextEditingController? controller;
   final String? Function(String?)? validator;
   @override
   _CustomizedTextFormFieldPassState createState() =>
@@ -28,7 +28,7 @@ class _CustomizedTextFormFieldPassState
   Widget build(BuildContext context) {
     return TextFormField(
       validator: widget.validator,
-        controller: widget.controller,
+      controller: widget.controller,
       obscureText: obscureText,
       onChanged: (value) {
         setState(() {}); // Rebuild the widget when the text changes

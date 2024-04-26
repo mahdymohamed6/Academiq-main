@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:necessities/constants.dart';
 
 PreferredSizeWidget customAppBar(Widget title, List<Widget> action) {
@@ -8,7 +9,9 @@ PreferredSizeWidget customAppBar(Widget title, List<Widget> action) {
       centerTitle: true,
       backgroundColor: Colors.white,
       leading: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            // BlocProvider.of<ChildCubit>(context).getUserData();
+          },
           icon: Icon(
             Icons.menu,
             color: primaryColor1,

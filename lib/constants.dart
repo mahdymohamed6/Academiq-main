@@ -16,4 +16,4 @@ LinearGradient linearBackgroundColor = LinearGradient(
 
 String logo1 = 'assets/images/Logo1.png';
 String logo2 = 'assets/images/Logo2.png';
-final baseUrl= 'http://13.60.57.85/';
+final baseUrl = 'https://academiq.onrender.com/';

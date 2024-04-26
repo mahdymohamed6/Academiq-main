@@ -3,7 +3,6 @@ import 'package:flutter/widgets.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:necessities/actors/parent/features/parentHome/presentation/view/parentHomeView.dart';
-import 'package:necessities/actors/student/features/Home/presentation/pages/home.dart';
 import 'package:necessities/actors/student/features/controlPage/ControlPage.dart';
 import 'package:necessities/actors/teacher/features/classes/presentaion/pages/TeacherControlPage/TeacherControlPage.dart';
 import 'package:necessities/login/presentation/pages/login_screen.dart';

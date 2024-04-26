@@ -6,7 +6,6 @@ class NameEntity extends Equatable {
 
   const NameEntity({this.first, this.last});
 
- 
   @override
   List<Object?> get props => [first, last];
 }

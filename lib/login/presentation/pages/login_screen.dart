@@ -287,12 +287,6 @@ class CustomizedText extends StatelessWidget {
   }
 }
 
-
-
-
-
-
-
 /* 
 
 

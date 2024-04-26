@@ -14,8 +14,7 @@ class LoginInitial extends LoginState {
   const LoginInitial();
 }
 
-class LoginLoading extends LoginState {
-}
+class LoginLoading extends LoginState {}
 
 class LoginSuccess extends LoginState {
   const LoginSuccess(List<UserEntityModel> user) : super(users: user);

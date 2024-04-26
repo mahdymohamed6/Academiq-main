@@ -6,7 +6,7 @@ class CustomizedTextFormField extends StatelessWidget {
     this.showSuffixIcon = false,
     required this.hint,
     this.obscureText = false,
-     this.controller,
+    this.controller,
     this.validator,
   });
   final bool showSuffixIcon;
@@ -17,8 +17,8 @@ class CustomizedTextFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-        validator: validator,
-        controller: controller,
+      validator: validator,
+      controller: controller,
       obscureText: obscureText,
       decoration: InputDecoration(
         contentPadding:

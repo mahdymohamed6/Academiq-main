@@ -8,8 +8,6 @@ class ContactInformationEntity extends Equatable {
 
   const ContactInformationEntity({this.address, this.phone});
 
-
-
   @override
   List<Object?> get props => [address, phone];
 }

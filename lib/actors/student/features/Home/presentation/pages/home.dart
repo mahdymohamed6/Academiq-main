@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:necessities/actors/student/features/Home/domain/cubits/child_cubit.dart/child_cubit.dart';
 import 'package:necessities/actors/student/features/Notification/presentation/pages/NotificationPage.dart';
 import 'package:necessities/constants.dart';
 import 'package:necessities/core/styles.dart';
@@ -15,6 +17,12 @@ class StudentHomeScreen extends StatefulWidget {
 }
 
 class _StudentHomeScreenState extends State<StudentHomeScreen> {
+  @override
+  // void initState() {
+  //   super.initState();
+  //   BlocProvider.of<ChildCubit>(context).getUserData();
+  // }
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -56,32 +64,44 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
                 onTap: () {},
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 20),
-                  child: Container(
-                    decoration: BoxDecoration(
-                        color: Colors.grey.withOpacity(0.1),
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(25))),
-                    height: height * 0.06,
-                    width: width,
-                    child: Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                          child: Icon(
-                            Icons.search,
-                            color: Colors.grey.withOpacity(0.5),
+                  child: GestureDetector(
+                    onTap: () {
+                      // LoginRepositoryImpl(this._loginService).login(
+                      //     email: 'ahmedkhaleds1004@academiq.com',
+                      //     password: '23111011210121');
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: Colors.grey.withOpacity(0.1),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(25))),
+                      height: height * 0.06,
+                      width: width,
+                      child: Row(
+                        children: [
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 12.0),
+                            child: Icon(
+                              Icons.search,
+                              color: Colors.grey.withOpacity(0.5),
+                            ),
                           ),
-                        ),
-                        Text('Search here',
-                            style: Style().title.copyWith(
-                                color: Colors.grey.withOpacity(0.5),
-                                fontSize: 18)),
-                      ],
+                          Text('Search here',
+                              style: Style().title.copyWith(
+                                  color: Colors.grey.withOpacity(0.5),
+                                  fontSize: 18)),
+                        ],
+                      ),
                     ),
                   ),
                 ),
               ),
-              const StudentDetails(),
+              BlocProvider<ChildCubit>(
+                  create: (context) {
+                    return ChildCubit();
+                  },
+                  child: const StudentDetails()),
               const SizedBox(
                 height: 10,
               ),

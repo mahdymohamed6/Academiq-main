@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:necessities/SplashScreen.dart';
-import 'package:necessities/actors/parent/features/parentHome/presentation/view/parentHomeView.dart';
-import 'package:necessities/actors/teacher/features/classes/presentaion/pages/Attendance.dart';
-import 'package:necessities/actors/teacher/features/classes/presentaion/pages/ExamScreen.dart';
-import 'package:necessities/actors/teacher/features/classes/presentaion/pages/TeacherControlPage/TeacherControlPage.dart';
-import 'package:necessities/actors/teacher/features/classes/presentaion/pages/classView.dart';
+import 'package:necessities/actors/student/features/Home/presentation/pages/home.dart';
+import 'package:necessities/block_observer.dart';
+
 import 'package:necessities/injection_container.dart';
 import 'package:necessities/login/presentation/blocs/login/login_bloc.dart';
 import 'package:necessities/login/presentation/pages/login_screen.dart';
 
-import 'actors/student/features/Splash/splash.dart';
+Future<void> main() async {
+  await initializeDependencies();
+  Bloc.observer = MyBlocObserver();
 
-Future<void> main()async {
- await initializeDependencies();
   runApp(const MyApp());
 }
 
@@ -24,13 +22,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<LoginBloc>(
-          create: (context)=>sl<LoginBloc>())
+        BlocProvider<LoginBloc>(create: (context) => sl<LoginBloc>())
       ],
       child: const MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Flutter Demo',
-          home: SplashScreen()),
+          home: StudentHomeScreen()),
     );
   }
 }

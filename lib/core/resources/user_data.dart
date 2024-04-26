@@ -1,12 +1,18 @@
 import 'package:get_storage/get_storage.dart';
 
 class UserData {
-  saveData(
-      {required String token,
-      required String role,
-      }) async {
-    await GetStorage().write('token', token);
-    await GetStorage().write('role', role);
+  void saveData(
+      {required String token, required String role, required String id}) {
+    GetStorage().write('token', token);
+    GetStorage().write('role', role);
+    GetStorage().write('id', id);
+  }
 
+  String getToken() {
+    return GetStorage().read('token');
+  }
+
+  String getId() {
+    return GetStorage().read('id');
   }
 }
