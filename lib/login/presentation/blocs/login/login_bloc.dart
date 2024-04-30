@@ -4,7 +4,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/gestures.dart';
 import 'package:necessities/core/resources/data_state.dart';
 import 'package:necessities/login/domain/entities/user_entity/user.dart';
-import 'package:necessities/login/domain/entities/user_entity/user_model.dart';
+import 'package:necessities/login/domain/entities/user_entity/user_Entity.dart';
 import 'package:necessities/login/domain/usecases/LoginUseCase.dart';
 
 part 'login_event.dart';

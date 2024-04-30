@@ -8,6 +8,11 @@ class UserData {
     GetStorage().write('id', id);
   }
 
+  void DeleteData() {
+    GetStorage().remove('token');
+    GetStorage().remove('role');
+  }
+
   String getToken() {
     return GetStorage().read('token');
   }

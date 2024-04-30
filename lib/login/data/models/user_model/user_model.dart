@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:necessities/login/domain/entities/user_entity/user_model.dart';
+import 'package:necessities/login/domain/entities/user_entity/user_Entity.dart';
 
 import 'user.dart';
 

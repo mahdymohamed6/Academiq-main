@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:necessities/actors/student/features/Home/domain/cubits/child_cubit.dart/child_cubit.dart';
 import 'package:necessities/actors/student/features/Home/domain/cubits/child_cubit.dart/child_data_state.dart';
+import 'package:necessities/core/resources/user_data.dart';
 import 'package:necessities/core/styles.dart';
 
 class StudentDetails extends StatefulWidget {
@@ -80,6 +81,11 @@ class _StudentDetailsState extends State<StudentDetails> {
                   ),
                 ],
               ),
+              IconButton(
+                  onPressed: () {
+                    UserData().DeleteData();
+                  },
+                  icon: Icon(Icons.logout_outlined))
             ],
           );
         } else if (state is ChildDataStateFailure) {

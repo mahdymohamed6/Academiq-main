@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:necessities/login/domain/entities/user_entity/user.dart';
-import 'package:necessities/login/domain/entities/user_entity/user_model.dart';
+import 'package:necessities/login/domain/entities/user_entity/user_Entity.dart';
 
 import 'contact_information.dart';
 import 'name.dart';

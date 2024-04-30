@@ -27,7 +27,7 @@ class LoginRepositoryImpl extends LoginRepository {
         final gender = responseData['user']['gender'];
         final id = responseData['user']['_id'];
         print('id is $id');
-        // print(responseData);
+        print('token is $token');
         UserData().saveData(role: role, token: token, id: id);
         return DataSuccess([UserModel.fromJson(responseData)]);
       } else {

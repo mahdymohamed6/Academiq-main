@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:necessities/actors/parent/features/parentHome/presentation/widgets/parentDetails.dart';
+import 'package:necessities/core/resources/user_data.dart';
 
 class Drawerr extends StatelessWidget {
   const Drawerr({
@@ -93,29 +94,34 @@ class Drawerr extends StatelessWidget {
             thickness: 1,
           ),
         ), //mksl a3ml list view builder
-        Padding(
-          padding: const EdgeInsets.only(left: 24, top: 26),
-          child: Row(
-            children: [
-              SizedBox(
-                height: 25,
-                width: 24,
-                child: Image.asset(
-                  'assets/images/Logout.png',
-                  fit: BoxFit.fill,
+        GestureDetector(
+          onTap: () {
+            UserData().DeleteData();
+          },
+          child: Padding(
+            padding: const EdgeInsets.only(left: 24, top: 26),
+            child: Row(
+              children: [
+                SizedBox(
+                  height: 25,
+                  width: 24,
+                  child: Image.asset(
+                    'assets/images/Logout.png',
+                    fit: BoxFit.fill,
+                  ),
                 ),
-              ),
-              const Padding(
-                padding: EdgeInsets.only(left: 33),
-                child: Text(
-                  'Log out',
-                  style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w300,
-                      fontFamily: 'poppins'),
-                ),
-              ), //mksl a3ml list view builder
-            ],
+                const Padding(
+                  padding: EdgeInsets.only(left: 33),
+                  child: Text(
+                    'Log out',
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w300,
+                        fontFamily: 'poppins'),
+                  ),
+                ), //mksl a3ml list view builder
+              ],
+            ),
           ),
         ),
         const Padding(

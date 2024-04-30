@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:necessities/SplashScreen.dart';
 import 'package:necessities/actors/student/features/Home/presentation/pages/home.dart';
+import 'package:necessities/actors/student/features/TodoList/Presentation/blocs/bloc/todo_bloc.dart';
 import 'package:necessities/block_observer.dart';
 
 import 'package:necessities/injection_container.dart';
@@ -22,12 +23,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<LoginBloc>(create: (context) => sl<LoginBloc>())
+        BlocProvider<LoginBloc>(create: (context) => sl<LoginBloc>()),
+        BlocProvider(create: (context)=>TodoBloc())
       ],
       child: const MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Flutter Demo',
-          home: StudentHomeScreen()),
+          home: SplashScreen()),
     );
   }
 }

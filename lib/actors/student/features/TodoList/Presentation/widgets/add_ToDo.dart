@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
+import 'package:necessities/actors/student/features/TodoList/Presentation/blocs/bloc/todo_bloc.dart';
+import 'package:necessities/actors/student/features/TodoList/data/datasources/remote_data_source.dart';
 import 'package:necessities/constants.dart';
+import 'package:necessities/core/resources/user_data.dart';
 import 'package:necessities/core/styles.dart';
 import 'package:necessities/actors/student/features/Assignment/presentation/widgets/customized_button.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -12,12 +17,16 @@ class Todo extends StatefulWidget {
 }
 
 class _TodoState extends State<Todo> {
-  DateTime today = DateTime.now();
+  final TextEditingController titleController = TextEditingController();
+  final TextEditingController descController = TextEditingController();
+  DateTime choosenDate = DateTime.now();
   void onDaySelected(DateTime day, DateTime focusedDay) {
     setState(() {
-      today = day;
+      choosenDate = day;
     });
   }
+
+  final TodoBloc todoBloc = TodoBloc();
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +58,7 @@ class _TodoState extends State<Todo> {
                 height: 10,
               ),
               TextFormField(
+                controller: titleController,
                 decoration: InputDecoration(
                   contentPadding: EdgeInsets.symmetric(vertical: 5),
                   focusedBorder: OutlineInputBorder(
@@ -71,6 +81,7 @@ class _TodoState extends State<Todo> {
                 height: 10,
               ),
               TextFormField(
+                controller: descController,
                 decoration: InputDecoration(
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
@@ -114,10 +125,10 @@ class _TodoState extends State<Todo> {
                     weekendStyle: Style()
                         .title
                         .copyWith(fontSize: 15, color: Colors.grey)),
-                focusedDay: today,
+                focusedDay: DateTime.now(),
                 firstDay: DateTime(2015),
                 lastDay: DateTime(2030),
-                selectedDayPredicate: (day) => isSameDay(day, today),
+                selectedDayPredicate: (day) => isSameDay(day, choosenDate),
                 onDaySelected: onDaySelected,
               ),
               SizedBox(
@@ -136,14 +147,56 @@ class _TodoState extends State<Todo> {
                     ),
                   ),
                   SizedBox(width: 10),
-                  Expanded(
-                    child: CustomizedButton(
-                      text: 'Save',
-                      textColor: Colors.white,
-                      backgroundColor: primaryColor1,
-                      borderColor: primaryColor1,
-                      onTap: () {},
-                    ),
+                  BlocConsumer<TodoBloc, TodoState>(
+                    bloc: todoBloc,
+                    listener: (context, state) {
+                      if (state is TodoSuccess) {
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(SnackBar(content: Text('success')));
+                        Navigator.pop(context);
+                      } else if (state is TodoFailure) {
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(SnackBar(content: Text('failure')));
+                      }
+                    },
+                    builder: (context, state) {
+                      if (state is TodoLoading) {
+                        return Expanded(
+                            child: Center(child: CircularProgressIndicator()));
+                      } else if (state is TodoSuccess) {
+                        return CustomizedButton(
+                          text: 'Save',
+                          textColor: Colors.white,
+                          backgroundColor: primaryColor1,
+                          borderColor: primaryColor1,
+                          onTap: () {
+                            TodoListService().addTodoList(
+                              title: titleController.text,
+                              description: descController.text,
+                              schedule: choosenDate,
+                            );
+                          },
+                        );
+                      }
+                      return Expanded(
+                        child: CustomizedButton(
+                          text: 'Save',
+                          textColor: Colors.white,
+                          backgroundColor: primaryColor1,
+                          borderColor: primaryColor1,
+                          onTap: () async {
+                            
+                           print('choose date is $choosenDate ');
+
+                            todoBloc.add(addToDoList(
+                              title: titleController.text,
+                              description: descController.text,
+                              schedule: choosenDate,
+                            ));
+                          },
+                        ),
+                      );
+                    },
                   ),
                 ],
               ),

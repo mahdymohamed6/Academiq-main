@@ -1,6 +1,6 @@
 import 'package:necessities/core/resources/data_state.dart';
 import 'package:necessities/core/usecases/usecase.dart';
-import 'package:necessities/login/domain/entities/user_entity/user_model.dart';
+import 'package:necessities/login/domain/entities/user_entity/user_Entity.dart';
 import 'package:necessities/login/domain/repository/login_repository.dart';
 
 class LoginUseCase
