@@ -187,6 +187,36 @@ class _PostDetailsState extends State<PostDetails> {
                           ],
                         ),
                       ),
+                      FutureBuilder(
+                          future: DiscussionService()
+                              .getComments(postId: widget.post.id),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return Center(
+                                  child: CircularProgressIndicator(
+                                strokeWidth: 1,
+                                color: primaryColor1,
+                              ));
+                            } else if (snapshot.hasError) {
+                              return Text('Error: ${snapshot.error}');
+                            } else if (!snapshot.hasData) {
+                              return Text('No data');
+                            }
+                            final comments = snapshot.data;
+                            final comment = comments!.postComments;
+                            return ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: comment!.length,
+                                itemBuilder: (context, index) {
+                                  final postComments = comment[index];
+                                  return Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 14.0, bottom: 5),
+                                    child: Text('${postComments.content}'),
+                                  );
+                                });
+                          })
                     ],
                   ),
                 ),
