@@ -9,7 +9,6 @@ import 'package:necessities/constants.dart';
 import 'package:necessities/core/resources/user_data.dart';
 
 class TodoListService {
-class TodoListService {
   Future<http.Response> addTodoList(
       {required String title,
       required String description,
@@ -27,12 +26,8 @@ class TodoListService {
         "title": title,
         "description": description,
         'schedule': schedule.toIso8601String(),
-        "title": title,
-        "description": description,
-        'schedule': schedule.toIso8601String(),
       }),
     );
-
 
     return response;
   }
