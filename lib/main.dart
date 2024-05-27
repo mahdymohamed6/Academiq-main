@@ -24,12 +24,12 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<LoginBloc>(create: (context) => sl<LoginBloc>()),
-        BlocProvider(create: (context)=>TodoBloc())
+        BlocProvider(create: (context) => TodoBloc())
       ],
       child: const MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Flutter Demo',
-          home: SplashScreen()),
+          home: LoginScreen()),
     );
   }
 }

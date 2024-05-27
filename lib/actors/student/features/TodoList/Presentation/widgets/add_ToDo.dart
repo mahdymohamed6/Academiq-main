@@ -185,8 +185,7 @@ class _TodoState extends State<Todo> {
                           backgroundColor: primaryColor1,
                           borderColor: primaryColor1,
                           onTap: () async {
-                            
-                           print('choose date is $choosenDate ');
+                            print('choose date is $choosenDate ');
 
                             todoBloc.add(addToDoList(
                               title: titleController.text,

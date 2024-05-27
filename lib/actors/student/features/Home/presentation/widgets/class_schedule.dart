@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:necessities/actors/student/features/Home/domain/entitiy/cours_entity.dart';
 import 'package:necessities/constants.dart';
 import 'package:necessities/core/styles.dart';
 
@@ -7,8 +8,9 @@ class ClassSchedule extends StatelessWidget {
     super.key,
     required this.width,
     required this.height,
+    required this.courseEntity,
   });
-
+  final CourseEntity courseEntity;
   final double width;
   final double height;
 
@@ -20,7 +22,7 @@ class ClassSchedule extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            '12:00 Pm',
+            '${courseEntity.startDate!} pm',
             style: TextStyle(color: secondaryColor1),
           ),
           SizedBox(
@@ -51,6 +53,7 @@ class ClassSchedule extends StatelessWidget {
                 color: Colors.grey.shade200,
                 borderRadius: BorderRadius.all(Radius.circular(15))),
             height: height * 0.1,
+            width: width * 0.655,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
               child: Row(
@@ -68,7 +71,14 @@ class ClassSchedule extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Arabic', style: Style().title),
+                      Container(
+                        child: Text(
+                          courseEntity.title.toString(),
+                          style: Style().title2,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 2,
+                        ),
+                      ),
                       SizedBox(
                         height: 5,
                       ),

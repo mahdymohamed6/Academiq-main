@@ -17,7 +17,7 @@ class TodoScreen extends StatefulWidget {
 
 class _TodoScreenState extends State<TodoScreen> with TickerProviderStateMixin {
   int selectedDateIndex = 0;
- 
+
   List dayList = [
     "Mon",
     "Tue",

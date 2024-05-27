@@ -11,7 +11,7 @@ class ChildCubit extends Cubit<ChildDataState> {
     emit(ChildDataStateLoading());
 
     try {
-      childEntity = await fetchUserData();
+      // childEntity = await fetchUserData();
       emit(ChildDataStateSuccess(childEntity: childEntity!));
     } on Exception catch (e) {
       emit(ChildDataStateFailure());

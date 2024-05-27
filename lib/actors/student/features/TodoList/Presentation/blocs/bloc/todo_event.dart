@@ -12,8 +12,8 @@ class addToDoList extends TodoEvent {
   final String description;
   final DateTime schedule;
 
-  addToDoList({required this.title, required this.description,
-  required this.schedule});
+  addToDoList(
+      {required this.title, required this.description, required this.schedule});
 }
 
 class getToDoList extends TodoEvent {}

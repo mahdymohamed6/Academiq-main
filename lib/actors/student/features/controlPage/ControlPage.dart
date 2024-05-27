@@ -38,12 +38,10 @@ class _ControlPageState extends State<ChildControlPage> {
         selectedLabelStyle: TextStyle(
           color: primaryColor1,
           fontSize: 15,
-          fontFamily: 'Poppins',
         ),
         unselectedLabelStyle: TextStyle(
           color: primaryColor1,
           fontSize: 15,
-          fontFamily: 'Poppins',
         ),
         unselectedItemColor: Colors.grey,
         items: [
