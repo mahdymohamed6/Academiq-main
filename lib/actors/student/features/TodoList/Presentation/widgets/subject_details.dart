@@ -10,30 +10,33 @@ class SubjectDetails extends StatelessWidget {
   final String subjectName;
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          subjectName,
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 20,
-            fontWeight: FontWeight.w500,
-            fontFamily: 'Poppins',
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            subjectName,
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 20,
+              overflow: TextOverflow.ellipsis,
+              fontWeight: FontWeight.w500,
+              fontFamily: 'Poppins',
+            ),
           ),
-        ),
-        Text(
-          assignment,
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
-          style: TextStyle(
-            color: Colors.grey.shade600,
-            fontSize: 16,
-            fontWeight: FontWeight.w500,
-            fontFamily: 'Poppins',
+          Text(
+            assignment,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(
+              color: Colors.grey.shade600,
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+              fontFamily: 'Poppins',
+            ),
           ),
-        )
-      ],
+        ],
+      ),
     );
   }
 }

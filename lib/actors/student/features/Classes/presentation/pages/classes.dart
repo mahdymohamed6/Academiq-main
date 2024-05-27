@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:necessities/actors/student/features/Classes/data/datasources/remote_data_source.dart';
+import 'package:necessities/actors/student/features/Classes/data/models/courses/course.dart';
+import 'package:necessities/actors/student/features/Classes/data/models/courses/courses.dart';
 import 'package:necessities/constants.dart';
 import 'package:necessities/actors/student/features/Classes/presentation/widgets/classDetails.dart';
 import 'package:necessities/actors/student/features/Notification/presentation/pages/NotificationPage.dart';
@@ -51,19 +54,37 @@ class Classes extends StatelessWidget {
             indent: 20,
             endIndent: 20,
           ),
-          Expanded(
-            child: GridView.builder(
-                physics: BouncingScrollPhysics(),
-                padding: EdgeInsets.all(20),
-                itemCount: 10,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 15,
-                    mainAxisSpacing: 15),
-                itemBuilder: (context, index) {
-                  return ClassDetails();
-                }),
-          ),
+          FutureBuilder<Courses>(
+              future: CoursesService().getCourses(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(
+                      child: CircularProgressIndicator(
+                    color: primaryColor1,
+                  ));
+                } else if (snapshot.hasError) {
+                  return Text('Error: ${snapshot.error}');
+                } else if (!snapshot.hasData) {
+                  return Text('No data');
+                }
+                final courses = snapshot.data!.courses;
+                return Expanded(
+                  child: GridView.builder(
+                      physics: BouncingScrollPhysics(),
+                      padding: EdgeInsets.all(20),
+                      itemCount: courses!.length,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 15,
+                          mainAxisSpacing: 15),
+                      itemBuilder: (context, index) {
+                        final course = courses[index];
+                        return ClassDetails(
+                          courseName: course.title!,
+                        );
+                      }),
+                );
+              }),
         ],
       ),
     );

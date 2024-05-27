@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:necessities/actors/teacher/data/data_source/data_source.dart';
+import 'package:necessities/actors/teacher/data/models/discussions/discussions.dart';
 import 'package:necessities/actors/teacher/features/classes/presentaion/widgets/AddPostBar.dart';
 import 'package:necessities/actors/teacher/features/classes/presentaion/widgets/PostWidget.dart';
 import 'package:necessities/actors/teacher/features/classes/presentaion/widgets/PostsShowModalBottomSheetChild.dart';
+import 'package:necessities/constants.dart';
 
 class PostsView extends StatelessWidget {
   const PostsView({Key? key}) : super(key: key);
@@ -28,18 +31,36 @@ class PostsView extends StatelessWidget {
           ),
         ),
         Expanded(
-          child: ListView.builder(
-            itemCount: texts.length,
-            itemBuilder: (BuildContext context, int index) {
-              return Column(
-                children: <Widget>[
-                  PostWidget(
-                    text: texts[index],
-                  ),
-                ],
-              );
-            },
-          ),
+          child: FutureBuilder<Discussions>(
+              future: DiscussionService()
+                  .getDisucssion(courseId: '66478b55f7f1e51644381c88'),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(
+                      child: CircularProgressIndicator(
+                    color: primaryColor1,
+                  ));
+                } else if (snapshot.hasError) {
+                  return Text('Error: ${snapshot.error}');
+                } else if (!snapshot.hasData) {
+                  return Text('No data');
+                }
+                final discussions = snapshot.data!;
+                final posts = discussions.discussion!.posts;
+                return ListView.builder(
+                  itemCount: posts!.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    final discussion = discussions.discussion!.posts![index];
+                    return Column(
+                      children: <Widget>[
+                        PostWidget(
+                          post: discussion,
+                        ),
+                      ],
+                    );
+                  },
+                );
+              }),
         )
       ],
     );

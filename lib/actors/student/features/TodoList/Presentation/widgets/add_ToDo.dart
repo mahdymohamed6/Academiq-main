@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:necessities/actors/student/features/TodoList/Presentation/blocs/bloc/todo_bloc.dart';
 import 'package:necessities/actors/student/features/TodoList/data/datasources/remote_data_source.dart';
 import 'package:necessities/constants.dart';
@@ -9,27 +9,51 @@ import 'package:necessities/core/styles.dart';
 import 'package:necessities/actors/student/features/Assignment/presentation/widgets/customized_button.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-class Todo extends StatefulWidget {
-  const Todo({super.key});
-
+class AddToTodo extends StatefulWidget {
+  const AddToTodo(
+      {super.key,
+      required this.title,
+      required this.description,
+      required this.schedule,
+      required this.id});
+  final String title;
+  final String id;
+  final String description;
+  final DateTime schedule;
   @override
-  State<Todo> createState() => _TodoState();
+  State<AddToTodo> createState() => _AddToTodoState();
 }
 
-class _TodoState extends State<Todo> {
-  final TextEditingController titleController = TextEditingController();
-  final TextEditingController descController = TextEditingController();
-  DateTime choosenDate = DateTime.now();
+class _AddToTodoState extends State<AddToTodo> {
+  late TextEditingController titleController = TextEditingController();
+  late TextEditingController descController = TextEditingController();
+  late DateTime choosenDate = DateTime.now();
+  bool isEditMode = true;
+
   void onDaySelected(DateTime day, DateTime focusedDay) {
     setState(() {
       choosenDate = day;
     });
   }
 
+  @override
+  void initState() {
+    super.initState();
+    // Initialize controllers and choosenDate based on whether title and description are empty
+    titleController = TextEditingController(
+        text: widget.title.isNotEmpty ? widget.title : null);
+    descController = TextEditingController(
+        text: widget.description.isNotEmpty ? widget.description : null);
+    choosenDate = widget.schedule;
+    isEditMode = widget.title.isNotEmpty && widget.description.isNotEmpty;
+  }
+
   final TodoBloc todoBloc = TodoBloc();
 
   @override
   Widget build(BuildContext context) {
+    final token = GetStorage().read('token');
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
@@ -125,7 +149,7 @@ class _TodoState extends State<Todo> {
                     weekendStyle: Style()
                         .title
                         .copyWith(fontSize: 15, color: Colors.grey)),
-                focusedDay: DateTime.now(),
+                focusedDay: widget.schedule,
                 firstDay: DateTime(2015),
                 lastDay: DateTime(2030),
                 selectedDayPredicate: (day) => isSameDay(day, choosenDate),
@@ -164,35 +188,53 @@ class _TodoState extends State<Todo> {
                         return Expanded(
                             child: Center(child: CircularProgressIndicator()));
                       } else if (state is TodoSuccess) {
-                        return CustomizedButton(
-                          text: 'Save',
-                          textColor: Colors.white,
-                          backgroundColor: primaryColor1,
-                          borderColor: primaryColor1,
-                          onTap: () {
-                            TodoListService().addTodoList(
-                              title: titleController.text,
-                              description: descController.text,
-                              schedule: choosenDate,
-                            );
-                          },
+                        return Expanded(
+                          child: CustomizedButton(
+                            text: isEditMode ? 'Update' : 'Save',
+                            textColor: Colors.white,
+                            backgroundColor: primaryColor1,
+                            borderColor: primaryColor1,
+                            onTap: () async {
+                              if (isEditMode) {
+                                todoBloc.add(updateToDoList(
+                                  id: widget.id,
+                                  title: titleController.text,
+                                  description: descController.text,
+                                  schedule: choosenDate,
+                                ));
+                              }
+                              todoBloc.add(addToDoList(
+                                title: titleController.text,
+                                description: descController.text,
+                                schedule: choosenDate,
+                              ));
+                            },
+                          ),
                         );
                       }
                       return Expanded(
                         child: CustomizedButton(
-                          text: 'Save',
+                          text: isEditMode ? 'Update' : 'Save',
                           textColor: Colors.white,
                           backgroundColor: primaryColor1,
                           borderColor: primaryColor1,
                           onTap: () async {
-                            
-                           print('choose date is $choosenDate ');
+                            if (isEditMode) {
+                              todoBloc.add(updateToDoList(
+                                id: widget.id,
+                                title: titleController.text,
+                                description: descController.text,
+                                schedule: choosenDate,
+                              ));
+                            } else {
+                              todoBloc.add(addToDoList(
+                                title: titleController.text,
+                                description: descController.text,
+                                schedule: choosenDate,
+                              ));
+                            }
 
-                            todoBloc.add(addToDoList(
-                              title: titleController.text,
-                              description: descController.text,
-                              schedule: choosenDate,
-                            ));
+                            print('choose date is $choosenDate ');
                           },
                         ),
                       );

@@ -1,12 +1,12 @@
-import 'package:equatable/equatable.dart';
+/* import 'package:equatable/equatable.dart';
 
 import 'todo.dart';
 
 class TodoEntityModel extends Equatable {
   final String? message;
-  final TodoEntity? todo;
+  final TodoEntity? todos;
 
-  const TodoEntityModel({this.message, this.todo});
+  const TodoEntityModel({this.message, this.todos});
 /* 
   factory TodoEntityModel.fromJson(Map<String, dynamic> json) => TodoEntityModel(
         message: json['message'] as String?,
@@ -21,5 +21,6 @@ class TodoEntityModel extends Equatable {
       }; */
 
   @override
-  List<Object?> get props => [message, todo];
+  List<Object?> get props => [message, todos];
 }
+ */

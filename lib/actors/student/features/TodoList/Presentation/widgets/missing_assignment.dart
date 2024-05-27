@@ -3,7 +3,9 @@ import 'package:necessities/constants.dart';
 import 'package:necessities/actors/student/features/TodoList/Presentation/widgets/subject_details.dart';
 
 class MissingAssignment extends StatelessWidget {
-  const MissingAssignment({super.key});
+  const MissingAssignment({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -24,12 +26,9 @@ class MissingAssignment extends StatelessWidget {
               width: 15,
             ),
             Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 23),
-                child: SubjectDetails(
-                  assignment: 'Assignment. no2 tutorial ',
-                  subjectName: 'Arabic',
-                ),
+              child: SubjectDetails(
+                assignment: 'arabbb',
+                subjectName: 'dassad',
               ),
             )
           ],

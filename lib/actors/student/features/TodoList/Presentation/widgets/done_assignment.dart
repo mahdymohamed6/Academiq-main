@@ -25,12 +25,9 @@ class DoneAssignment extends StatelessWidget {
               width: 15,
             ),
             Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 23),
-                child: SubjectDetails(
-                  assignment: 'Assignment. no2 tutorial ',
-                  subjectName: 'Arabic',
-                ),
+              child: SubjectDetails(
+                assignment: 'Assignment. no2 tutorial ',
+                subjectName: 'Arabic',
               ),
             )
           ],

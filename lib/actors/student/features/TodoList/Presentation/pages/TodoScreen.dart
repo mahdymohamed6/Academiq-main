@@ -1,4 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:necessities/actors/student/features/TodoList/Presentation/blocs/bloc/todo_bloc.dart';
+import 'package:necessities/actors/student/features/TodoList/Presentation/widgets/TodoItem.dart';
+import 'package:necessities/actors/student/features/TodoList/Presentation/widgets/subject_details.dart';
+import 'package:necessities/actors/student/features/TodoList/data/datasources/remote_data_source.dart';
+import 'package:necessities/actors/student/features/TodoList/data/models/todo_model/todo_model.dart';
+
 import 'package:necessities/constants.dart';
 import 'package:necessities/core/styles.dart';
 import 'package:necessities/actors/student/features/TodoList/Presentation/widgets/add_ToDo.dart';
@@ -7,6 +15,7 @@ import 'package:necessities/actors/student/features/TodoList/Presentation/widget
 import 'package:necessities/actors/student/features/TodoList/Presentation/widgets/progress_bar.dart';
 import 'package:necessities/actors/student/features/TodoList/Presentation/widgets/required_assignment.dart';
 import 'package:necessities/widgets/custom_appbar.dart';
+import 'package:intl/intl.dart';
 
 class TodoScreen extends StatefulWidget {
   const TodoScreen({super.key});
@@ -17,27 +26,34 @@ class TodoScreen extends StatefulWidget {
 
 class _TodoScreenState extends State<TodoScreen> with TickerProviderStateMixin {
   int selectedDateIndex = 0;
- 
-  List dayList = [
-    "Mon",
-    "Tue",
-    "Wed",
-    "Thu",
-    "Fri",
-    "Sat",
-  ];
-  List dateList = [
-    "26",
-    "27",
-    "28",
-    "29",
-    "30",
-    "31",
-  ];
+
+  List<DateTime> dateList = [];
+  String getFormattedDate(DateTime date) =>
+      DateFormat('yyyy-MM-dd').format(date);
+
+  void _generateDateList() {
+    DateTime startDate = DateTime.now();
+    for (int i = 0; i < 15; i++) {
+      dateList.add(startDate.add(Duration(days: i)));
+    }
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    _generateDateList();
+
+    // TODO: implement initState
+    super.initState();
+  }
+
+  bool isPressed = false;
+  final TodoBloc todoBloc = TodoBloc();
 
   @override
   Widget build(BuildContext context) {
     TabController tabController = TabController(length: 3, vsync: this);
+    final token = GetStorage().read('token');
 
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
@@ -70,11 +86,13 @@ class _TodoScreenState extends State<TodoScreen> with TickerProviderStateMixin {
                       ),
                       context: context,
                       builder: (context) {
-                        return const Todo();
+                        return AddToTodo(
+                          id: '',
+                          title: '',
+                          description: '',
+                          schedule: DateTime.now(),
+                        );
                       });
-                  /*   Navigator.of(context).push(MaterialPageRoute(builder: (context){
-                    return Todo();
-                  })); */
                 },
                 icon: const Icon(Icons.add_box),
                 color: primaryColor1,
@@ -120,21 +138,13 @@ class _TodoScreenState extends State<TodoScreen> with TickerProviderStateMixin {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            dayList[index],
+                            getFormattedDate(dateList[index]),
                             style: Style().title.copyWith(
                                   color: selectedDateIndex == index
                                       ? Colors.white
                                       : Colors.grey,
-                                  fontSize: 16.0,
-                                ),
-                          ),
-                          Text(
-                            dateList[index],
-                            style: Style().title.copyWith(
-                                  color: selectedDateIndex == index
-                                      ? Colors.white
-                                      : Colors.grey,
-                                  fontSize: 16.0,
+                                  fontSize:
+                                      selectedDateIndex == index ? 15 : 12,
                                 ),
                           ),
                         ],
@@ -182,34 +192,108 @@ class _TodoScreenState extends State<TodoScreen> with TickerProviderStateMixin {
                     const SizedBox(
                       height: 16,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 16, vertical: 10),
-                      child: Text(
-                        'Your Progress !',
-                        style: TextStyle(
-                          color: Colors.grey.shade900,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w200,
-                          fontFamily: 'Poppins',
-                        ),
-                      ),
-                    ),
+                    /* 
                     const ProgressBar(
                       progress: 50,
-                    ),
+                    ), */
                     const SizedBox(
                       height: 16,
                     ),
                     Expanded(
-                      child: ListView.builder(
-                        physics: const BouncingScrollPhysics(),
-                        scrollDirection: Axis.vertical,
-                        itemCount: 10,
-                        itemBuilder: (context, index) {
-                          return const Padding(
-                            padding: EdgeInsets.only(bottom: 12),
-                            child: RequiredAssignment(),
+                      child: FutureBuilder<TodoModel>(
+                        future: TodoListService().getTodo(
+                          token: token,
+                          date: getFormattedDate(dateList[selectedDateIndex]),
+                        ),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return Center(
+                                child: CircularProgressIndicator(
+                              color: primaryColor1,
+                            ));
+                          } else if (snapshot.hasError) {
+                            return Text('Error: ${snapshot.error}');
+                          } else if (!snapshot.hasData) {
+                            return Text('No data');
+                          }
+
+                          final allTodos = snapshot.data!;
+                          final todoList = allTodos.todos?.todo;
+                          final assessmentTodosList =
+                              allTodos.todos?.assessmentTodos;
+
+                          return ListView(
+                            children: [
+                              if (todoList == null || todoList.isEmpty)
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Center(
+                                      child: Text(
+                                        'Add To Your ToDo By Clicking on the Icon ',
+                                        style: Style()
+                                            .title
+                                            .copyWith(fontSize: 14),
+                                      ),
+                                    ),
+                                    Icon(
+                                      Icons.add_box,
+                                      color: primaryColor1,
+                                    )
+                                  ],
+                                ),
+                              if (todoList != null && todoList.isNotEmpty)
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Todos:',
+                                        style: Style()
+                                            .title
+                                            .copyWith(color: primaryColor1),
+                                      ),
+                                      ...todoList.map((todo) {
+                                        return TodoItem(
+                                          todo: todo,
+                                          todoBloc: todoBloc,
+                                        );
+                                      }).toList(),
+                                    ],
+                                  ),
+                                ),
+                              if (assessmentTodosList != null &&
+                                  assessmentTodosList.isNotEmpty)
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Assessment Todos:',
+                                        style: Style()
+                                            .title
+                                            .copyWith(color: primaryColor1),
+                                      ),
+                                      ...assessmentTodosList
+                                          .map((assessmentTodo) {
+                                        return RequiredAssignment(
+                                          createdAt: assessmentTodo
+                                              .assessmentSchedule?.startDate,
+                                          id: '',
+                                          title: assessmentTodo.title!,
+                                          description:
+                                              assessmentTodo.description ?? '',
+                                        );
+                                      }).toList(),
+                                    ],
+                                  ),
+                                ),
+                            ],
                           );
                         },
                       ),

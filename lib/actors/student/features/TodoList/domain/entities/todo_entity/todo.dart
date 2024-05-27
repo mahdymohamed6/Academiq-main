@@ -1,4 +1,4 @@
-import 'package:equatable/equatable.dart';
+/* import 'package:equatable/equatable.dart';
 
 class TodoEntity extends Equatable {
   final String? studentId;
@@ -38,3 +38,4 @@ class TodoEntity extends Equatable {
     ];
   }
 }
+ */
