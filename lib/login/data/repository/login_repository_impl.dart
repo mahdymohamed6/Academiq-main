@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:necessities/core/resources/data_state.dart';
 import 'package:necessities/core/resources/user_data.dart';
 import 'package:necessities/login/data/data_source/remote/login_service.dart';
@@ -26,8 +27,9 @@ class LoginRepositoryImpl extends LoginRepository {
         // ignore: unused_local_variable
         final gender = responseData['user']['gender'];
         final id = responseData['user']['_id'];
-        print('id is $id');
-        print('token is $token');
+        // print('id is $id');
+        // print('token is $token');
+        GetStorage().write('id', id);
         UserData().saveData(role: role, token: token, id: id);
         return DataSuccess([UserModel.fromJson(responseData)]);
       } else {

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:necessities/actors/student/features/Home/domain/cubits/child_cubit.dart/child_cubit.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:necessities/actors/student/features/Home/data/data_source/gat_user_service.dart';
+import 'package:necessities/actors/student/features/Home/data/data_source/get_student_courses.dart';
+import 'package:necessities/actors/student/features/Home/domain/entitiy/child_entity.dart';
+import 'package:necessities/actors/student/features/Home/domain/entitiy/cours_entity.dart';
 import 'package:necessities/actors/student/features/Notification/presentation/pages/NotificationPage.dart';
 import 'package:necessities/constants.dart';
 import 'package:necessities/core/styles.dart';
@@ -17,11 +20,33 @@ class StudentHomeScreen extends StatefulWidget {
 }
 
 class _StudentHomeScreenState extends State<StudentHomeScreen> {
+  List<CourseEntity> _coursesList = [];
+  String id = GetStorage().read('id');
+
+  ChildEntity childEntity = ChildEntity(
+      id: '',
+      fristName: '',
+      secondtName: '',
+      motherId: '',
+      fatherId: '',
+      userName: '',
+      userId: '');
   @override
-  // void initState() {
-  //   super.initState();
-  //   BlocProvider.of<ChildCubit>(context).getUserData();
-  // }
+  void initState() {
+    super.initState();
+    getStudentCourse();
+    getUserInfo();
+  }
+
+  Future<void> getStudentCourse() async {
+    _coursesList = await getStudentCourses();
+    setState(() {});
+  }
+
+  Future<void> getUserInfo() async {
+    childEntity = await fetchUserData(id: id);
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,9 +91,7 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
                   padding: const EdgeInsets.symmetric(vertical: 20),
                   child: GestureDetector(
                     onTap: () {
-                      // LoginRepositoryImpl(this._loginService).login(
-                      //     email: 'ahmedkhaleds1004@academiq.com',
-                      //     password: '23111011210121');
+                      getStudentCourses();
                     },
                     child: Container(
                       decoration: BoxDecoration(
@@ -97,11 +120,9 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
                   ),
                 ),
               ),
-              BlocProvider<ChildCubit>(
-                  create: (context) {
-                    return ChildCubit();
-                  },
-                  child: const StudentDetails()),
+              StudentDetails(
+                childEntity: childEntity,
+              ),
               const SizedBox(
                 height: 10,
               ),
@@ -115,9 +136,13 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
               ListView.builder(
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
-                  itemCount: 8,
+                  itemCount: _coursesList.length,
                   itemBuilder: (context, index) {
-                    return ClassSchedule(width: width, height: height);
+                    return ClassSchedule(
+                      width: width,
+                      height: height,
+                      courseEntity: _coursesList[index],
+                    );
                   })
             ],
           ),
