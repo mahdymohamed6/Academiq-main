@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:necessities/actors/student/features/Assignment/domain/entities/assignment_entity.dart';
 import 'package:necessities/actors/student/features/Assignment/presentation/models/assigment_state_model.dart';
 import 'package:necessities/actors/student/features/Assignment/presentation/pages/AssignmentDetails.dart';
 
@@ -6,13 +8,16 @@ class AssignmentListViewItem extends StatelessWidget {
   const AssignmentListViewItem({
     super.key,
     required this.selectedStat,
+    required this.assignmentEntity,
   });
   final AssignmentStatModel selectedStat;
+  final AssignmentEntity assignmentEntity;
+
   @override
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width,
-      height: 120,
+      height: 130,
       decoration: BoxDecoration(
         color: (selectedStat.nonActiveColor == Colors.transparent)
             ? const Color(0xFFE5F1F8)
@@ -23,28 +28,28 @@ class AssignmentListViewItem extends StatelessWidget {
         padding: const EdgeInsets.all(18.0),
         child: Column(
           children: [
-            const Row(
+            Row(
               children: [
                 Text(
-                  'Arabic',
-                  style: TextStyle(
+                  assignmentEntity.title!,
+                  style: const TextStyle(
                       fontFamily: 'Poppins',
                       fontSize: 18,
                       fontWeight: FontWeight.normal,
                       color: Color(0xFF000000)),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 12,
                 ),
-                Text(
-                  'M.Nada ahmed',
-                  style: TextStyle(
-                      fontFamily: 'Poppins',
-                      fontSize: 12,
-                      fontWeight: FontWeight.normal,
-                      color: Color(0xFF858585)),
-                ),
-                Spacer(),
+                // const Text(
+                //   'M.Nada ahmed',
+                //   style: TextStyle(
+                //       fontFamily: 'Poppins',
+                //       fontSize: 12,
+                //       fontWeight: FontWeight.normal,
+                //       color: Color(0xFF858585)),
+                // ),
+                const Spacer(),
                 Text(
                   '8:00 PM',
                   style: TextStyle(
@@ -60,10 +65,10 @@ class AssignmentListViewItem extends StatelessWidget {
             ),
             Row(
               children: [
-                Container(
+                SizedBox(
                   width: 250.0,
-                  child: const Text(
-                    'I want to view the titles of tasks or assignments assigned by my teachers for todays homework...',
+                  child: Text(
+                    assignmentEntity.description ?? 'No description',
                     style: TextStyle(color: Color(0xFF454647)),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
@@ -76,7 +81,9 @@ class AssignmentListViewItem extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const AssignmentsDetails()),
+                          builder: (context) => AssignmentsDetails(
+                                assignmentEntity: assignmentEntity,
+                              )),
                     );
                     // Your other onTap logic here
                   },
@@ -104,7 +111,14 @@ class AssignmentListViewItem extends StatelessWidget {
                   ),
                 )
               ],
-            )
+            ),
+            Text(
+                selectedStat.text == 'Overdue'
+                    ? assignmentEntity.isSubmitted == null
+                        ? 'not submitted'
+                        : 'submitted'
+                    : '',
+                style: TextStyle(color: Colors.green))
           ],
         ),
       ),

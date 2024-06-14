@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:necessities/actors/student/features/Notification/data/models/notification_model/notification_model.dart';
 import 'package:necessities/constants.dart';
 
 class NotificationContainer extends StatelessWidget {
@@ -6,10 +7,12 @@ class NotificationContainer extends StatelessWidget {
     super.key,
     required this.width,
     required this.height,
+    required this.notificationModel,
   });
 
   final double width;
   final double height;
+  final NotificationModel notificationModel;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +37,7 @@ class NotificationContainer extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Description I want to easily view the titles of tasks or assignments assigned by my teachers .',
+                    notificationModel.message!,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
@@ -44,7 +47,7 @@ class NotificationContainer extends StatelessWidget {
                         fontSize: 15),
                   ),
                   Text(
-                    '12 hours ago',
+                    "${notificationModel.date!.day.toString()} days ago",
                     style: TextStyle(color: Colors.grey),
                   ),
                 ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:necessities/actors/student/features/Notification/presentation/pages/NotificationPage.dart';
 import 'package:necessities/constants.dart';
 
 Widget buildTeacherAppBar(BuildContext context, String title, bool dropDown) {
@@ -53,9 +54,14 @@ Widget buildTeacherAppBar(BuildContext context, String title, bool dropDown) {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.notifications),
-          ),
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+                return NotificationPage();
+              }));
+            },
+            icon: Icon(Icons.notifications),
+            color: primaryColor1,
+          )
         ],
       ),
     ),

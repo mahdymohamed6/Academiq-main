@@ -6,9 +6,11 @@ class AssignmentStatModel {
   final Color activationTextColor;
   final Color nonActiveTextColor;
   final String text;
+  final String status;
 
   const AssignmentStatModel(
-      {required this.activationColor,
+      {required this.status,
+      required this.activationColor,
       required this.nonActiveColor,
       required this.activationTextColor,
       required this.nonActiveTextColor,

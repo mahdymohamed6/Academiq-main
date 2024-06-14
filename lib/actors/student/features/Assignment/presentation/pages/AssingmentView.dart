@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:necessities/actors/student/features/Assignment/data/service/assignment_service.dart';
+import 'package:necessities/actors/student/features/Assignment/domain/entities/assignment_entity.dart';
 import 'package:necessities/actors/student/features/Assignment/presentation/models/assigment_state_model.dart';
 import 'package:necessities/actors/student/features/Assignment/presentation/widgets/assignment_list_view.dart';
 
@@ -19,7 +21,20 @@ class _AssignmentViewState extends State<AssignmentView> {
     activationTextColor: Colors.transparent,
     nonActiveTextColor: Colors.transparent,
     text: '',
+    status: '',
   );
+
+  Future<List<AssignmentEntity>>? _assignmentsFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _assignmentsFuture = getStudentAssignments();
+  }
+
+  Future<List<AssignmentEntity>> getStudentAssignments() async {
+    return await AssignmentService().getAssignments();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,9 +58,40 @@ class _AssignmentViewState extends State<AssignmentView> {
             const SizedBox(
               height: 20,
             ),
-            AssignmentListView(
-              selectedStat: selectedStat,
-            )
+            FutureBuilder(
+              future: _assignmentsFuture,
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.28,
+                      ),
+                      Center(
+                        child: CircularProgressIndicator(
+                          color: Colors.blue,
+                        ),
+                      ),
+                    ],
+                  );
+                } else if (snapshot.hasData) {
+                  List<AssignmentEntity> assignments = snapshot.data!;
+                  if (assignments.isEmpty) {
+                    return const Center(
+                      child: Text('There are no assignments.'),
+                    );
+                  } else {
+                    return AssignmentListView(
+                      selectedStat: selectedStat,
+                      AssignmentList: assignments,
+                    );
+                  }
+                } else {
+                  return Text('Error: ${snapshot.error}');
+                }
+              },
+            ),
           ],
         ),
       ),
