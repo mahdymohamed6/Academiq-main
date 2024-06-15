@@ -4,8 +4,9 @@ import 'package:necessities/actors/parent/features/parentHome/presentation/widge
 class ChildAvtivitesCard extends StatelessWidget {
   const ChildAvtivitesCard({
     super.key,
+    required this.text,
   });
-
+  final String text;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -25,23 +26,23 @@ class ChildAvtivitesCard extends StatelessWidget {
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
               color: const Color.fromRGBO(246, 246, 246, 1)),
-          child: const Row(
+          child: Row(
             children: [
-              AvtarStack(),
+              const AvtarStack(),
               Padding(
-                padding: EdgeInsets.only(left: 15, top: 10),
+                padding: const EdgeInsets.only(left: 15, top: 10),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Arabic',
-                      style: TextStyle(
+                      text,
+                      style: const TextStyle(
                           fontFamily: 'Poppins',
                           fontSize: 16,
                           fontWeight: FontWeight.w400,
                           color: Color.fromRGBO(0, 0, 0, 1)),
                     ),
-                    Padding(
+                    const Padding(
                       padding: EdgeInsets.only(top: 1),
                       child: Text(
                         'Wade Warren',
