@@ -52,7 +52,7 @@ class _ParentReportsViewState extends State<ParentReportsView> {
             if (_isLoading)
               Center(
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 150),
+                  padding: const EdgeInsets.only(top: 290),
                   child: CircularProgressIndicator(
                     color: primaryColor1,
                   ),
