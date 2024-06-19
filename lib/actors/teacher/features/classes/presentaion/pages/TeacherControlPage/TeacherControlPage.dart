@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:necessities/actors/teacher/features/classes/presentaion/pages/Attendance.dart';
 import 'package:necessities/actors/teacher/features/classes/presentaion/pages/ExamScreen.dart';
 import 'package:necessities/actors/teacher/features/classes/presentaion/pages/classView.dart';
+import 'package:necessities/actors/teacher/features/classes/presentaion/pages/gradesView.dart';
 import 'package:necessities/constants.dart';
 
 class TeacherHomePage extends StatefulWidget {
-  const TeacherHomePage({super.key});
+  const TeacherHomePage({super.key, this.courseId, this.gradeClassId});
+  final courseId;
+  final gradeClassId;
 
   @override
   State<TeacherHomePage> createState() => _TeacherHomePageState();
@@ -13,12 +16,22 @@ class TeacherHomePage extends StatefulWidget {
 
 class _TeacherHomePageState extends State<TeacherHomePage> {
   int selectedIndex = 0;
-  static List<Widget> screens = [
-    ClassView(),
-    Center(child: Text('Grades')),
-    const ExamScreen(),
-    const AttendanceScreen()
-  ];
+  late List<Widget> screens;
+
+  @override
+  void initState() {
+    super.initState();
+    screens = [
+      ClassView(
+        courseId: widget.courseId,
+        gradeClassId: widget.gradeClassId,
+      ),
+      const GradesView(),
+      const ExamScreen(),
+      const AttendanceScreen(),
+    ];
+  }
+
   void onItemTapped(int index) {
     setState(() {
       selectedIndex = index;

@@ -10,8 +10,9 @@ class childDetails extends StatefulWidget {
     super.key,
     required this.width,
     required this.height,
+    this.child,
   });
-
+  final child;
   final double width;
   final double height;
 
@@ -30,8 +31,8 @@ class _childDetailsState extends State<childDetails>
   void initState() {
     super.initState();
 
-    _animationController =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 800));
+    _animationController = AnimationController(
+        vsync: this, duration: Duration(milliseconds: 1500));
 
     _nameAnimation = Tween<Offset>(
       begin: Offset(-1.0, 0.0),
@@ -91,7 +92,8 @@ class _childDetailsState extends State<childDetails>
                       ),
                       Container(
                         child: Expanded(
-                          child: Text('Jane Cooper',
+                          child: Text(
+                              '${widget.child.name.first} ${widget.child.name.last}',
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: Style()
@@ -119,14 +121,14 @@ class _childDetailsState extends State<childDetails>
                   child: Row(
                     children: [
                       Container(
-                        child: Text('Grad: ',
+                        child: Text('Points: ',
                             style: Style()
                                 .title
                                 .copyWith(color: primaryColor3, fontSize: 18)),
                       ),
                       Container(
                         child: Expanded(
-                          child: Text('Binaries',
+                          child: Text('${widget.child.points}',
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: Style()
@@ -184,7 +186,9 @@ class _childDetailsState extends State<childDetails>
         SizedBox(
           width: 10,
         ),
-        SlideTransition(position: _familyAnimation, child: FamilyDetails())
+        SlideTransition(
+            position: _familyAnimation,
+            child: FamilyDetails(child: widget.child))
       ],
     );
   }

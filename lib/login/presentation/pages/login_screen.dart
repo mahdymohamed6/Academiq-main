@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
+import 'package:necessities/actors/parent/features/ParentControlPage/parentControlPage.dart';
 import 'package:necessities/actors/parent/features/parentHome/presentation/view/parentHomeView.dart';
 import 'package:necessities/actors/student/features/Home/data/data_source/get_student_courses.dart';
 import 'package:necessities/actors/teacher/features/classes/presentaion/pages/TeacherControlPage/TeacherControlPage.dart';
+import 'package:necessities/actors/teacher/features/classes/presentaion/pages/teacherClasses.dart';
 import 'package:necessities/constants.dart';
 import 'package:necessities/core/styles.dart';
 import 'package:necessities/actors/student/features/Login/presentation/widgets/custom_login_button.dart';
@@ -256,14 +258,14 @@ class _LoginBodyState extends State<LoginBody> {
       case 'teacher':
         Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: (context) => TeacherHomePage()),
+          MaterialPageRoute(builder: (context) => TeacherClasses()),
           (route) => false,
         );
         break;
       case 'parent':
         Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: (context) => ParentHomeView()),
+          MaterialPageRoute(builder: (context) => ParentHomePage()),
           (route) => false,
         );
         break;
@@ -287,112 +289,3 @@ class CustomizedText extends StatelessWidget {
         style: Style().title.copyWith(color: color, fontSize: 15));
   }
 }
-
-/* 
-
-
-
-class MyLoginScreen extends StatefulWidget {
-  const MyLoginScreen({super.key});
-
-  @override
-  State<MyLoginScreen> createState() => _MyLoginScreenState();
-}
-
-class _MyLoginScreenState extends State<MyLoginScreen> {
- 
-
-  final LoginBloc loginBloc = sl<LoginBloc>();
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 69, 69, 69),
-      body: Form(
-        key: formkey,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            CustomTextFormField(
-              hint: 'Email',
-              controller: emailController,
-              validator: (value) {
-                if (value == null || value.isEmpty || !value.contains('@')) {
-                  return 'Please enter a valid Email';
-                }
-                return null;
-              },
-            ),
-            CustomTextFormField(
-              hint: 'Password',
-              controller: passwordController,
-              validator: (value) {
-                if (value == null || value.isEmpty || value.length < 6) {
-                  return 'Please enter a valid password';
-                }
-                return null;
-              },
-            ),
-            BlocConsumer(
-                bloc: loginBloc,
-                builder: (context, state) {
-                  if (state is LoginLoading) {
-                    return Center(child: CircularProgressIndicator());
-                  } else if (state is LoginSuccess) {
-                    return AuthContainer();
-                  }
-                  return GestureDetector(
-                      onTap: () async {
-                        if (formkey.currentState!.validate()) {
-                          loginBloc.add(LoginE(
-                            email: emailController.text,
-                            password: passwordController.text,
-                          ));
-                        }
-                      },
-                      child: AuthContainer());
-                },
-                listener: (context, state) {
-                 if (state is LoginSuccess) {
-                    ScaffoldMessenger.of(context)
-                        .showSnackBar(SnackBar(content: Text('Success')));
-                    ;
-                  } 
-                }),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-
-class CustomTextFormField extends StatelessWidget {
-  const CustomTextFormField({
-    super.key,
-    required this.hint,
-    this.controller,
-    this.validator,
-  });
-  final String hint;
-  final TextEditingController? controller;
-  final String? Function(String?)? validator;
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 10),
-      child: TextFormField(
-        validator: validator,
-        controller: controller,
-        textAlign: TextAlign.center, // Center-align the text
-        decoration: InputDecoration(
-          hintText: hint,
-          hintStyle: TextStyle(color: Colors.grey),
-        ),
-      ),
-    );
-  }
-}
-
-
- */

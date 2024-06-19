@@ -1,56 +1,67 @@
 import 'package:flutter/material.dart';
-import 'package:necessities/actors/parent/features/parentHome/presentation/models/eventsModel.dart';
+import 'package:necessities/constants.dart';
 import 'package:necessities/core/styles.dart';
 
 class ImagesListViewCard extends StatelessWidget {
   const ImagesListViewCard({
     super.key,
     required this.width,
-    required this.event,
+    required this.discussion,
   });
-  final EventModel event;
+  final discussion;
   final double width;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(right: 16),
-      child: Container(
-        height: 150,
-        width: 359,
+    if (discussion.attachments.isEmpty) {
+      return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Container(
+          width: width * 0.8,
+          padding: const EdgeInsets.all(16.0),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Center(
+            child: Text(
+              discussion.content,
+              style: Style().title.copyWith(
+                    fontSize: 16,
+                    color: primaryColor1,
+                  ),
+            ),
+          ),
+        ),
+      );
+    } else {
+      return Container(
+        width: width * 0.8,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
-          color: Colors.amber,
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(10),
         ),
-        child: Stack(
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(10),
-              child: Image.asset(
-                event.image,
-                width: width,
-                fit: BoxFit.fitWidth,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(24.0),
-              child: Text(
-                event.text,
-                style: Style().title.copyWith(
-                    shadows: [
-                      Shadow(
-                        color: Colors.black.withOpacity(0.5),
-                        blurRadius: 25,
-                      ),
-                    ],
-                    fontSize: 38,
-                    color: Colors.white,
-                    fontWeight: FontWeight.w700),
-              ),
-            ),
-          ],
+        child: Padding(
+          padding: const EdgeInsets.only(right: 8.0),
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: discussion.attachments.length,
+            itemBuilder: (context, index) {
+              final image = discussion.attachments[index];
+              return ClipRRect(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Image.network(
+                    image,
+                    width: width,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              );
+            },
+          ),
         ),
-      ),
-    );
+      );
+    }
   }
 }

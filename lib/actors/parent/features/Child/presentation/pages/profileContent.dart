@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:necessities/actors/parent/features/Child/presentation/widgets/childDetails.dart';
 
 class ProfileContent extends StatelessWidget {
-  const ProfileContent({super.key});
-
+  const ProfileContent({super.key, this.child});
+  final child;
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -16,7 +16,7 @@ class ProfileContent extends StatelessWidget {
           width: width,
           child: Column(
             children: [
-              childDetails(width: width, height: height),
+              childDetails(width: width, height: height, child: child),
               SizedBox(
                 width: 10,
               ),

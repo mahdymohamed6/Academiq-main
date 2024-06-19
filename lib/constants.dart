@@ -20,6 +20,11 @@ String logo2 = 'assets/images/Logo2.png';
 final baseUrl = 'https://academiq.onrender.com/';
 
 /* 
+ahmedkhaledp1001@academiq.com
+23111019310109
+parent */
+
+/*
 ahmedkhaledt1003@academiq.com
 23111019210109
 teacher

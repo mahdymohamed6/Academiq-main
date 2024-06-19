@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
+import 'package:necessities/actors/parent/features/ParentControlPage/parentControlPage.dart';
 import 'package:necessities/actors/parent/features/parentHome/presentation/view/parentHomeView.dart';
 import 'package:necessities/actors/student/features/controlPage/ControlPage.dart';
 import 'package:necessities/actors/teacher/features/classes/presentaion/pages/TeacherControlPage/TeacherControlPage.dart';
+import 'package:necessities/actors/teacher/features/classes/presentaion/pages/teacherClasses.dart';
 import 'package:necessities/login/presentation/pages/login_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -56,14 +58,14 @@ class _SplashScreenState extends State<SplashScreen> {
       case 'teacher':
         Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: (context) => TeacherHomePage()),
+          MaterialPageRoute(builder: (context) => TeacherClasses()),
           (route) => false,
         );
         break;
       case 'parent':
         Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: (context) => ParentHomeView()),
+          MaterialPageRoute(builder: (context) => ParentHomePage()),
           (route) => false,
         );
         break;

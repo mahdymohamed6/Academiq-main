@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:necessities/actors/teacher/features/classes/presentaion/pages/TeacherControlPage/TeacherControlPage.dart';
 import 'package:necessities/actors/teacher/features/classes/presentaion/pages/classView.dart';
 import 'package:necessities/constants.dart';
 
@@ -6,10 +8,15 @@ class ClassDetails extends StatelessWidget {
   const ClassDetails({
     super.key,
     required this.courseName,
+    required this.courseId,
+    required this.gradeClassId,
   });
   final String courseName;
+  final String courseId;
+  final String gradeClassId;
   @override
   Widget build(BuildContext context) {
+    var role = GetStorage().read('role');
     return Container(
       decoration: BoxDecoration(
           color: Colors.blue.withOpacity(0.2),
@@ -21,8 +28,12 @@ class ClassDetails extends StatelessWidget {
         children: [
           GestureDetector(
             onTap: () {
-              Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (context) => ClassView()));
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => role == 'teacher'
+                      ? TeacherHomePage(
+                          courseId: courseId, gradeClassId: gradeClassId)
+                      : ClassView(
+                          courseId: courseId, gradeClassId: gradeClassId)));
             },
             child: Text(
               courseName,

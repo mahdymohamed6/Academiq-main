@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:necessities/actors/teacher/data/data_source/data_source.dart';
 import 'package:necessities/actors/teacher/features/classes/presentaion/pages/PostDetails.dart';
+import 'package:necessities/actors/teacher/features/classes/presentaion/widgets/PostsShowModalBottomSheetChild.dart';
 import 'package:necessities/constants.dart';
 import 'package:necessities/core/styles.dart';
 import 'package:intl/intl.dart';
@@ -10,8 +11,12 @@ class PostWidget extends StatefulWidget {
   const PostWidget({
     Key? key,
     this.post,
+    required this.courseId,
+    this.postId,
   }) : super(key: key);
   final post;
+  final courseId;
+  final postId;
   @override
   _PostWidgetState createState() => _PostWidgetState();
 }
@@ -22,6 +27,10 @@ class _PostWidgetState extends State<PostWidget> {
       DateFormat('yyyy-MM-dd').format(date);
   late bool isLiked;
   late int likesCount;
+  Future<void> refreshPosts() async {
+    await DiscussionService().getDisucssion(courseId: widget.courseId);
+    setState(() {});
+  }
 
   @override
   void initState() {
@@ -63,8 +72,7 @@ class _PostWidgetState extends State<PostWidget> {
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(builder: (context) {
                 return PostDetails(
-                  post: widget.post,
-                );
+                    post: widget.post, courseId: widget.courseId);
               }));
               DiscussionService().getPost(postId: widget.post.id);
             },
@@ -123,7 +131,18 @@ class _PostWidgetState extends State<PostWidget> {
                           IconButton(
                             padding: EdgeInsets.zero,
                             color: Color.fromARGB(89, 89, 89, 1),
-                            onPressed: () {},
+                            onPressed: () {
+                              showModalBottomSheet(
+                                  context: context,
+                                  isScrollControlled: true,
+                                  builder: (context) =>
+                                      PostsShowModalBottomSheetChild(
+                                        courseId: widget.courseId,
+                                        onPostAdded: refreshPosts,
+                                        content: widget.post.content,
+                                        postId: widget.post.id,
+                                      ));
+                            },
                             icon: const Icon(Icons.more_vert),
                           ),
                         ],

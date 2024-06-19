@@ -80,8 +80,9 @@ class Classes extends StatelessWidget {
                       itemBuilder: (context, index) {
                         final course = courses[index];
                         return ClassDetails(
-                          courseName: course.title!,
-                        );
+                            gradeClassId: course.gradeClass!.gradeClassId!,
+                            courseName: course.title!,
+                            courseId: course.courseId!);
                       }),
                 );
               }),

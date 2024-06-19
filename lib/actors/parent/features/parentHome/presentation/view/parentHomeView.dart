@@ -32,7 +32,7 @@ class ParentHomeView extends StatelessWidget {
           const SizedBox(
             height: 24,
           ),
-          ImageListViewBuilder(),
+          PublicAnnouncment(),
           Padding(
             padding: const EdgeInsets.only(top: 24, left: 37),
             child: Text(

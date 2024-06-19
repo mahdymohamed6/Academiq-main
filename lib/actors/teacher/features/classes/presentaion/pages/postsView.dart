@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:necessities/actors/teacher/data/data_source/data_source.dart';
 import 'package:necessities/actors/teacher/data/models/discussions/discussions.dart';
 import 'package:necessities/actors/teacher/features/classes/presentaion/widgets/AddPostBar.dart';
@@ -6,8 +7,33 @@ import 'package:necessities/actors/teacher/features/classes/presentaion/widgets/
 import 'package:necessities/actors/teacher/features/classes/presentaion/widgets/PostsShowModalBottomSheetChild.dart';
 import 'package:necessities/constants.dart';
 
-class PostsView extends StatelessWidget {
-  const PostsView({Key? key}) : super(key: key);
+class PostsView extends StatefulWidget {
+  const PostsView({Key? key, this.courseId}) : super(key: key);
+  final courseId;
+
+  @override
+  State<PostsView> createState() => _PostsViewState();
+}
+
+class _PostsViewState extends State<PostsView> {
+  Future<void> refreshPosts() async {
+    await DiscussionService().getDisucssion(courseId: widget.courseId);
+    setState(() {});
+  }
+
+  bool isTeacher = true;
+  final token = GetStorage().read('token');
+
+  @override
+  void initState() {
+    super.initState();
+
+    if (token == 'teacher') {
+      isTeacher = true;
+    } else {
+      isTeacher = false;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,6 +42,7 @@ class PostsView extends StatelessWidget {
       'Attention, students! Just a reminder that the deadline for your science project is approaching. Make sure you submit your projects by Friday. Im excited to see your creative ideas!',
       'good morning'
     ];
+
     return Column(
       children: [
         Padding(
@@ -25,15 +52,19 @@ class PostsView extends StatelessWidget {
               showModalBottomSheet(
                   context: context,
                   isScrollControlled: true,
-                  builder: (context) => const PostsShowModalBottomSheetChild());
+                  builder: (context) => PostsShowModalBottomSheetChild(
+                        courseId: widget.courseId,
+                        onPostAdded: refreshPosts,
+                        content: '',
+                      ));
             },
             child: const AddPostBar(),
           ),
         ),
         Expanded(
           child: FutureBuilder<Discussions>(
-              future: DiscussionService()
-                  .getDisucssion(courseId: '66478b55f7f1e51644381c88'),
+              future:
+                  DiscussionService().getDisucssion(courseId: widget.courseId),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(
@@ -51,17 +82,56 @@ class PostsView extends StatelessWidget {
                   itemCount: posts!.length,
                   itemBuilder: (BuildContext context, int index) {
                     final discussion = discussions.discussion!.posts![index];
+                    final courseId = discussions.discussion!.courseId;
+                    final postId = discussions.discussion!.posts![index].id;
                     return Column(
                       children: <Widget>[
                         PostWidget(
-                          post: discussion,
-                        ),
+                            postId: postId,
+                            post: discussion,
+                            courseId: courseId),
                       ],
                     );
                   },
                 );
               }),
-        )
+        ),
+        if (isTeacher = false)
+          Expanded(
+            child: FutureBuilder<Discussions>(
+                future: DiscussionService()
+                    .getDisucssion(courseId: widget.courseId),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(
+                        child: CircularProgressIndicator(
+                      color: primaryColor1,
+                    ));
+                  } else if (snapshot.hasError) {
+                    return Text('Error: ${snapshot.error}');
+                  } else if (!snapshot.hasData) {
+                    return Text('No data');
+                  }
+                  final discussions = snapshot.data!;
+                  final posts = discussions.discussion!.posts;
+                  return ListView.builder(
+                    itemCount: posts!.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      final discussion = discussions.discussion!.posts![index];
+                      final courseId = discussions.discussion!.courseId;
+                      final postId = discussions.discussion!.posts![index].id;
+                      return Column(
+                        children: <Widget>[
+                          PostWidget(
+                              postId: postId,
+                              post: discussion,
+                              courseId: courseId),
+                        ],
+                      );
+                    },
+                  );
+                }),
+          )
       ],
     );
   }
