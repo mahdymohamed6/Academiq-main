@@ -1,11 +1,39 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:necessities/actors/student/features/Notification/data/get_notification.dart';
+import 'package:necessities/actors/student/features/Notification/data/models/notification_model/notification_model.dart';
 import 'package:necessities/constants.dart';
 import 'package:necessities/actors/student/features/Notification/presentation/widgets/notification.dart';
 
-class NotificationPage extends StatelessWidget {
+class NotificationPage extends StatefulWidget {
   const NotificationPage({super.key});
 
   @override
+  State<NotificationPage> createState() => _NotificationPageState();
+}
+
+class _NotificationPageState extends State<NotificationPage> {
+  List<NotificationModel> notificationsList = [];
+  bool isLoading = false;
+
+  @override
+  void initState() {
+    getNotifications();
+    super.initState();
+  }
+
+  Future<void> getNotifications() async {
+    setState(() {
+      isLoading = true;
+    });
+    final notifications = await NotificationService().fetchUserNotification();
+    setState(() {
+      notificationsList = notifications;
+      isLoading = false;
+    });
+  }
+
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
@@ -15,20 +43,25 @@ class NotificationPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             AppBar(
               elevation: 0,
               scrolledUnderElevation: 0,
               automaticallyImplyLeading: false,
-              title: Text(
-                'Notification',
-                style: TextStyle(
-                  color: primaryColor1,
-                  fontWeight: FontWeight.w300,
-                  fontSize: 25,
-                  fontFamily: 'Poppins',
+              title: InkWell(
+                onTap: () {
+                  print(notificationsList.length);
+                },
+                child: Text(
+                  'Notification',
+                  style: TextStyle(
+                    color: primaryColor1,
+                    fontWeight: FontWeight.w300,
+                    fontSize: 25,
+                    fontFamily: 'Poppins',
+                  ),
                 ),
               ),
               actions: [
@@ -36,18 +69,11 @@ class NotificationPage extends StatelessWidget {
                   padding: const EdgeInsets.only(right: 10.0),
                   child: Row(
                     children: [
-                      Text(
-                        'filter',
-                        style: TextStyle(
-                          color: primaryColor1,
-                          fontSize: 15,
-                          fontFamily: 'Poppins',
-                        ),
-                      ),
-                      SizedBox(
-                        width: 15,
-                      ),
-                      Image.asset('assets/images/filter_icon.png')
+                      IconButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          icon: Icon(Icons.arrow_back, color: primaryColor1))
                     ],
                   ),
                 ),
@@ -56,36 +82,35 @@ class NotificationPage extends StatelessWidget {
           ],
         ),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Divider(
-            color: primaryColor1,
-            thickness: 0.1,
-            indent: 20,
-            endIndent: 20,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-            child: Text(
-              'New',
-              style: TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.w400,
-                  fontFamily: 'Poppins',
-                  fontSize: 20),
+      body: isLoading
+          ? Center(
+              child: CircularProgressIndicator(
+                color: primaryColor1,
+              ),
+            )
+          : Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Divider(
+                  color: primaryColor1,
+                  thickness: 0.1,
+                  indent: 20,
+                  endIndent: 20,
+                ),
+                Expanded(
+                  child: ListView.builder(
+                      physics: BouncingScrollPhysics(),
+                      itemCount: notificationsList.length,
+                      itemBuilder: (context, index) {
+                        return NotificationContainer(
+                          width: width,
+                          height: height,
+                          notificationModel: notificationsList[index],
+                        );
+                      }),
+                )
+              ],
             ),
-          ),
-          Expanded(
-            child: ListView.builder(
-                physics: BouncingScrollPhysics(),
-                itemCount: 20,
-                itemBuilder: (context, index) {
-                  return NotificationContainer(width: width, height: height);
-                }),
-          )
-        ],
-      ),
     );
   }
 }

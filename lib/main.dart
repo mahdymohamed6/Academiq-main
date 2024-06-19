@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:necessities/SplashScreen.dart';
-import 'package:necessities/actors/student/features/Home/presentation/pages/home.dart';
 import 'package:necessities/actors/student/features/TodoList/Presentation/blocs/bloc/todo_bloc.dart';
 import 'package:necessities/block_observer.dart';
 import 'package:necessities/core/styles.dart';

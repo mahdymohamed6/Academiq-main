@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:necessities/actors/parent/features/parentChats/data/models/chat_details_model/chat_details_model.dart';
 
 class ParetnChatsListViewCard extends StatelessWidget {
-  const ParetnChatsListViewCard({super.key});
-
+  const ParetnChatsListViewCard({super.key, required this.chatDetailsModel});
+  final ChatDetailsModel chatDetailsModel;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -22,22 +23,30 @@ class ParetnChatsListViewCard extends StatelessWidget {
                   child: Image.asset('assets/images/manAvtar.png'),
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.only(left: 16),
+              Padding(
+                padding: const EdgeInsets.only(left: 16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Guy Hawkins',
-                        style: TextStyle(
+                    Text(
+                        '${chatDetailsModel.member!.name!.first} ${chatDetailsModel.member!.name!.last}',
+                        style: const TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w400,
                             fontFamily: 'poppins',
                             color: Color.fromRGBO(42, 43, 44, 1))),
-                    SizedBox(
+                    const SizedBox(
                       height: 1,
                     ),
                     Text(
-                      'forward statement item',
+                      // Get the ChatDetailsModel instance
+
+                      (chatDetailsModel != null &&
+                              chatDetailsModel.lastMessage != null &&
+                              chatDetailsModel.lastMessage!.isNotEmpty)
+                          ? chatDetailsModel.lastMessage!.last['content'] ??
+                              'No content available'
+                          : 'Start chatting',
                       style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w300,

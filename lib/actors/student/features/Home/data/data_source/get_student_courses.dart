@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
+
 import 'package:necessities/actors/student/features/Home/domain/entitiy/cours_entity.dart';
 import 'package:necessities/constants.dart';
 import 'package:necessities/core/resources/student_data.dart';
@@ -11,7 +12,8 @@ import 'package:necessities/core/resources/user_data.dart';
 Future<List<CourseEntity>> getStudentCourses() async {
   String token = UserData().getToken();
   String id = StudentData().getGradeClassId();
-  final url = Uri.parse('${baseUrl}courses/gradeClasses/$id');
+  final url =
+      Uri.parse('${baseUrl}courses/gradeClasses/65f8a5a13a98241488697014');
 
   final headers = {
     'Content-Type': 'application/json; charset=UTF-8',
@@ -41,6 +43,7 @@ Future<List<CourseEntity>> getStudentCourses() async {
       }
     }
   } else {
+    print(response.body);
     print('StatusCode: ${response.statusCode}');
   }
 

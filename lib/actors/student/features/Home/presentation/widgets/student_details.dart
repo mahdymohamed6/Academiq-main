@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:necessities/actors/student/features/Home/domain/cubits/child_cubit.dart/child_cubit.dart';
-import 'package:necessities/actors/student/features/Home/domain/cubits/child_cubit.dart/child_data_state.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:necessities/actors/student/features/Home/domain/entitiy/child_entity.dart';
-import 'package:necessities/core/resources/user_data.dart';
 import 'package:necessities/core/styles.dart';
 
 class StudentDetails extends StatefulWidget {
@@ -20,6 +17,9 @@ class StudentDetails extends StatefulWidget {
 class _StudentDetailsState extends State<StudentDetails> {
   @override
   Widget build(BuildContext context) {
+    GetStorage().write('name', widget.childEntity.userName!);
+    String name = GetStorage().read('name');
+
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -35,7 +35,7 @@ class _StudentDetailsState extends State<StudentDetails> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Text(
-              widget.childEntity.userName!,
+              name,
               style: Style().title.copyWith(fontWeight: FontWeight.w600),
             ),
             const SizedBox(

@@ -31,16 +31,16 @@ class Classes extends StatelessWidget {
                 ),
               ),
               [
-                IconButton(
-                  onPressed: () {
-                    Navigator.of(context)
-                        .push(MaterialPageRoute(builder: (context) {
-                      return NotificationPage();
-                    }));
-                  },
-                  icon: Icon(Icons.notifications),
-                  color: primaryColor1,
-                )
+                // IconButton(
+                //   onPressed: () {
+                //     Navigator.of(context)
+                //         .push(MaterialPageRoute(builder: (context) {
+                //       return NotificationPage();
+                //     }));
+                //   },
+                //   icon: Icon(Icons.notifications),
+                //   color: primaryColor1,
+                // )
               ],
             ),
           ],

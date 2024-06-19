@@ -19,19 +19,22 @@ class _AssignmentStatListViewState extends State<AssignmentStatListView> {
         nonActiveColor: Color(0xFFE5F1F8),
         activationTextColor: Color(0xFFF6F6F6),
         nonActiveTextColor: Color(0xFF00769E),
-        text: 'Active'),
+        text: 'Active',
+        status: ''),
     AssignmentStatModel(
         activationColor: Color(0xFF26B170),
         nonActiveColor: Color(0xFFE9F8FB),
         activationTextColor: Color(0xFFF6F6F6),
         nonActiveTextColor: Color(0xFF26B170),
-        text: 'Overdue'),
+        text: 'Overdue',
+        status: ''),
     AssignmentStatModel(
         activationColor: Color(0xFFE84260),
         nonActiveColor: Color(0xFFFFEDF7),
         activationTextColor: Color(0xFFF6F6F6),
         nonActiveTextColor: Color(0xFFE84260),
-        text: 'Missing'),
+        text: 'Missing',
+        status: ''),
   ];
 
   late int activeIndex; // No need to initialize it here

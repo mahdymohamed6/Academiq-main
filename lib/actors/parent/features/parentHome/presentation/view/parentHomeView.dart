@@ -1,14 +1,53 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:necessities/actors/parent/features/parentHome/data/get_child_courses.dart';
+import 'package:necessities/actors/parent/features/parentHome/data/get_parent_data.dart';
 import 'package:necessities/actors/parent/features/parentHome/presentation/widgets/Drawerr.dart';
 import 'package:necessities/actors/parent/features/parentHome/presentation/widgets/childAvtivitesCard.dart';
 import 'package:necessities/actors/parent/widgets/customizedSearchBar.dart';
 import 'package:necessities/actors/parent/features/parentHome/presentation/widgets/imageListViewBuilder.dart';
 import 'package:necessities/actors/parent/widgets/appBar.dart';
+import 'package:necessities/actors/student/features/Home/data/data_source/gat_user_service.dart';
+import 'package:necessities/actors/student/features/Home/data/data_source/get_student_courses.dart';
+import 'package:necessities/actors/student/features/Home/domain/entitiy/child_entity.dart';
+import 'package:necessities/actors/student/features/Home/domain/entitiy/cours_entity.dart';
 
-class ParentHomeView extends StatelessWidget {
+class ParentHomeView extends StatefulWidget {
   const ParentHomeView({super.key});
 
   @override
+  State<ParentHomeView> createState() => _ParentHomeViewState();
+}
+
+class _ParentHomeViewState extends State<ParentHomeView> {
+  List<String> list = ['BIO', 'Arabic'];
+  // List<CourseEntity> _coursesList = [];
+  // ChildEntity childEntity = ChildEntity(
+  //     id: '',
+  //     fristName: '',
+  //     secondtName: '',
+  //     motherId: '',
+  //     fatherId: '',
+  //     userName: '',
+  //     userId: '');
+  // @override
+  // void initState() {
+  //   fetchUserData();
+  //   getCourses();
+  //   // TODO: implement initState
+  //   super.initState();
+  // }
+
+  // Future<void> fetchUserData() async {
+  //   await fetchParentData();
+  // }
+
+  // Future<void> getCourses() async {
+  //   var childEntity = await fetchChildCourses();
+  //   setState(() {});
+  // }
+
   Widget build(BuildContext context) {
     var textStyle = TextStyle(
         fontSize: 18,
@@ -44,11 +83,11 @@ class ParentHomeView extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.only(left: 33, top: 24),
               child: ListView.builder(
-                  itemCount: 10,
+                  itemCount: list.length,
                   itemBuilder: (context, index) {
-                    return const Padding(
-                      padding: EdgeInsets.only(bottom: 12),
-                      child: ChildAvtivitesCard(),
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 12),
+                      child: ChildAvtivitesCard(text: list[index]),
                     );
                   }),
             ),

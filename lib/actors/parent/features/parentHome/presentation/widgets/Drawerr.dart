@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:necessities/actors/parent/features/parentHome/presentation/widgets/parentDetails.dart';
 import 'package:necessities/core/resources/user_data.dart';
+import 'package:necessities/login/presentation/pages/login_screen.dart';
 
 class Drawerr extends StatelessWidget {
   const Drawerr({
@@ -110,14 +111,22 @@ class Drawerr extends StatelessWidget {
                     fit: BoxFit.fill,
                   ),
                 ),
-                const Padding(
-                  padding: EdgeInsets.only(left: 33),
-                  child: Text(
-                    'Log out',
-                    style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w300,
-                        fontFamily: 'poppins'),
+                Padding(
+                  padding: const EdgeInsets.only(left: 33),
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => LoginScreen()));
+                    },
+                    child: const Text(
+                      'Log out',
+                      style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w300,
+                          fontFamily: 'poppins'),
+                    ),
                   ),
                 ), //mksl a3ml list view builder
               ],

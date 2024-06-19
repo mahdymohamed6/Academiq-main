@@ -33,18 +33,20 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
       userId: '');
   @override
   void initState() {
-    super.initState();
     getStudentCourse();
     getUserInfo();
+    super.initState();
   }
 
   Future<void> getStudentCourse() async {
-    _coursesList = await getStudentCourses();
-    setState(() {});
+    final coursesList = await getStudentCourses();
+    setState(() {
+      _coursesList = coursesList;
+    });
   }
 
   Future<void> getUserInfo() async {
-    childEntity = await fetchUserData(id: id);
+    childEntity = await fetchUserData();
     setState(() {});
   }
 
@@ -66,16 +68,15 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
               ),
               [
                 IconButton(
-                    onPressed: () {
-                      Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(builder: (context) {
-                        return const NotificationPage();
-                      }));
-                    },
-                    icon: Icon(
-                      Icons.notifications,
-                      color: primaryColor1,
-                    ))
+                  onPressed: () {
+                    Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (context) {
+                      return NotificationPage();
+                    }));
+                  },
+                  icon: Icon(Icons.notifications),
+                  color: primaryColor1,
+                )
               ]),
         ),
       ),
@@ -91,7 +92,7 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
                   padding: const EdgeInsets.symmetric(vertical: 20),
                   child: GestureDetector(
                     onTap: () {
-                      getStudentCourses();
+                      // AssignmentService().getAssignments();
                     },
                     child: Container(
                       decoration: BoxDecoration(
