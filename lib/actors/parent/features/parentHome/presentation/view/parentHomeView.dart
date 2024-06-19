@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:necessities/actors/parent/data/Models/timetable/student_timetable/student_timetable.dart';
+import 'package:necessities/actors/parent/features/parentHome/data/data_source/remote_Data_source.dart';
 import 'package:necessities/actors/parent/features/parentHome/data/get_child_courses.dart';
 import 'package:necessities/actors/parent/features/parentHome/data/get_parent_data.dart';
 import 'package:necessities/actors/parent/features/parentHome/presentation/widgets/Drawerr.dart';
@@ -13,6 +15,8 @@ import 'package:necessities/actors/student/features/Home/data/data_source/get_st
 import 'package:necessities/actors/student/features/Home/domain/entitiy/child_entity.dart';
 import 'package:necessities/actors/student/features/Home/domain/entitiy/cours_entity.dart';
 
+import '../../../../data/Models/timetable/student_timetable/timetable.dart';
+
 class ParentHomeView extends StatefulWidget {
   const ParentHomeView({super.key});
 
@@ -22,31 +26,25 @@ class ParentHomeView extends StatefulWidget {
 
 class _ParentHomeViewState extends State<ParentHomeView> {
   List<String> list = ['BIO', 'Arabic'];
-  // List<CourseEntity> _coursesList = [];
-  // ChildEntity childEntity = ChildEntity(
-  //     id: '',
-  //     fristName: '',
-  //     secondtName: '',
-  //     motherId: '',
-  //     fatherId: '',
-  //     userName: '',
-  //     userId: '');
-  // @override
-  // void initState() {
-  //   fetchUserData();
-  //   getCourses();
-  //   // TODO: implement initState
-  //   super.initState();
-  // }
+  List<Timetable>? timetable;
+  @override
+  void initState() {
+    super.initState();
+    _loadTimeTable();
+  }
 
-  // Future<void> fetchUserData() async {
-  //   await fetchParentData();
-  // }
-
-  // Future<void> getCourses() async {
-  //   var childEntity = await fetchChildCourses();
-  //   setState(() {});
-  // }
+  Future<void> _loadTimeTable() async {
+    try {
+      final data =
+          await TimetableService().getTimetable(id: '66283d3721ad54ce0d9246d3');
+      setState(() {
+        timetable = data.timetable!;
+        timetable!.sort((a, b) => a.period!.compareTo(b.period!));
+      });
+    } catch (error) {
+      print('Error loading attendance: $error');
+    }
+  }
 
   Widget build(BuildContext context) {
     var textStyle = TextStyle(
@@ -72,14 +70,41 @@ class _ParentHomeViewState extends State<ParentHomeView> {
             height: 24,
           ),
           PublicAnnouncment(),
-          Padding(
-            padding: const EdgeInsets.only(top: 24, left: 37),
-            child: Text(
-              'Today Timetable',
-              style: textStyle,
-            ),
+          Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 24, left: 30),
+                child: Text(
+                  'P',
+                  style: textStyle,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 24, left: 37),
+                child: Text(
+                  'Timetable',
+                  style: textStyle,
+                ),
+              ),
+            ],
           ),
-          Expanded(
+          timetable != null
+              ? Expanded(
+                  child: ListView.builder(
+                    itemCount: timetable!.length,
+                    itemBuilder: (context, index) {
+                      final timetableItem = timetable![index];
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom: 12),
+                        child: ChildAvtivitesCard(timetable: timetableItem),
+                      );
+                    },
+                  ),
+                )
+              : Center(
+                  child: CircularProgressIndicator(),
+                ),
+          /*  Expanded(
             child: Padding(
               padding: const EdgeInsets.only(left: 33, top: 24),
               child: ListView.builder(
@@ -91,7 +116,7 @@ class _ParentHomeViewState extends State<ParentHomeView> {
                     );
                   }),
             ),
-          )
+          ) */
         ]),
       ),
     );

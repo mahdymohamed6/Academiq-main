@@ -17,9 +17,10 @@ import 'package:http/http.dart' as http;
 import 'package:necessities/core/resources/user_data.dart';
 
 class DiscussionService {
-  Future<AttendanceStudent> getAttendance({required String id}) async {
+  Future<AttendanceStudent> getAttendance(
+      {required String id, required String date, required int period}) async {
     final url = Uri.parse(
-        baseUrl + 'gradeClasses/$id/attendance?date=2024-06-04&period=2 ');
+        baseUrl + 'gradeClasses/$id/attendance?date=${date}&period=${period}');
     final token = GetStorage().read('token');
 
     var response = await http.get(
@@ -46,18 +47,42 @@ class DiscussionService {
     final url = Uri.parse(
         'https://academiq.onrender.com/gradeClasses/66283d3721ad54ce0d9246d3/attendance');
     String token = UserData().getToken();
-
-    var response = await http.post(
+//?date=2024-06-04&period=2
+    var response = await http.patch(
       url,
       headers: {
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': 'Bearer $token',
       },
-      body: jsonEncode({
-        "students": students,
-        "period": period,
-        "courseId": courseId,
-      }),
+      body: jsonEncode(
+          {"students": students, "period": period, "courseId": courseId}),
+    );
+    if (response.statusCode == 201) {
+      final Map<String, dynamic> responseData = jsonDecode(response.body);
+      print('attendance is taken successfuly');
+      print(responseData);
+    } else {
+      print(response.body);
+      print(response.request);
+      print(response.statusCode);
+    }
+  }
+
+  Future<void> RetakeAttendance(
+      {required List students,
+      required String date,
+      required int period}) async {
+    final url = Uri.parse(
+        'https://academiq.onrender.com/gradeClasses/66283d3721ad54ce0d9246d3/attendance');
+    String token = UserData().getToken();
+
+    var response = await http.patch(
+      url,
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $token',
+      },
+      body: jsonEncode({"students": students, "period": period, "date": date}),
     );
     if (response.statusCode == 201) {
       final Map<String, dynamic> responseData = jsonDecode(response.body);

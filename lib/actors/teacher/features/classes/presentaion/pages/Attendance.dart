@@ -2,26 +2,80 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:necessities/actors/parent/features/parentHome/presentation/widgets/Drawerr.dart';
 import 'package:necessities/actors/teacher/data/data_source/data_source.dart';
+import 'package:necessities/actors/teacher/data/models/Attendance/attendance_student/attendance.dart';
 import 'package:necessities/actors/teacher/data/models/Attendance/attendance_student/attendance_student.dart';
 import 'package:necessities/actors/teacher/features/classes/presentaion/widgets/TeacherAppBar.dart';
 import 'package:necessities/constants.dart';
 import 'package:necessities/core/styles.dart';
+import 'package:intl/intl.dart';
 
 class AttendanceScreen extends StatefulWidget {
-  const AttendanceScreen({super.key});
-
+  const AttendanceScreen({super.key, this.gradeClassId});
+  final gradeClassId;
   @override
   State<AttendanceScreen> createState() => _AttendanceScreenState();
 }
 
 class _AttendanceScreenState extends State<AttendanceScreen> {
-  List classes = ['class 1', 'class 2', 'class 3', 'class 4'];
-  String? selectedClass;
-  List<bool> isCheckedList =
-      List<bool>.filled(10, false); // List to track checked state
+  List<int> periodList = List<int>.generate(10, (index) => index + 1);
+  int? selectedPeriod;
+  List<bool> isCheckedList = [];
+  bool _attemptedLoad = false; // Track if attendance load has been attempted
+
   DateTime? selectedDate;
   bool isDatePickerOpen = false;
-  List students = ["6628f3d221ad54ce0d924a6a", "665a59d6aa717434debeb63d"];
+  List selectedStudents = [];
+
+  Attendance? attendance;
+  @override
+  void initState() {
+    super.initState();
+    _loadAttendance();
+  }
+
+  String getFormattedDate(DateTime date) =>
+      DateFormat('yyyy-MM-dd').format(date);
+
+  Future<void> _loadAttendance() async {
+    if (selectedDate != null && selectedPeriod != null) {
+      setState(() {
+        _attemptedLoad = true;
+        attendance = null;
+      });
+      try {
+        final data = await DiscussionService().getAttendance(
+          id: widget.gradeClassId,
+          date: getFormattedDate(selectedDate!),
+          period: selectedPeriod!,
+        );
+        if (data.attendance != null) {
+          setState(() {
+            attendance = data.attendance!;
+            isCheckedList = List<bool>.filled(
+              attendance!.students!.length,
+              false,
+            );
+            for (int i = 0; i < attendance!.students!.length; i++) {
+              if (attendance!.students![i].status == 'present') {
+                isCheckedList[i] = true;
+                selectedStudents.add(attendance!.students![i].student!.id!);
+              } else {
+                isCheckedList[i] = false;
+              }
+            }
+          });
+        } else {
+          print('Attendance data is null or has no students');
+          setState(() {
+            attendance = null;
+          });
+        }
+      } catch (error) {
+        print('Error loading attendance: $error');
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -43,7 +97,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
               Row(
                 children: [
                   Text(
-                    'Choose Class',
+                    'Choose a period',
                     style: Style()
                         .title
                         .copyWith(fontSize: 14, color: Color(0xff999999)),
@@ -55,18 +109,17 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                     style: Style()
                         .title
                         .copyWith(fontSize: 16, color: primaryColor1),
-                    hint: Text(
-                        'Please choose a class'), // Not necessary for Option 1
-                    value: selectedClass,
+                    hint: Text('Please choose a period'),
+                    value: selectedPeriod,
                     onChanged: (newValue) {
                       setState(() {
-                        selectedClass = newValue as String;
+                        selectedPeriod = newValue;
                       });
                     },
-                    items: classes.map((classes) {
+                    items: periodList.map((period) {
                       return DropdownMenuItem(
-                        child: new Text(classes),
-                        value: classes,
+                        child: new Text(period.toString()),
+                        value: period,
                       );
                     }).toList(),
                   ),
@@ -94,6 +147,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                       if (pickedDate != null && pickedDate != selectedDate) {
                         setState(() {
                           selectedDate = pickedDate;
+                          getFormattedDate(selectedDate as DateTime);
                         });
                       }
                     },
@@ -119,6 +173,26 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
               SizedBox(
                 height: 30,
               ),
+              GestureDetector(
+                onTap: () {
+                  _loadAttendance();
+                },
+                child: Container(
+                  width: width,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      color: primaryColor1),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    child: Center(
+                      child: Text('Load Attendance',
+                          style: Style()
+                              .title
+                              .copyWith(fontSize: 16, color: Colors.white)),
+                    ),
+                  ),
+                ),
+              ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(
@@ -142,75 +216,95 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
               Divider(
                 color: primaryColor1,
               ),
-              FutureBuilder<AttendanceStudent>(
-                  future: DiscussionService()
-                      .getAttendance(id: '66283d3721ad54ce0d9246d3'),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Center(
-                          child: CircularProgressIndicator(
-                        color: primaryColor1,
-                      ));
-                    } else if (snapshot.hasError) {
-                      return Text('Error: ${snapshot.error}');
-                    } else if (!snapshot.hasData) {
-                      return Text('No data');
-                    }
-                    final attendance = snapshot.data!.attendance!;
-
-                    return SizedBox(
-                      height: 200,
-                      child: ListView.builder(
-                          itemCount: attendance.students!.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            final student = attendance.students![index];
-                            return Padding(
+              if (!_attemptedLoad)
+                Center(
+                  child: Text(
+                    'Please Choose a date and a period',
+                    style: Style()
+                        .title
+                        .copyWith(color: primaryColor1, fontSize: 16),
+                  ),
+                )
+              else if (attendance == null)
+                Center(
+                  child: Text(
+                    'No Attendance Found',
+                    style: Style()
+                        .title
+                        .copyWith(color: primaryColor1, fontSize: 16),
+                  ),
+                )
+              else
+                SizedBox(
+                  height: height * 0.4,
+                  child: ListView.builder(
+                      itemCount: attendance!.students!.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        final student = attendance!.students![index];
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                                color: Color(0xffF6F6F6)),
+                            child: Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(8),
-                                    color: Color(0xffF6F6F6)),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        '${student.student!.name!.first} ${student.student!.name!.last}',
-                                        style: Style().title.copyWith(
-                                            fontSize: 16, color: Colors.black),
-                                      ),
-                                      Checkbox(
-                                        side: BorderSide(
-                                            style: BorderStyle.solid,
-                                            color: Colors.green),
-                                        shape: BeveledRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(2)),
-                                        activeColor: Colors.green,
-                                        value: isCheckedList[index],
-                                        onChanged: (bool? value) {
-                                          setState(() {
-                                            isCheckedList[index] = value!;
-                                            print(isCheckedList);
-                                          });
-                                        },
-                                      ),
-                                    ],
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    '${student.student!.name!.first} ${student.student!.name!.last}',
+                                    style: Style().title.copyWith(
+                                        fontSize: 16, color: Colors.black),
                                   ),
-                                ),
+                                  Checkbox(
+                                    side: BorderSide(
+                                        style: BorderStyle.solid,
+                                        color: Colors.green),
+                                    shape: BeveledRectangleBorder(
+                                        borderRadius: BorderRadius.circular(2)),
+                                    activeColor: Colors.green,
+                                    value: isCheckedList[index],
+                                    onChanged: (bool? value) {
+                                      setState(() {
+                                        isCheckedList[index] = value!;
+                                        if (value) {
+                                          selectedStudents.add(attendance!
+                                              .students![index].student!.id!);
+                                        } else {
+                                          selectedStudents.remove(attendance!
+                                              .students![index].student!.id!);
+                                        }
+                                        /*   selectedStudents.add({
+                                                'studentId':
+                                                    student.student!.id!,
+                                                'status': 'present'
+                                              });
+                                            } else {
+                                              selectedStudents.add({
+                                                'studentId':
+                                                    student.student!.id!,
+                                                'status': 'absent'
+                                              });
+                                            } */
+                                      });
+                                    },
+                                  ),
+                                ],
                               ),
-                            );
-                          }),
-                    );
-                  }),
-              GestureDetector(
+                            ),
+                          ),
+                        );
+                      }),
+                ),
+              /* GestureDetector(
                 onTap: () {
-                  DiscussionService().takeAttendance(
-                      students: students,
-                      courseId: '65f8ac273cc2799220c31ede',
-                      period: 4);
+                  print(selectedDate);
+                  DiscussionService().RetakeAttendance(
+                      students: selectedStudents,
+                      date: getFormattedDate(selectedDate as DateTime),
+                      period: selectedPeriod as int);
                 },
                 child: Container(
                   width: width,
@@ -220,14 +314,38 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 10),
                     child: Center(
-                      child: Text('Submit',
+                      child: Text('ReTake',
                           style: Style()
                               .title
                               .copyWith(fontSize: 16, color: Colors.white)),
                     ),
                   ),
                 ),
-              )
+              ) */
+              attendance != null
+                  ? GestureDetector(
+                      onTap: () {
+                        DiscussionService().takeAttendance(
+                            students: selectedStudents,
+                            courseId: attendance!.courseId!,
+                            period: selectedPeriod as int);
+                      },
+                      child: Container(
+                        width: width,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                            color: primaryColor1),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          child: Center(
+                            child: Text('Submit',
+                                style: Style().title.copyWith(
+                                    fontSize: 16, color: Colors.white)),
+                          ),
+                        ),
+                      ),
+                    )
+                  : Container()
             ],
           ),
         ),

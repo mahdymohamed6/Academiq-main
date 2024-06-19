@@ -8,15 +8,7 @@ class PublicAnnouncment extends StatelessWidget {
   PublicAnnouncment({
     super.key,
   });
-/* 
-  final List<EventModel> event = [
-    EventModel(
-        image: 'assets/images/graduationParty.png', text: 'Graduation \nparty'),
-    EventModel(
-        image: 'assets/images/socialActivity.png', text: 'Social \nactivities'),
-    EventModel(
-        image: 'assets/images/newActivitis.png', text: 'New \nactivities ')
-  ]; */
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(

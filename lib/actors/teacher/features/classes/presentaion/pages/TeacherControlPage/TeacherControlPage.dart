@@ -28,7 +28,7 @@ class _TeacherHomePageState extends State<TeacherHomePage> {
       ),
       const GradesView(),
       const ExamScreen(),
-      const AttendanceScreen(),
+      AttendanceScreen(gradeClassId: widget.gradeClassId),
     ];
   }
 
