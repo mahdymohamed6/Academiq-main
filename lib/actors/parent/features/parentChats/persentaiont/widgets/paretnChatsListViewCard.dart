@@ -21,6 +21,10 @@ class ParetnChatsListViewCard extends StatelessWidget {
                       borderRadius: BorderRadius.circular(200),
                       color: const Color.fromRGBO(206, 195, 255, 1)),
                   child: Image.asset('assets/images/manAvtar.png'),
+                  // Image.asset('assets/images/manAvtar.png'),
+                  //
+                  //  Image.network('${chatDetailsModel.image!}'),
+                  //
                 ),
               ),
               Padding(
@@ -38,20 +42,24 @@ class ParetnChatsListViewCard extends StatelessWidget {
                     const SizedBox(
                       height: 1,
                     ),
-                    Text(
-                      // Get the ChatDetailsModel instance
+                    Container(
+                      width: 240,
+                      child: Text(
+                        // Get the ChatDetailsModel instance
 
-                      (chatDetailsModel != null &&
-                              chatDetailsModel.lastMessage != null &&
-                              chatDetailsModel.lastMessage!.isNotEmpty)
-                          ? chatDetailsModel.lastMessage!.last['content'] ??
-                              'No content available'
-                          : 'Start chatting',
-                      style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w300,
-                          fontFamily: 'poppins',
-                          color: Color.fromRGBO(148, 163, 184, 1)),
+                        (chatDetailsModel != null &&
+                                chatDetailsModel.lastMessage != null &&
+                                chatDetailsModel.lastMessage!.isNotEmpty)
+                            ? chatDetailsModel.lastMessage!.last['content'] ??
+                                'No content available'
+                            : 'Start chatting',
+                        style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w300,
+                            fontFamily: 'poppins',
+                            color: Color.fromRGBO(148, 163, 184, 1)),
+                        overflow: TextOverflow.ellipsis, // Add this line
+                      ),
                     )
                   ],
                 ),

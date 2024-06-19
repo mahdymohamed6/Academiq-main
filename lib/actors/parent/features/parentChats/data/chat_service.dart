@@ -22,6 +22,7 @@ class ChatService {
     if (response.statusCode == 200) {
       Map<String, dynamic> responseData = jsonDecode(response.body);
       List<dynamic> chats = responseData['chats'];
+      print(chats);
       for (var chat in chats) {
         ChatDetailsModel chatDetailsModel = ChatDetailsModel.fromJson(chat);
         chatDetailsList.add(chatDetailsModel);
