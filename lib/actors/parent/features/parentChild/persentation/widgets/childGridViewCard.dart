@@ -41,12 +41,8 @@ class _ChildGridViewCardState extends State<ChildGridViewCard>
   }
 
   void _showDetails(BuildContext context) {
-    showModalBottomSheet(
+    showDialog(
       context: context,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      isScrollControlled: true,
       builder: (context) {
         _animationController.forward();
         return AnimatedBuilder(
@@ -57,13 +53,11 @@ class _ChildGridViewCardState extends State<ChildGridViewCard>
               child: Transform.scale(
                 scale: _scaleAnimation.value,
                 child: Container(
+                  width: MediaQuery.of(context).size.width * 0.8,
                   height: MediaQuery.of(context).size.height * 0.7,
                   decoration: const BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(20),
-                      topRight: Radius.circular(20),
-                    ),
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
                   ),
                   child: ChildInfoScreen(
                     child: widget.child,
