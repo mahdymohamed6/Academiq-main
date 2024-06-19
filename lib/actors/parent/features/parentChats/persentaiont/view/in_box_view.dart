@@ -4,6 +4,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:necessities/actors/parent/features/parentChats/data/chat_service.dart';
 import 'package:necessities/actors/parent/features/parentChats/data/message_entity.dart';
 import 'package:necessities/actors/parent/features/parentChats/data/models/chat_details_model/chat_details_model.dart';
+import 'package:necessities/actors/parent/features/parentChats/data/models/online_user_model/online_user_model.dart';
 import 'package:necessities/actors/parent/features/parentChats/data/models/socket_message_model/socket_message_model.dart';
 import 'package:necessities/actors/parent/features/parentChats/persentaiont/widgets/ChatBublle.dart';
 import 'package:necessities/actors/parent/widgets/appBar.dart';
@@ -39,7 +40,7 @@ class _InBoxViewState extends State<InBoxView> {
 
   List<MessageEntity> messages = [];
   late IO.Socket socket;
-
+  List<OnlineUserModel> onlineUser = [];
   void _onScroll() {
     if (_scrollController.position.pixels ==
         _scrollController.position.maxScrollExtent) {
@@ -76,7 +77,13 @@ class _InBoxViewState extends State<InBoxView> {
     });
 
     socket.on('onlineUsers', (data) {
-      print('Online users: $data');
+      print('onlineUsers: $data');
+      List<OnlineUserModel> onlineUserModels =
+          (data as List).map((e) => OnlineUserModel.fromJson(e)).toList();
+      for (var onlineUserModel in onlineUserModels) {
+        onlineUser.add(onlineUserModel);
+      }
+      setState(() {});
     });
 
     socket.on('userDisconnected', (data) {
@@ -97,8 +104,8 @@ class _InBoxViewState extends State<InBoxView> {
       });
     });
 
-    socket.on('newNotification', (data) {
-      print('New notification: $data');
+    socket.on('userTyping', (data) {
+      print('userTyping: $data');
     });
   }
 
@@ -108,6 +115,10 @@ class _InBoxViewState extends State<InBoxView> {
     if (_isScrolledToBottom) {
       _scrollToEnd();
     }
+  }
+
+  void Typing({required String chatId}) {
+    socket.emit('typing', {'chatId': chatId});
   }
 
   void _scrollToEnd() {
@@ -139,6 +150,7 @@ class _InBoxViewState extends State<InBoxView> {
           ),
           UserInChanDetails(
             chatDetailsModel: widget.chatDetailsModel,
+            onlineUser: onlineUser,
           ),
           const SizedBox(
             height: 8,
@@ -175,6 +187,12 @@ class _InBoxViewState extends State<InBoxView> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextField(
+              onTap: () {
+                print(widget.chatDetailsModel.id!);
+                Typing(
+                  chatId: widget.chatDetailsModel.id!,
+                );
+              },
               controller: _textController,
               decoration: InputDecoration(
                 hintText: 'Type your message...',
@@ -222,8 +240,16 @@ class UserInChanDetails extends StatelessWidget {
   const UserInChanDetails({
     super.key,
     required this.chatDetailsModel,
+    required this.onlineUser,
   });
   final ChatDetailsModel chatDetailsModel;
+  final List<OnlineUserModel> onlineUser;
+
+  bool isOnline() {
+    return onlineUser.any((user) =>
+        user.name!.first == chatDetailsModel.member!.name!.first &&
+        user.name!.last == chatDetailsModel.member!.name!.last);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -232,13 +258,18 @@ class UserInChanDetails extends StatelessWidget {
         const SizedBox(
           width: 12,
         ),
-        Container(
-          width: 52,
-          height: 52,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(200),
-              color: const Color.fromRGBO(206, 195, 255, 1)),
-          child: Image.asset('assets/images/manAvtar.png'),
+        InkWell(
+          onTap: () {
+            print(chatDetailsModel.member!.id!);
+          },
+          child: Container(
+            width: 52,
+            height: 52,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(200),
+                color: const Color.fromRGBO(206, 195, 255, 1)),
+            child: Image.asset('assets/images/manAvtar.png'),
+          ),
         ),
         const SizedBox(
           width: 6,
@@ -253,17 +284,17 @@ class UserInChanDetails extends StatelessWidget {
                     fontWeight: FontWeight.w400,
                     fontFamily: 'poppins',
                     color: Color.fromRGBO(42, 43, 44, 1))),
-            const Row(
+            Row(
               children: [
                 CircleAvatar(
                   radius: 4.0,
-                  backgroundColor: Colors.green,
+                  backgroundColor: isOnline() ? Colors.green : Colors.red,
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 4,
                 ),
-                Text('online',
-                    style: TextStyle(
+                Text(isOnline() ? 'online' : 'offline',
+                    style: const TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w400,
                         fontFamily: 'poppins',

@@ -10,34 +10,71 @@ class ChildGridViewCard extends StatefulWidget {
   const ChildGridViewCard({super.key, required this.isSelected, this.child});
   final bool isSelected;
   final child;
+
   @override
   State<ChildGridViewCard> createState() => _ChildGridViewCardState();
 }
 
 class _ChildGridViewCardState extends State<ChildGridViewCard>
     with SingleTickerProviderStateMixin {
+  late AnimationController _animationController;
+  late Animation<double> _animation;
+  late Animation<double> _scaleAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 600),
+    );
+    _animation =
+        Tween<double>(begin: 1, end: 1.0).animate(_animationController);
+    _scaleAnimation =
+        Tween<double>(begin: 0.2, end: 1.0).animate(_animationController);
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+
   void _showDetails(BuildContext context) {
     showModalBottomSheet(
-        context: context,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-        ),
-        isScrollControlled: true,
-        builder: (context) {
-          return Container(
-            height: MediaQuery.of(context).size.height * 0.7,
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20),
-                topRight: Radius.circular(20),
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      isScrollControlled: true,
+      builder: (context) {
+        _animationController.forward();
+        return AnimatedBuilder(
+          animation: _animation,
+          builder: (context, child) {
+            return Transform.translate(
+              offset: Offset(0, (1 - _animation.value) * 200),
+              child: Transform.scale(
+                scale: _scaleAnimation.value,
+                child: Container(
+                  height: MediaQuery.of(context).size.height * 0.7,
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(20),
+                      topRight: Radius.circular(20),
+                    ),
+                  ),
+                  child: ChildInfoScreen(
+                    child: widget.child,
+                  ),
+                ),
               ),
-            ),
-            child: ChildInfoScreen(
-              child: widget.child,
-            ),
-          );
-        });
+            );
+          },
+        );
+      },
+    );
   }
 
   @override
@@ -46,86 +83,89 @@ class _ChildGridViewCardState extends State<ChildGridViewCard>
     double width = MediaQuery.of(context).size.width;
 
     return Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16),
-          color: Colors.white,
-        ),
-        child: Stack(
-          clipBehavior: Clip.none,
-          alignment:
-              Alignment.center, // Align the children in the center of the stack
-          children: [
-            Positioned(
-              top: 0,
-              child: GestureDetector(
-                onTap: () => _showDetails(context),
-                child: Container(
-                  height: height * 0.25,
-                  width: width * 0.3,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(16),
-                    color: Color(0XFFFFD4B8),
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(top: 40, left: 8, right: 8),
-                        child: Text(
-                            '${widget.child.name.first} ${widget.child.name.last}',
-                            maxLines: 1,
-                            style: Style().title.copyWith(
-                                  fontSize: 12,
-                                  color: primaryColor1,
-                                  overflow: TextOverflow.ellipsis,
-                                )),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 6),
-                        child: Image.asset(
-                          'assets/images/girlReading.png',
-                          width: 77,
-                          height: 83,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            Positioned(
-              top: -15,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(16),
+        color: Colors.white,
+      ),
+      child: Stack(
+        clipBehavior: Clip.none,
+        alignment: Alignment.center,
+        children: [
+          Positioned(
+            top: 0,
+            child: GestureDetector(
+              onTap: () => _showDetails(context),
               child: Container(
-                width: 52,
-                height: 52,
+                height: height * 0.25,
+                width: width * 0.3,
                 decoration: BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.3),
-                      blurRadius: 3,
-                      offset: Offset(0, 4),
+                  borderRadius: BorderRadius.circular(16),
+                  color: const Color(0XFFFFD4B8),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding:
+                          const EdgeInsets.only(top: 40, left: 8, right: 8),
+                      child: Text(
+                        '${widget.child.name.first} ${widget.child.name.last}',
+                        maxLines: 1,
+                        style: Style().title.copyWith(
+                              fontSize: 12,
+                              color: primaryColor1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 6),
+                      child: Image.asset(
+                        'assets/images/girlReading.png',
+                        width: 77,
+                        height: 83,
+                      ),
                     ),
                   ],
-                  borderRadius: BorderRadius.circular(200),
                 ),
-                child: ClipOval(
-                    child: widget.child.profilePicture.url != null
-                        ? Image.network(
-                            widget.child.profilePicture.url,
-                            fit: BoxFit.cover,
-                            width: 52,
-                            height: 52,
-                          )
-                        : Image.asset(
-                            'assets/images/teacher.png',
-                            fit: BoxFit.cover,
-                            width: 52,
-                            height: 52,
-                          )),
               ),
             ),
-          ],
-        ));
+          ),
+          Positioned(
+            top: -15,
+            child: Container(
+              width: 52,
+              height: 52,
+              decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.3),
+                    blurRadius: 3,
+                    offset: const Offset(0, 4),
+                  ),
+                ],
+                borderRadius: BorderRadius.circular(200),
+              ),
+              child: ClipOval(
+                child: widget.child.profilePicture.url != null
+                    ? Image.network(
+                        widget.child.profilePicture.url,
+                        fit: BoxFit.cover,
+                        width: 52,
+                        height: 52,
+                      )
+                    : Image.asset(
+                        'assets/images/teacher.png',
+                        fit: BoxFit.cover,
+                        width: 52,
+                        height: 52,
+                      ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
