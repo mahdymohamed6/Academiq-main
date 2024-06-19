@@ -9,8 +9,6 @@ class ParetnReportsListViewCard extends StatelessWidget {
       DateFormat('yyyy-MM-dd').format(date);
 
   @override
-  final ReportModel report;
-
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(top: 24),
