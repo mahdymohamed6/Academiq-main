@@ -8,14 +8,14 @@ PreferredSizeWidget customAppBar(Widget title, List<Widget> action) {
       elevation: 0,
       centerTitle: true,
       backgroundColor: Colors.white,
-      leading: IconButton(
-          onPressed: () {
-            // BlocProvider.of<ChildCubit>(context).getUserData();
-          },
-          icon: Icon(
-            Icons.menu,
-            color: primaryColor1,
-          )),
+      // leading: IconButton(
+      //     onPressed: () {
+      //       // BlocProvider.of<ChildCubit>(context).getUserData();
+      //     },
+      //     icon: Icon(
+      //       Icons.menu,
+      //       color: primaryColor1,
+      //     )),
       title: title,
       actions: action);
 }

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:necessities/actors/parent/data/Models/Reports/reports/report.dart';
 import 'package:necessities/actors/parent/data/Models/Reports/reports/reports.dart';
 import 'package:necessities/actors/parent/data/data_source/remote_data_source.dart';
 import 'package:necessities/actors/parent/features/parentHome/presentation/widgets/Drawerr.dart';
@@ -8,7 +7,6 @@ import 'package:necessities/actors/parent/features/parentReports/data/reports_se
 import 'package:necessities/actors/parent/features/parentReports/persentaion/widgets/paretnReportsListViewCard.dart';
 import 'package:necessities/actors/parent/widgets/appBar.dart';
 import 'package:necessities/actors/parent/widgets/customizedSearchBar.dart';
-import 'package:necessities/constants.dart';
 import 'package:necessities/constants.dart';
 
 class ParentReportsView extends StatefulWidget {
@@ -57,7 +55,7 @@ class _ParentReportsViewState extends State<ParentReportsView> {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Center(
                         child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.only(top: 250),
                       child: CircularProgressIndicator(
                         color: primaryColor1,
                       ),
@@ -74,8 +72,9 @@ class _ParentReportsViewState extends State<ParentReportsView> {
                       child: ListView.builder(
                           itemCount: reports!.length,
                           itemBuilder: (context, index) {
-                            final report = reports![index];
-                            return ParetnReportsListViewCard(report: report);
+                            return ParetnReportsListViewCard(
+                              report: _reports[index],
+                            );
                           }));
                 })
           ],

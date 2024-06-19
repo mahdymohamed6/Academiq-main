@@ -42,7 +42,7 @@ class ParentChildView extends StatelessWidget {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(
                       child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.only(top: 250),
                     child: CircularProgressIndicator(
                       color: primaryColor1,
                     ),

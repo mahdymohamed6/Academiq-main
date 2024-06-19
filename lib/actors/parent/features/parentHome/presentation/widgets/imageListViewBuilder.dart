@@ -38,7 +38,7 @@ class PublicAnnouncment extends StatelessWidget {
           height: 150,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            itemCount: discussions.discussion!.posts!.length,
+            itemCount: 1,
             itemBuilder: (context, index) {
               final discussion = discussions.discussion!.posts![index];
               return ImagesListViewCard(

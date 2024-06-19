@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:necessities/actors/parent/features/parentHome/presentation/widgets/Drawerr.dart';
+import 'package:necessities/actors/parent/widgets/appBar.dart';
 import 'package:necessities/actors/student/features/Home/data/data_source/gat_user_service.dart';
 import 'package:necessities/actors/student/features/Home/data/data_source/get_student_courses.dart';
 import 'package:necessities/actors/student/features/Home/domain/entitiy/child_entity.dart';
@@ -55,31 +57,13 @@ class _StudentHomeScreenState extends State<StudentHomeScreen> {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(90),
-        child: Padding(
-          padding: const EdgeInsets.only(top: 30.0),
-          child: customAppBar(
-              Image.asset(
-                '$logo2',
-                height: height * 0.1,
-                width: width * 0.3,
-              ),
-              [
-                IconButton(
-                  onPressed: () {
-                    Navigator.of(context)
-                        .push(MaterialPageRoute(builder: (context) {
-                      return NotificationPage();
-                    }));
-                  },
-                  icon: Icon(Icons.notifications),
-                  color: primaryColor1,
-                )
-              ]),
-        ),
+      drawer: const Drawer(
+        surfaceTintColor: Colors.white,
+        backgroundColor: Colors.white,
+        child: Drawerr(),
       ),
+      backgroundColor: Colors.white,
+      appBar: buildParentAppBar(context) as PreferredSize,
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10),

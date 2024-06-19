@@ -57,13 +57,13 @@ class ParetnChatsListViewCard extends StatelessWidget {
                 ),
               ),
               const Spacer(),
-              const Padding(
+              Padding(
                 padding: EdgeInsets.only(right: 8, bottom: 29),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
-                      '01:00 AM',
+                      '${chatDetailsModel.createdAt!.hour}:00',
                       style: TextStyle(
                           fontSize: 9,
                           fontWeight: FontWeight.w500,

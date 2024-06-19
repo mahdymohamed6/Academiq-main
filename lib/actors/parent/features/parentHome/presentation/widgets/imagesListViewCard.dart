@@ -36,7 +36,7 @@ class ImagesListViewCard extends StatelessWidget {
       );
     } else {
       return Container(
-        width: width * 0.8,
+        width: width * 0.9,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(10),

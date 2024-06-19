@@ -1,12 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:necessities/actors/parent/features/parentHome/presentation/widgets/parentDetails.dart';
+import 'package:necessities/actors/student/features/Home/data/data_source/gat_user_service.dart';
+import 'package:necessities/actors/student/features/Home/domain/entitiy/child_entity.dart';
 import 'package:necessities/core/resources/user_data.dart';
 import 'package:necessities/login/presentation/pages/login_screen.dart';
 
-class Drawerr extends StatelessWidget {
+class Drawerr extends StatefulWidget {
   const Drawerr({
     super.key,
   });
+
+  @override
+  State<Drawerr> createState() => _DrawerrState();
+}
+
+ChildEntity childEntity = ChildEntity(
+    id: '',
+    fristName: '',
+    secondtName: '',
+    motherId: '',
+    fatherId: '',
+    userName: '',
+    userId: '');
+
+class _DrawerrState extends State<Drawerr> {
+  void initState() {
+    getUserInfo();
+    super.initState();
+  }
+
+  Future<void> getUserInfo() async {
+    childEntity = await fetchUserData();
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +46,10 @@ class Drawerr extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 80),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        ParentDetails(textStyle: textStyle),
+        ParentDetails(
+          textStyle: textStyle,
+          childEntity: childEntity,
+        ),
         const Padding(
           padding: EdgeInsets.only(top: 4),
           child: Divider(

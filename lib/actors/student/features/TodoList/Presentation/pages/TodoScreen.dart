@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:necessities/actors/parent/features/parentHome/presentation/widgets/Drawerr.dart';
 import 'package:necessities/actors/student/features/TodoList/Presentation/blocs/bloc/todo_bloc.dart';
 import 'package:necessities/actors/student/features/TodoList/Presentation/widgets/TodoItem.dart';
 import 'package:necessities/actors/student/features/TodoList/Presentation/widgets/subject_details.dart';
@@ -60,6 +61,11 @@ class _TodoScreenState extends State<TodoScreen> with TickerProviderStateMixin {
 
     return Scaffold(
       backgroundColor: Colors.white,
+      drawer: const Drawer(
+        surfaceTintColor: Colors.white,
+        backgroundColor: Colors.white,
+        child: Drawerr(),
+      ),
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(90),
         child: Padding(
