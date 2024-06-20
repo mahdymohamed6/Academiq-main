@@ -39,7 +39,7 @@ class TeacherDetails extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.only(top: 10.0),
             child: ListView.builder(
-                itemCount: 3,
+                itemCount: 1,
                 itemBuilder: (context, index) {
                   return Center(
                     child: Column(
@@ -59,7 +59,7 @@ class TeacherDetails extends StatelessWidget {
                               ),
                               Expanded(
                                 child: Text(
-                                  'Cooper leslie',
+                                  'Ahmed Khaled',
                                   overflow: TextOverflow.ellipsis,
                                   style: Style().title.copyWith(
                                       color: Colors.grey, fontSize: 16),

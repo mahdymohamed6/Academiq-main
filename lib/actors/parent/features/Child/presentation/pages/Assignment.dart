@@ -16,7 +16,7 @@ class _AssignmentState extends State<Assignment> {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     return ListView.builder(
-        itemCount: 15,
+        itemCount: 1,
         itemBuilder: (context, index) {
           return Padding(
             padding: const EdgeInsets.all(8.0),

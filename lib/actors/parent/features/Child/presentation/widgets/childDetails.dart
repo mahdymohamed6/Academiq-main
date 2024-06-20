@@ -158,13 +158,13 @@ class _childDetailsState extends State<childDetails>
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Container(
-                        child: Text('Specialization',
+                        child: Text('Gender',
                             style: Style()
                                 .title
                                 .copyWith(color: primaryColor3, fontSize: 18)),
                       ),
                       Container(
-                        child: Text('Jane Scientific',
+                        child: Text('${widget.child.gender}',
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: Style()

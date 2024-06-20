@@ -19,7 +19,7 @@ class _ChildInfoScreenState extends State<ChildInfoScreen>
     with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
-    TabController tabController = TabController(length: 4, vsync: this);
+    TabController tabController = TabController(length: 3, vsync: this);
 
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
@@ -37,6 +37,17 @@ class _ChildInfoScreenState extends State<ChildInfoScreen>
             padding: const EdgeInsets.all(8.0),
             child: Row(
               children: [
+                GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: Icon(
+                      Icons.arrow_back,
+                      color: primaryColor1,
+                    )),
+                SizedBox(
+                  width: 10,
+                ),
                 CircleAvatar(
                   child: Image(image: AssetImage('assets/images/teacher.png')),
                 ),
@@ -64,7 +75,6 @@ class _ChildInfoScreenState extends State<ChildInfoScreen>
                 Tab(text: 'Profile'),
                 Tab(text: 'Classes'),
                 Tab(text: 'Assignments'),
-                Tab(text: 'ExaminationsF'),
               ],
               indicatorSize: TabBarIndicatorSize.tab,
               indicatorPadding: const EdgeInsets.only(
@@ -88,7 +98,6 @@ class _ChildInfoScreenState extends State<ChildInfoScreen>
                 ProfileContent(child: widget.child),
                 ClassesContent(child: widget.child),
                 Assignment(),
-                Examination(),
               ],
             ),
           ),
