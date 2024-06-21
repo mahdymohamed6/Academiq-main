@@ -207,4 +207,34 @@ class AssignmentService {
       return false;
     }
   }
+
+// &status=published
+  Future<List<AssignmentEntity>> getAssignmentsByCours(
+      {required coursId}) async {
+    final url = Uri.parse(
+        '${baseUrl}assessments/courses/667402072d3d26e09e2c3fe6?type=assignment');
+    print(coursId);
+    String token = UserData().getToken();
+    var response = await http.get(
+      url,
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $token',
+      },
+    );
+    List<AssignmentEntity> AssignmentList = [];
+    if (response.statusCode == 200) {
+      print('doneeeeeeeeeeee');
+      final Map<String, dynamic> responsebody = jsonDecode(response.body);
+      List<dynamic>? assessments = responsebody['assessments'];
+      for (var assignmentt in assessments!) {
+        AssignmentEntity assignment = AssignmentEntity.fromJson(assignmentt);
+        AssignmentList.add(assignment);
+      }
+      print(responsebody);
+    } else {
+      print(response.statusCode);
+    }
+    return AssignmentList;
+  }
 }

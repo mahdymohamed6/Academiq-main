@@ -17,28 +17,37 @@ class FilesView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<OneCourse>(
-        future: CoursesService().getCourseById(id: courseId),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
-                child: CircularProgressIndicator(
+      future: CoursesService().getCourseById(id: courseId),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(
+            child: CircularProgressIndicator(
               color: primaryColor1,
-            ));
-          } else if (snapshot.hasError) {
-            return Text('Error: ${snapshot.error}');
-          } else if (!snapshot.hasData) {
-            return Text('No data');
-          }
-          final courses = snapshot.data!.course!;
-
-          return ListView.builder(
-            itemCount: courses.materials!.length,
-            itemBuilder: (BuildContext context, int index) {
-              final material = courses.materials![index];
-              return FiledListViewItem(material: material);
-            },
+            ),
           );
-        });
+        } else if (snapshot.hasError) {
+          return Text('Error: ${snapshot.error}');
+        } else if (!snapshot.hasData) {
+          return Text('No data');
+        }
+        final courses = snapshot.data!.course!;
+        final materials = courses.materials;
+
+        if (materials!.isEmpty) {
+          return Center(
+            child: Text('No materials'),
+          );
+        }
+
+        return ListView.builder(
+          itemCount: materials.length,
+          itemBuilder: (BuildContext context, int index) {
+            final material = materials[index];
+            return FiledListViewItem(material: material);
+          },
+        );
+      },
+    );
   }
 }
 

@@ -94,8 +94,7 @@ class _AssignmentShowModalBottomSheetChildState
     return Container(
       height: MediaQuery.of(context).size.height * 0.7,
       padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+      child: ListView(
         children: [
           const SizedBox(height: 38),
           TextField(

@@ -45,57 +45,63 @@ class _PostsViewState extends State<PostsView> {
 
     return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.only(top: 24),
-          child: InkWell(
-            onTap: () {
-              showModalBottomSheet(
-                  context: context,
-                  isScrollControlled: true,
-                  builder: (context) => PostsShowModalBottomSheetChild(
-                        courseId: widget.courseId,
-                        onPostAdded: refreshPosts,
-                        content: '',
-                      ));
-            },
-            child: const AddPostBar(),
-          ),
-        ),
+        // Padding(
+        //   padding: const EdgeInsets.only(top: 24),
+        //   child: InkWell(
+        //     onTap: () {
+        //       showModalBottomSheet(
+        //           context: context,
+        //           isScrollControlled: true,
+        //           builder: (context) => PostsShowModalBottomSheetChild(
+        //                 courseId: widget.courseId,
+        //                 onPostAdded: refreshPosts,
+        //                 content: '',
+        //               ));
+        //     },
+        //     child: const AddPostBar(),
+        //   ),
+        // ),
         Expanded(
-          child: FutureBuilder<Discussions>(
-              future:
-                  DiscussionService().getDisucssion(courseId: widget.courseId),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(
-                      child: CircularProgressIndicator(
-                    color: primaryColor1,
-                  ));
-                } else if (snapshot.hasError) {
-                  return Text('Error: ${snapshot.error}');
-                } else if (!snapshot.hasData) {
-                  return Text('No data');
-                }
-                final discussions = snapshot.data!;
-                final posts = discussions.discussion!.posts;
-                return ListView.builder(
-                  itemCount: posts!.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    final discussion = discussions.discussion!.posts![index];
-                    final courseId = discussions.discussion!.courseId;
-                    final postId = discussions.discussion!.posts![index].id;
-                    return Column(
-                      children: <Widget>[
-                        PostWidget(
-                            postId: postId,
-                            post: discussion,
-                            courseId: courseId),
-                      ],
-                    );
-                  },
+            child: FutureBuilder<Discussions>(
+          future: DiscussionService().getDisucssion(courseId: widget.courseId),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(
+                child: CircularProgressIndicator(
+                  color: primaryColor1,
+                ),
+              );
+            } else if (snapshot.hasError) {
+              return Text('Error: ${snapshot.error}');
+            } else if (!snapshot.hasData) {
+              return Text('No data');
+            }
+            final discussions = snapshot.data!;
+            final posts = discussions.discussion!.posts;
+            if (posts!.isEmpty) {
+              return Center(
+                child: Text('No posts'),
+              );
+            }
+            return ListView.builder(
+              itemCount: posts.length,
+              itemBuilder: (BuildContext context, int index) {
+                final discussion = discussions.discussion!.posts![index];
+                final courseId = discussions.discussion!.courseId;
+                final postId = discussions.discussion!.posts![index].id;
+                return Column(
+                  children: <Widget>[
+                    PostWidget(
+                      postId: postId,
+                      post: discussion,
+                      courseId: courseId,
+                    ),
+                  ],
                 );
-              }),
-        ),
+              },
+            );
+          },
+        )),
         if (isTeacher = false)
           Expanded(
             child: FutureBuilder<Discussions>(
