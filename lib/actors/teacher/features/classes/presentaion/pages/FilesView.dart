@@ -39,9 +39,9 @@ class FilesView extends StatelessWidget {
         final courses = snapshot.data!.course!;
 
         return ListView.builder(
-          itemCount: materials.length,
+          itemCount: courses.materials!.length,
           itemBuilder: (BuildContext context, int index) {
-            final material = materials[index];
+            final material = courses.materials![index];
             return FiledListViewItem(material: material);
           },
         );

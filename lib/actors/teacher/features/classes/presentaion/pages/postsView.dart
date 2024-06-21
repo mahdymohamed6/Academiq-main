@@ -22,13 +22,13 @@ class _PostsViewState extends State<PostsView> {
   }
 
   bool isTeacher = true;
-  final token = GetStorage().read('token');
+  final role = GetStorage().read('role');
 
   @override
   void initState() {
     super.initState();
 
-    if (token == 'teacher') {
+    if (role == 'teacher') {
       isTeacher = true;
     } else {
       isTeacher = false;
@@ -45,22 +45,23 @@ class _PostsViewState extends State<PostsView> {
 
     return Column(
       children: [
-        // Padding(
-        //   padding: const EdgeInsets.only(top: 24),
-        //   child: InkWell(
-        //     onTap: () {
-        //       showModalBottomSheet(
-        //           context: context,
-        //           isScrollControlled: true,
-        //           builder: (context) => PostsShowModalBottomSheetChild(
-        //                 courseId: widget.courseId,
-        //                 onPostAdded: refreshPosts,
-        //                 content: '',
-        //               ));
-        //     },
-        //     child: const AddPostBar(),
-        //   ),
-        // ),
+        if (isTeacher)
+          Padding(
+            padding: const EdgeInsets.only(top: 24),
+            child: InkWell(
+              onTap: () {
+                showModalBottomSheet(
+                    context: context,
+                    isScrollControlled: true,
+                    builder: (context) => PostsShowModalBottomSheetChild(
+                          courseId: widget.courseId,
+                          onPostAdded: refreshPosts,
+                          content: '',
+                        ));
+              },
+              child: const AddPostBar(),
+            ),
+          ),
         Expanded(
             child: FutureBuilder<Discussions>(
           future: DiscussionService().getDisucssion(courseId: widget.courseId),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:necessities/actors/parent/features/parentHome/presentation/widgets/Drawerr.dart';
 import 'package:necessities/actors/teacher/features/classes/presentaion/pages/AssignmentsView.dart';
 import 'package:necessities/actors/teacher/features/classes/presentaion/pages/FilesView.dart';
@@ -17,10 +18,25 @@ class ClassView extends StatefulWidget {
 }
 
 class _ClassViewState extends State<ClassView> {
+  final role = GetStorage().read('role');
+  bool isTeacher = true;
+
+  @override
+  void initState() {
+    super.initState();
+
+    if (role == 'teacher') {
+      isTeacher = true;
+    } else {
+      isTeacher = false;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final role = GetStorage().read('role');
     return DefaultTabController(
-      length: 4,
+      length: isTeacher ? 4 : 2,
       child: Scaffold(
         drawer: const Drawer(
           surfaceTintColor: Colors.white,
@@ -46,9 +62,17 @@ class _ClassViewState extends State<ClassView> {
                 indicatorPadding: EdgeInsets.zero,
                 tabAlignment: TabAlignment.start,
                 isScrollable: true,
-                tabs: const [
+                tabs: [
                   Tab(text: 'Posts'),
                   Tab(text: 'Files'),
+                  if (isTeacher)
+                    Tab(
+                      text: 'Students',
+                    ),
+                  if (isTeacher)
+                    Tab(
+                      text: 'Assignments',
+                    )
                 ],
               ),
               Expanded(
@@ -56,8 +80,9 @@ class _ClassViewState extends State<ClassView> {
                   children: [
                     PostsView(courseId: widget.courseId),
                     FilesView(courseId: widget.courseId),
-                    StudentsView(gradeClassId: widget.gradeClassId),
-                    AssignmentsView(),
+                    if (isTeacher)
+                      StudentsView(gradeClassId: widget.gradeClassId),
+                    if (isTeacher) AssignmentsView(),
                   ],
                 ),
               ),
