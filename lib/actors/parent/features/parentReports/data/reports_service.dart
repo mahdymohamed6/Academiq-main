@@ -25,11 +25,38 @@ class ReportsService {
         ReportModel reportModel = ReportModel.fromJson(report);
         reportsList.add(reportModel);
       }
-      print(reportsList[1].body);
+      print(reportsList[0].from!.name!.first);
     } else {
       print('Request failed with status: ${response.statusCode}.');
       // print(response.body);
     }
     return reportsList;
+  }
+
+  Future<bool> sendReply(
+      {required String content, required String reportId}) async {
+    final url = Uri.parse(baseUrl + 'reports/${reportId}/reply');
+    String token = UserData().getToken();
+    print(content);
+    var response = await http.post(
+      url,
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $token',
+      },
+      body: jsonEncode({
+        "body": content,
+      }),
+    );
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> responseData = jsonDecode(response.body);
+      print('reply is sent successfuly');
+      print(responseData);
+      return (true);
+    } else {
+      print(response.body);
+      print(response.statusCode);
+      return (false);
+    }
   }
 }

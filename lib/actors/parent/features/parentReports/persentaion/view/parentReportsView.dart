@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:necessities/actors/parent/data/Models/Reports/reports/reports.dart';
-import 'package:necessities/actors/parent/data/data_source/remote_data_source.dart';
 import 'package:necessities/actors/parent/features/parentHome/presentation/widgets/Drawerr.dart';
 import 'package:necessities/actors/parent/features/parentReports/data/models/report_model/report_model.dart';
 import 'package:necessities/actors/parent/features/parentReports/data/reports_service.dart';
+import 'package:necessities/actors/parent/features/parentReports/persentaion/view/ReportReplyPage.dart';
 import 'package:necessities/actors/parent/features/parentReports/persentaion/widgets/paretnReportsListViewCard.dart';
 import 'package:necessities/actors/parent/widgets/appBar.dart';
 import 'package:necessities/actors/parent/widgets/customizedSearchBar.dart';
@@ -48,35 +47,40 @@ class _ParentReportsViewState extends State<ParentReportsView> {
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
           children: [
-            const CustomizedSearchBar(text: 'Search for mail'),
-            FutureBuilder<Reports>(
-                future: ReportsServices().getReports(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(
-                        child: Padding(
-                      padding: const EdgeInsets.only(top: 250),
-                      child: CircularProgressIndicator(
-                        color: primaryColor1,
+            InkWell(
+                onTap: () {},
+                child: const CustomizedSearchBar(text: 'Search for mail')),
+            if (_isLoading)
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 250),
+                  child: CircularProgressIndicator(
+                    color: primaryColor1,
+                  ),
+                ),
+              )
+            else
+              Expanded(
+                child: ListView.builder(
+                  itemCount: _reports.length,
+                  itemBuilder: (context, index) {
+                    return InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ReportReply(
+                                    report: _reports[index],
+                                  )),
+                        );
+                      },
+                      child: ParetnReportsListViewCard(
+                        report: _reports[index],
                       ),
-                    ));
-                  } else if (snapshot.hasError) {
-                    return Text('Error: ${snapshot.error}');
-                  } else if (!snapshot.hasData) {
-                    return Text('No data');
-                  }
-                  final Allreports = snapshot.data!;
-                  final reports = Allreports.reports;
-
-                  return Expanded(
-                      child: ListView.builder(
-                          itemCount: reports!.length,
-                          itemBuilder: (context, index) {
-                            return ParetnReportsListViewCard(
-                              report: _reports[index],
-                            );
-                          }));
-                })
+                    );
+                  },
+                ),
+              ),
           ],
         ),
       ),

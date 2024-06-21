@@ -191,9 +191,32 @@ class _LoginBodyState extends State<LoginBody> {
                   bloc: loginBloc,
                   builder: (context, state) {
                     if (state is LoginLoading) {
-                      return Center(child: CircularProgressIndicator());
+                      return Container(
+                        width: double.infinity,
+                        height: MediaQuery.of(context).size.height * 0.06,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                            color: primaryColor1),
+                        child: Center(
+                          child: CircularProgressIndicator(
+                            color: Colors.white,
+                          ),
+                        ),
+                      );
                     } else if (state is LoginSuccess) {
-                      return CustomizedButton();
+                      return Container(
+                        width: double.infinity,
+                        height: MediaQuery.of(context).size.height * 0.06,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                            color: primaryColor1),
+                        child: Center(
+                          child: Text(
+                            'Log in',
+                            style: Style().title.copyWith(color: Colors.white),
+                          ),
+                        ),
+                      );
                     }
                     return GestureDetector(
                       onTap: () async {

@@ -69,16 +69,9 @@ class _ParentHomeViewState extends State<ParentHomeView> {
           const SizedBox(
             height: 24,
           ),
-          PublicAnnouncment(),
+          ImageListViewBuilder(),
           Row(
             children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 24, left: 30),
-                child: Text(
-                  'P',
-                  style: textStyle,
-                ),
-              ),
               Padding(
                 padding: const EdgeInsets.only(top: 24, left: 37),
                 child: Text(

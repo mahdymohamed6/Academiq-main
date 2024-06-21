@@ -253,57 +253,109 @@ class UserInChanDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        const SizedBox(
-          width: 12,
-        ),
-        InkWell(
-          onTap: () {
-            print(chatDetailsModel.member!.id!);
-          },
-          child: Container(
-            width: 52,
-            height: 52,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(200),
-                color: const Color.fromRGBO(206, 195, 255, 1)),
-            child: Image.asset('assets/images/manAvtar.png'),
-          ),
-        ),
-        const SizedBox(
-          width: 6,
-        ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-                '${chatDetailsModel.member!.name!.first} ${chatDetailsModel.member!.name!.last}',
-                style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w400,
-                    fontFamily: 'poppins',
-                    color: Color.fromRGBO(42, 43, 44, 1))),
-            Row(
-              children: [
-                CircleAvatar(
-                  radius: 4.0,
-                  backgroundColor: isOnline() ? Colors.green : Colors.red,
+    return chatDetailsModel.type == 'private'
+        ? Row(
+            children: [
+              const SizedBox(
+                width: 12,
+              ),
+              InkWell(
+                onTap: () {
+                  print(chatDetailsModel.member!.id!);
+                },
+                child: Container(
+                  width: 52,
+                  height: 52,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(200),
+                      color: const Color.fromRGBO(206, 195, 255, 1)),
+                  child: Image.asset('assets/images/manAvtar.png'),
                 ),
-                const SizedBox(
-                  width: 4,
+              ),
+              const SizedBox(
+                width: 6,
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                      '${chatDetailsModel.member!.name!.first} ${chatDetailsModel.member!.name!.last}',
+                      style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w400,
+                          fontFamily: 'poppins',
+                          color: Color.fromRGBO(42, 43, 44, 1))),
+                  Row(
+                    children: [
+                      CircleAvatar(
+                        radius: 4.0,
+                        backgroundColor: isOnline() ? Colors.green : Colors.red,
+                      ),
+                      const SizedBox(
+                        width: 4,
+                      ),
+                      Text(isOnline() ? 'online' : 'offline',
+                          style: const TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w400,
+                              fontFamily: 'poppins',
+                              color: Color.fromRGBO(85, 85, 86, 1))),
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          )
+        : Row(
+            children: [
+              const SizedBox(
+                width: 12,
+              ),
+              InkWell(
+                onTap: () {
+                  print(chatDetailsModel.member!.id!);
+                },
+                child: Container(
+                  width: 52,
+                  height: 52,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(200),
+                      color: const Color.fromRGBO(206, 195, 255, 1)),
+                  child: Image.asset('assets/images/Class.png'),
                 ),
-                Text(isOnline() ? 'online' : 'offline',
-                    style: const TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w400,
-                        fontFamily: 'poppins',
-                        color: Color.fromRGBO(85, 85, 86, 1))),
-              ],
-            ),
-          ],
-        ),
-      ],
-    );
+              ),
+              const SizedBox(
+                width: 6,
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('group',
+                      style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w400,
+                          fontFamily: 'poppins',
+                          color: Color.fromRGBO(42, 43, 44, 1))),
+                  // Row(
+                  //   children: [
+                  //     CircleAvatar(
+                  //       radius: 4.0,
+                  //       backgroundColor: isOnline() ? Colors.green : Colors.red,
+                  //     ),
+                  //     const SizedBox(
+                  //       width: 4,
+                  //     ),
+                  //     Text(isOnline() ? 'online' : 'offline',
+                  //         style: const TextStyle(
+                  //             fontSize: 12,
+                  //             fontWeight: FontWeight.w400,
+                  //             fontFamily: 'poppins',
+                  //             color: Color.fromRGBO(85, 85, 86, 1))),
+                  //   ],
+                  // ),
+                ],
+              ),
+            ],
+          );
   }
 }
