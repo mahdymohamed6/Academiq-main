@@ -6,6 +6,7 @@ import 'package:necessities/actors/student/features/Classes/data/models/courses/
 import 'package:necessities/actors/teacher/data/models/discussions/discussions.dart';
 import 'package:necessities/constants.dart';
 import 'package:intl/intl.dart';
+import 'package:necessities/core/styles.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class FilesView extends StatelessWidget {
@@ -26,8 +27,14 @@ class FilesView extends StatelessWidget {
             ));
           } else if (snapshot.hasError) {
             return Text('Error: ${snapshot.error}');
-          } else if (!snapshot.hasData) {
-            return Text('No data');
+          } else if (!snapshot.hasData ||
+              snapshot.data!.course!.materials!.isEmpty) {
+            return Center(
+              child: Text(
+                'There are no files',
+                style: Style().title.copyWith(color: primaryColor1),
+              ),
+            );
           }
           final courses = snapshot.data!.course!;
 

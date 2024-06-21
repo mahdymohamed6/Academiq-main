@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:necessities/actors/student/features/Classes/data/datasources/remote_data_source.dart';
 import 'package:necessities/actors/teacher/data/data_source/data_source.dart';
 import 'package:necessities/constants.dart';
+import 'package:necessities/core/styles.dart';
 
 class StudentsView extends StatelessWidget {
   const StudentsView({
@@ -22,8 +23,16 @@ class StudentsView extends StatelessWidget {
             ));
           } else if (snapshot.hasError) {
             return Text('Error: ${snapshot.error}');
-          } else if (!snapshot.hasData) {
+          } else if (!snapshot.hasData || !snapshot.data!.students!.isEmpty) {
             return Text('No data');
+          } else if (snapshot.data!.students!.isEmpty) {
+            return Center(
+              child: Text(
+                'There are no Students in this course',
+                textAlign: TextAlign.center,
+                style: Style().title.copyWith(color: primaryColor1),
+              ),
+            );
           }
           final gradeClasses = snapshot.data;
           final gradeClassStudents = gradeClasses!.students!;

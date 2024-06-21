@@ -26,8 +26,6 @@ class _TeacherHomePageState extends State<TeacherHomePage> {
         courseId: widget.courseId,
         gradeClassId: widget.gradeClassId,
       ),
-      const GradesView(),
-      const ExamScreen(),
       AttendanceScreen(gradeClassId: widget.gradeClassId),
     ];
   }
@@ -71,27 +69,8 @@ class _TeacherHomePageState extends State<TeacherHomePage> {
           BottomNavigationBarItem(
             icon: selectedIndex == 1
                 ? Image.asset(
-                    'assets/images/grades.png',
-                    color: primaryColor1,
-                  )
-                : Image.asset(
-                    'assets/images/grades.png',
-                  ),
-            label: 'Grades',
-          ),
-          BottomNavigationBarItem(
-            icon: selectedIndex == 2
-                ? Image.asset(
-                    'assets/images/exams.png',
-                    color: primaryColor1,
-                  )
-                : Image.asset('assets/images/exams.png'),
-            label: 'Exams',
-          ),
-          BottomNavigationBarItem(
-            icon: selectedIndex == 3
-                ? Image.asset(
                     'assets/images/attendColored.png',
+                    color: primaryColor1,
                   )
                 : Image.asset('assets/images/attend.png'),
             label: 'Attend',

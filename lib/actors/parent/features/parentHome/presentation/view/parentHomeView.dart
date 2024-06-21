@@ -1,6 +1,9 @@
 import 'dart:async';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:necessities/actors/parent/data/Models/timetable/student_timetable/student_timetable.dart';
 import 'package:necessities/actors/parent/features/parentHome/data/data_source/remote_Data_source.dart';
 import 'package:necessities/actors/parent/features/parentHome/data/get_child_courses.dart';
@@ -12,8 +15,11 @@ import 'package:necessities/actors/parent/features/parentHome/presentation/widge
 import 'package:necessities/actors/parent/widgets/appBar.dart';
 import 'package:necessities/actors/student/features/Home/data/data_source/gat_user_service.dart';
 import 'package:necessities/actors/student/features/Home/data/data_source/get_student_courses.dart';
+import 'package:necessities/actors/student/features/Home/data/models/child/UserChildModel.dart';
 import 'package:necessities/actors/student/features/Home/domain/entitiy/child_entity.dart';
 import 'package:necessities/actors/student/features/Home/domain/entitiy/cours_entity.dart';
+import 'package:necessities/constants.dart';
+import 'package:necessities/login/data/models/user/user_details/user_details.dart';
 
 import '../../../../data/Models/timetable/student_timetable/timetable.dart';
 
@@ -25,24 +31,62 @@ class ParentHomeView extends StatefulWidget {
 }
 
 class _ParentHomeViewState extends State<ParentHomeView> {
-  List<String> list = ['BIO', 'Arabic'];
   List<Timetable>? timetable;
+  String? gradeClassId;
+
   @override
   void initState() {
     super.initState();
     _loadTimeTable();
   }
 
+  Future<UserDetails> getUser({required String id}) async {
+    final url = Uri.parse(baseUrl + 'users/${id}');
+    final token = GetStorage().read('token');
+
+    var response = await http.get(
+      url,
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $token',
+      },
+    );
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> childs = jsonDecode(response.body);
+
+      print('user is' + '${childs}');
+      return UserDetails.fromJson(childs);
+    } else {
+      throw Exception('Failed to load todos');
+    }
+  }
+
   Future<void> _loadTimeTable() async {
+    final id = GetStorage().read('id');
+
     try {
-      final data =
-          await TimetableService().getTimetable(id: '66283d3721ad54ce0d9246d3');
-      setState(() {
-        timetable = data.timetable!;
-        timetable!.sort((a, b) => a.period!.compareTo(b.period!));
-      });
+      UserDetails user = await getUser(id: id);
+      if (user.user!.children != null && user.user!.children!.isNotEmpty) {
+        for (var child in user.user!.children!) {
+          if (child.gradeClassId != null) {
+            gradeClassId = child.gradeClassId;
+            break;
+          }
+        }
+      }
+
+      if (gradeClassId != null) {
+        final data = await TimetableService().getTimetable(id: gradeClassId!);
+        setState(() {
+          timetable = data.timetable!;
+          timetable!.sort((a, b) => a.period!.compareTo(b.period!));
+        });
+        print('data is ${data} ');
+      } else {
+        print('No gradeClassId found in children');
+      }
     } catch (error) {
-      print('Error loading attendance: $error');
+      print('Error loading timetable: $error');
     }
   }
 
@@ -63,23 +107,35 @@ class _ParentHomeViewState extends State<ParentHomeView> {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          const CustomizedSearchBar(
-            text: 'Search here',
+          GestureDetector(
+            onTap: () {
+              print(gradeClassId);
+            },
+            child: const CustomizedSearchBar(
+              text: 'Search here',
+            ),
           ),
           const SizedBox(
             height: 24,
           ),
           ImageListViewBuilder(),
-          Row(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 24, left: 37),
-                child: Text(
+          Padding(
+            padding: const EdgeInsets.only(top: 24, left: 30),
+            child: Row(
+              children: [
+                Text(
+                  'P',
+                  style: textStyle,
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                Text(
                   'Timetable',
                   style: textStyle,
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
           timetable != null
               ? Expanded(

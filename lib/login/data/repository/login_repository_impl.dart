@@ -27,7 +27,6 @@ class LoginRepositoryImpl extends LoginRepository {
         // ignore: unused_local_variable
         final gender = responseData['user']['gender'];
         final id = responseData['user']['_id'];
-        // print('id is $id');
         print('token is $token');
         print(id);
         GetStorage().write('id', id);

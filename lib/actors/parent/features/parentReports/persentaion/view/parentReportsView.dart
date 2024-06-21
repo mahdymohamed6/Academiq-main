@@ -7,6 +7,7 @@ import 'package:necessities/actors/parent/features/parentReports/persentaion/wid
 import 'package:necessities/actors/parent/widgets/appBar.dart';
 import 'package:necessities/actors/parent/widgets/customizedSearchBar.dart';
 import 'package:necessities/constants.dart';
+import 'package:necessities/core/styles.dart';
 
 class ParentReportsView extends StatefulWidget {
   const ParentReportsView({super.key});
@@ -57,6 +58,13 @@ class _ParentReportsViewState extends State<ParentReportsView> {
                   child: CircularProgressIndicator(
                     color: primaryColor1,
                   ),
+                ),
+              )
+            else if (_reports.isEmpty)
+              Center(
+                child: Text(
+                  'There are No Reports',
+                  style: Style().title.copyWith(color: primaryColor1),
                 ),
               )
             else
