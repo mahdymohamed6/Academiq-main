@@ -58,10 +58,17 @@ class TeacherClasses extends StatelessWidget {
               future: CoursesService().getCourses(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(
-                      child: CircularProgressIndicator(
-                    color: primaryColor1,
-                  ));
+                  return Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Center(
+                            child: CircularProgressIndicator(
+                          color: primaryColor1,
+                        )),
+                      ],
+                    ),
+                  );
                 } else if (snapshot.hasError) {
                   return Text('Error: ${snapshot.error}');
                 } else if (!snapshot.hasData) {

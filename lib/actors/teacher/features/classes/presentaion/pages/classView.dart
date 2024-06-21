@@ -49,8 +49,6 @@ class _ClassViewState extends State<ClassView> {
                 tabs: const [
                   Tab(text: 'Posts'),
                   Tab(text: 'Files'),
-                  Tab(text: 'Students'),
-                  Tab(text: 'Assignments'),
                 ],
               ),
               Expanded(

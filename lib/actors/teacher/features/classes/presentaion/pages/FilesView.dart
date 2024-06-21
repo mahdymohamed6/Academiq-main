@@ -18,34 +18,35 @@ class FilesView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<OneCourse>(
-        future: CoursesService().getCourseById(id: courseId),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
-                child: CircularProgressIndicator(
-              color: primaryColor1,
-            ));
-          } else if (snapshot.hasError) {
-            return Text('Error: ${snapshot.error}');
-          } else if (!snapshot.hasData ||
-              snapshot.data!.course!.materials!.isEmpty) {
-            return Center(
-              child: Text(
-                'There are no files',
-                style: Style().title.copyWith(color: primaryColor1),
-              ),
-            );
-          }
-          final courses = snapshot.data!.course!;
-
-          return ListView.builder(
-            itemCount: courses.materials!.length,
-            itemBuilder: (BuildContext context, int index) {
-              final material = courses.materials![index];
-              return FiledListViewItem(material: material);
-            },
+      future: CoursesService().getCourseById(id: courseId),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(
+              child: CircularProgressIndicator(
+            color: primaryColor1,
+          ));
+        } else if (snapshot.hasError) {
+          return Text('Error: ${snapshot.error}');
+        } else if (!snapshot.hasData ||
+            snapshot.data!.course!.materials!.isEmpty) {
+          return Center(
+            child: Text(
+              'There are no files',
+              style: Style().title.copyWith(color: primaryColor1),
+            ),
           );
-        });
+        }
+        final courses = snapshot.data!.course!;
+
+        return ListView.builder(
+          itemCount: materials.length,
+          itemBuilder: (BuildContext context, int index) {
+            final material = materials[index];
+            return FiledListViewItem(material: material);
+          },
+        );
+      },
+    );
   }
 }
 

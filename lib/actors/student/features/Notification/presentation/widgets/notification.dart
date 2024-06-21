@@ -25,12 +25,12 @@ class NotificationContainer extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CircleAvatar(
-              radius: 35,
-              backgroundImage: AssetImage('assets/images/woman.png'),
-            ),
+            // CircleAvatar(
+            //   radius: 35,
+            //   backgroundImage: NetworkImage(notificationModel.),
+            // ),
             SizedBox(
-              width: 10,
+              width: 20,
             ),
             Expanded(
               child: Column(

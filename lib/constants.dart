@@ -23,4 +23,12 @@ final baseUrl = 'https://academiq.onrender.com/';
 osamamahmoudp1001@academiq.com
 32102569852014
 parent
+
+mohamedmostafat1001@academiq.com
+32106540987036
+teacher
+
+moharammahmouds1001@academiq.com
+32165478963258
+child
 */

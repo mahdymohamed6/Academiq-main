@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:necessities/actors/parent/features/parentHome/presentation/widgets/parentDetails.dart';
+import 'package:necessities/actors/parent/features/parentHome/presentation/widgets/support_view.dart';
 import 'package:necessities/actors/student/features/Home/data/data_source/gat_user_service.dart';
 import 'package:necessities/actors/student/features/Home/domain/entitiy/child_entity.dart';
 import 'package:necessities/core/resources/user_data.dart';
@@ -103,14 +104,22 @@ class _DrawerrState extends State<Drawerr> {
                   fit: BoxFit.fill,
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.only(left: 33),
-                child: Text(
-                  'Support & Help',
-                  style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w300,
-                      fontFamily: 'poppins'),
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => SupportHelpScreen()));
+                },
+                child: const Padding(
+                  padding: EdgeInsets.only(left: 33),
+                  child: Text(
+                    'Support & Help',
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w300,
+                        fontFamily: 'poppins'),
+                  ),
                 ),
               ),
             ],
